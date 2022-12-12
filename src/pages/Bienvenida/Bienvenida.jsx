@@ -4,7 +4,7 @@ import "../Bienvenida/bienvenida.css";
 
 export default function Bienvenida() {
   return (
-    <div className="main">
+    <div className="mainBienvenida">
       <div className="divBienvenida">
         <h2>
           BIENVENIDOS A SHOPPY<span className="blanco">.</span>

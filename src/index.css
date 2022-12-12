@@ -5,8 +5,11 @@
   font-family: "Poppins", sans-serif;
 }
 
-.blanco{
-  color: #7dd2ea;
+li {
+  list-style: none;
+  text-decoration: none;
 }
 
-
+.blanco {
+  color: #7dd2ea;
+}

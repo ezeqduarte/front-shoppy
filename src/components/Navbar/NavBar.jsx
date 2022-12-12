@@ -14,9 +14,9 @@ export default function NavBar() {
         <li>CONTACTO</li>
       </ul>
       <div className="iconos">
-        <span class="material-symbols-outlined">account_circle</span>
-        <span class="material-symbols-outlined">favorite</span>
-        <span class="material-symbols-outlined">shopping_cart</span>
+        <span className="material-symbols-outlined">account_circle</span>
+        <span className="material-symbols-outlined">favorite</span>
+        <span className="material-symbols-outlined">shopping_cart</span>
       </div>
     </div>
   );

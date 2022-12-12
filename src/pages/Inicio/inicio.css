@@ -1,4 +1,4 @@
-.main {
+.mainInicio {
     min-height: 100vh;
     width: 100%;
     background-image: url("https://cdn.discordapp.com/attachments/830354293822324736/1051742792004665364/slide-1.jpg");
@@ -10,4 +10,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .ProductosMain {
+    min-height: 100vh;
   }

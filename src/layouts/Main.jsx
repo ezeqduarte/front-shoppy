@@ -1,5 +1,4 @@
 import React from "react";
-import BackToTopButton from "../components/BackToTopButton/BackToTopButton";
 import Footer from "../components/Footer/Footer";
 import NavBar from "../components/Navbar/NavBar";
 
@@ -8,7 +7,6 @@ export default function Main(props) {
     <>
       <NavBar />
       <div className="Main">{props.children}</div>
-      {/* <BackToTopButton /> */}
       <Footer />
     </>
   );
