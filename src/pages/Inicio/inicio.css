@@ -1,7 +1,7 @@
 .mainInicio {
   min-height: 100vh;
   width: 100%;
-  background-image: url("https://cdn.discordapp.com/attachments/830354293822324736/1051742792004665364/slide-1.jpg");
+  background-image: url("https://cdn.discordapp.com/attachments/769400725977038868/1051728561066754068/61b4c8990185a_1.jpg");
   background-color: rgba(0, 0, 0, 0.596);
   background-blend-mode: color;
   background-attachment: fixed;
@@ -16,13 +16,13 @@
   width: 800px;
 }
 
-.decoradoblanco{
+.decoradoblanco {
   color: white;
 }
 
 .divInicio h2 {
   color: #7dd2ea;
-  font-size: 3.1rem;
+  font-size: 3.2rem;
   text-align: center;
   letter-spacing: 9px;
   font-weight: 700;
@@ -41,12 +41,11 @@
 }
 
 .productosMain {
-  padding: 25px;
   min-height: 100vh;
   padding-top: 55px;
 }
 
-.headerInicio{
+.headerInicio {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -56,21 +55,72 @@
   color: #7dd2ea;
 }
 
-.selectsInicio{ 
+.selectsInicio {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
 
-.selectsInicio p{ 
+.selectsInicio p {
   margin: 0;
 }
 
-.containerCardsInicio{
+.containerCardsInicio {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   padding: 50px;
   gap: 30px;
+}
+
+.marketing {
+  min-height: 30vh;
+  background-color: red;
+  margin: 70px 0px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.Registrate {
+  min-height: 40vh;
+  width: 100%;
+  background-image: url("https://cdn.discordapp.com/attachments/830354293822324736/1051988055264854146/Mesa_de_trabajo_1.jpg");
+  background-color: rgba(0, 0, 0, 0.596);
+  background-blend-mode: color;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Registrate p {
+  width: 80vh;
+}
+
+.CarrouselMarcas img {
+  margin: 30px 0px;
+  width: 100%;
+}
+
+.articulosMarketing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.articulosMarketing i {
+  width: 50px;
+  height: 50px;
+}
+
+.articulosMarketing p{
+  width: 250px;
+  text-align: center;
 }

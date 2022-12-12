@@ -19,12 +19,12 @@
 }
 
 .nav-link:hover {
-  color: #c76e6a;
+  color: #7dd2ea;
 }
 
 .underline {
   text-decoration: none;
-  border-bottom: 1px solid #c76e6a; ;
+  border-bottom: 1px solid #7dd2ea;;
   font-weight: 600;
 }
 

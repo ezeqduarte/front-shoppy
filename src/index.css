@@ -13,3 +13,7 @@ li {
 .blanco {
   color: #7dd2ea;
 }
+
+window {
+  scroll-behavior: smooth;
+}
