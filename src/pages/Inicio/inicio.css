@@ -1,32 +1,76 @@
 .mainInicio {
-    min-height: 100vh;
-    width: 100%;
-    background-image: url("https://cdn.discordapp.com/attachments/830354293822324736/1051742792004665364/slide-1.jpg");
-    background-color: rgba(0, 0, 0, 0.596);
-    background-blend-mode: color;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("https://cdn.discordapp.com/attachments/830354293822324736/1051742792004665364/slide-1.jpg");
+  background-color: rgba(0, 0, 0, 0.596);
+  background-blend-mode: color;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .divInicio h2{
-    color: #ef837b
-  }
+.divInicio {
+  width: 800px;
+}
 
-  .parrafoInicio{
-    color: #f3f3f3;
-  }
+.decoradoblanco{
+  color: white;
+}
 
-  .buttonInicio{
-    color: #f3f3f3;
-    font-weight: 600;
-  }
+.divInicio h2 {
+  color: #7dd2ea;
+  font-size: 3.1rem;
+  text-align: center;
+  letter-spacing: 9px;
+  font-weight: 700;
+}
 
-  .productosMain {
-    min-height: 100vh;
-  }
+.parrafoInicio {
+  color: #f3f3f3;
+  font-weight: 300;
+}
 
+.buttonInicio {
+  color: #f3f3f3;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
 
+.productosMain {
+  padding: 25px;
+  min-height: 100vh;
+  padding-top: 55px;
+}
+
+.headerInicio{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.headerInicio h2 {
+  color: #7dd2ea;
+}
+
+.selectsInicio{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.selectsInicio p{ 
+  margin: 0;
+}
+
+.containerCardsInicio{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 50px;
+  gap: 30px;
+}

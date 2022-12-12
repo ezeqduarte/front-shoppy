@@ -1,5 +1,5 @@
 .footer {
-  background-color: #333333;
+  background-color: #191919;
   min-height: 30vh;
   display: flex;
   flex-direction: column;
@@ -13,6 +13,7 @@
   text-transform: uppercase;
   font-weight: 300;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
 .footer hr {
@@ -59,6 +60,7 @@
 
 .divRedes img {
   width: 30px;
+  cursor: pointer;
 }
 
 .divInferiorFooter p {
