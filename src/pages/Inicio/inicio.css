@@ -1,0 +1,13 @@
+.main {
+    min-height: 100vh;
+    width: 100%;
+    background-image: url("https://cdn.discordapp.com/attachments/830354293822324736/1051742792004665364/slide-1.jpg");
+    background-color: rgba(0, 0, 0, 0.596);
+    background-blend-mode: color;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

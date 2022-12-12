@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+import Main from "./layouts/Main";
 import Bienvenida from "./pages/Bienvenida/Bienvenida";
+import Inicio from "./pages/Inicio/Inicio";
 
 function App() {
   return (
@@ -7,11 +9,11 @@ function App() {
       <Routes>
         <Route path="" element={<Bienvenida />} />
       </Routes>
-      {/* <Main>
+      <Main>
         <Routes>
-          <Route path="/" element={<Inicio />} />
+          <Route path="/inicio" element={<Inicio />} />
         </Routes>
-      </Main> */}
+      </Main>
     </>
   );
 }
