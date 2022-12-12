@@ -1,0 +1,38 @@
+.navbar {
+  position: absolute;
+
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 80px;
+}
+
+.navbar img {
+  width: 150px;
+}
+
+.navbar ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  color: #f3f3f3;
+  margin: 0px 20px;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.navbar ul li {
+  cursor: pointer;
+}
+
+.navbar div span {
+  color: #f3f3f3;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+.iconos {
+  display: flex;
+  gap: 10px;
+}
