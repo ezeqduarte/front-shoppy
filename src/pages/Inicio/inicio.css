@@ -12,6 +12,21 @@
     align-items: center;
   }
 
-  .ProductosMain {
+  .divInicio h2{
+    color: #ef837b
+  }
+
+  .parrafoInicio{
+    color: #f3f3f3;
+  }
+
+  .buttonInicio{
+    color: #f3f3f3;
+    font-weight: 600;
+  }
+
+  .productosMain {
     min-height: 100vh;
   }
+
+
