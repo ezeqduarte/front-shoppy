@@ -1,10 +1,74 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Card from "../../components/card/Card";
+import Carrousel from "../../components/Carrousel/Carrousel";
 import GoTo from "../../components/GoTo/GoTo";
 import "../Inicio/inicio.css";
 
 export default function Inicio() {
+  let array = [
+    {
+      nombre: "1Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "2Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "3Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "4Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "5Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "6Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "7Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "8Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "9Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+    {
+      nombre: "10Wireless headphones",
+      marca: "CORSAIR",
+      precio: 40.99,
+      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
+    },
+  ];
+
   return (
     <>
       <div className="mainInicio">
@@ -32,16 +96,7 @@ export default function Inicio() {
           </div>
         </div>
         <div className="containerCardsInicio">
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
+          <Carrousel array={array} ></Carrousel>
         </div>
         <div className="marketing">
           <div className="articulosMarketing">
