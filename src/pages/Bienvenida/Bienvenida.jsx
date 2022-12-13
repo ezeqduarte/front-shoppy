@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import GoTo from "../../components/GoTo/GoTo";
 import "../Bienvenida/bienvenida.css";
 
 export default function Bienvenida() {
@@ -22,7 +23,7 @@ export default function Bienvenida() {
             Te invitamos a conocer nuestra tienda y todos nuestros productos
           </p>
           <NavLink to={`/inicio`} style={{ textDecoration: "none" }}>
-            <p className="buttonBienvenida">INGRESA</p>
+            <GoTo texto="Ingresa"></GoTo>
           </NavLink>
         </div>
       </div>

@@ -77,9 +77,9 @@ export default function NavBar() {
           </div>
         </div>
         <div className="iconos">
-          <span className="material-symbols-outlined">account_circle</span>
           <span className="material-symbols-outlined">favorite</span>
           <span className="material-symbols-outlined">shopping_cart</span>
+          <span className="material-symbols-outlined">account_circle</span>
         </div>
       </nav>
     </header>

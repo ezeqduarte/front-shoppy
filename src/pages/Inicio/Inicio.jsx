@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Card from "../../components/card/Card";
+import GoTo from "../../components/GoTo/GoTo";
 import "../Inicio/inicio.css";
 
 export default function Inicio() {
@@ -9,7 +10,7 @@ export default function Inicio() {
       <div className="mainInicio">
         <div className="divInicio">
           <h2>
-            SHOPPY COMPUTACION<span className="decoradoblanco">.</span>
+            SHOPPY COMPUTACION<span className="blanco">.</span>
           </h2>
           <p className="parrafoInicio">
             Tenemos todo lo que buscas, tenemos los mejores productos y las
@@ -17,7 +18,7 @@ export default function Inicio() {
           </p>
 
           <a href="#productos" className="buttonInicio">
-            VER MAS
+            <GoTo texto="VER MAS" />
           </a>
         </div>
       </div>
@@ -48,6 +49,7 @@ export default function Inicio() {
               xmlns="http://www.w3.org/2000/svg"
               width="60"
               height="60"
+              color="#ef837b"
               fill="currentColor"
               class="bi bi-truck"
               viewBox="0 0 16 16"
@@ -62,6 +64,7 @@ export default function Inicio() {
               xmlns="http://www.w3.org/2000/svg"
               width="60"
               height="60"
+              color="#ef837b"
               fill="currentColor"
               class="bi bi-arrow-repeat"
               viewBox="0 0 16 16"
@@ -80,6 +83,7 @@ export default function Inicio() {
               xmlns="http://www.w3.org/2000/svg"
               width="60"
               height="60"
+              color="#ef837b"
               fill="currentColor"
               class="bi bi-lock"
               viewBox="0 0 16 16"
@@ -95,6 +99,7 @@ export default function Inicio() {
               width="60"
               height="60"
               fill="currentColor"
+              color="#ef837b"
               class="bi bi-headset"
               viewBox="0 0 16 16"
             >
@@ -107,19 +112,19 @@ export default function Inicio() {
         <div className="Registrate">
           <h3>Registrate y obtené beneficios</h3>
           <p>
-            REGISTRATE PARA RECIBIR TODAS NUESTRAS ACTUALIZACIONES EN LA TIENDA,
-            CUPONES MENSUALES QUE PODES UTILIZARLOS PARA REALIZAR COMPRAS EN
-            NUESTRA WEB. ADEMAS, COMO ESTAMOS EN MES MUNDIALISTA, ESTAREMOS
-            SORTEANDO CAMISETAS DE LA SELECCION. QUE ESTAS ESPERANDO?
+            Registrate para recibir todas nuestras noticias sobre productos
+            nuevos, cupones de compra y demas novedades. Ademas como estamos en
+            mes mundialista, por registrarte en nuestra pagina estaras
+            participando de un sorteo por una camiseta de la seleccion.
           </p>
-          <a>VER MAS</a>
+          <a className="buttonInicioRegistrate">REGISTRATE</a>
         </div>
-        <div className="CarrouselMarcas">
+        {/* <div className="CarrouselMarcas">
           <img
             src="https://cdn.discordapp.com/attachments/830354293822324736/1051988778824249445/Mesa_de_trabajo_2.jpg"
             alt=""
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
