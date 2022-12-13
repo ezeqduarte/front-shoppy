@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import Card from "../../components/card/Card";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import GoTo from "../../components/GoTo/GoTo";
 import ItemsShoppy from "../../components/ItemsShoppy/ItemsShoppy";
@@ -11,7 +9,7 @@ export default function Inicio() {
   const [activeMasVendidos, setMasVendidos] = useState(false);
   const [activeOfertas, setActiveOfertas] = useState(false);
 
-  const nuevos = (event) => {
+  const nuevos = () => {
     setActiveNuevos(!activeNuevos);
     activeMasVendidos
       ? setMasVendidos(!activeMasVendidos)
@@ -21,7 +19,7 @@ export default function Inicio() {
       : setActiveOfertas(activeOfertas);
   };
 
-  const masVendidos = (event) => {
+  const masVendidos = () => {
     activeNuevos
       ? setActiveNuevos(!activeNuevos)
       : setActiveNuevos(activeNuevos);
@@ -31,7 +29,7 @@ export default function Inicio() {
       : setActiveOfertas(activeOfertas);
   };
 
-  const ofertas = (event) => {
+  const ofertas = () => {
     activeNuevos
       ? setActiveNuevos(!activeNuevos)
       : setActiveNuevos(activeNuevos);
