@@ -130,9 +130,6 @@ export default function Productos() {
         <div class="slider">
             <div class="slide-track">
               <div class="slide">
-                <img src="" height="100" width="250" alt="" />
-              </div>
-              <div class="slide">
                 <img src={adata} height="100" width="250" alt="" />
               </div>
               <div class="slide">
