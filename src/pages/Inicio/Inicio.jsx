@@ -88,7 +88,7 @@ export default function Inicio() {
       </div>
       <div id="productos" className="productosMain">
         <div className="headerInicio">
-          <h2>NUESTROS PRODUCTOS</h2>
+          <h2>NUESTROS PRODUCTOS <span className="blanco">.</span></h2>
           <div className="selectsInicio">
             <p>NUEVOS</p>
             <p>MAS VENDIDOS</p>
@@ -96,7 +96,8 @@ export default function Inicio() {
           </div>
         </div>
         <div className="containerCardsInicio">
-          <Carrousel array={array} ></Carrousel>
+          <Carrousel array={array}></Carrousel>
+          <Carrousel array={array}></Carrousel>
         </div>
         <div className="marketing">
           <div className="articulosMarketing">
