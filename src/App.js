@@ -1,11 +1,20 @@
-import axios from "axios";
+import { Routes, Route } from "react-router-dom";
+import Main from "./layouts/Main";
+import Bienvenida from "./pages/Bienvenida/Bienvenida";
+import Inicio from "./pages/Inicio/Inicio";
 
 function App() {
   return (
-    <div className="App">
-      <h1>SHOPPY ECOMMERCE</h1>
-      <p>Primer commit</p>
-    </div>
+    <>
+      <Routes>
+        <Route path="" element={<Bienvenida />} />
+      </Routes>
+      <Main>
+        <Routes>
+          <Route path="/inicio" element={<Inicio />} />
+        </Routes>
+      </Main>
+    </>
   );
 }
 
