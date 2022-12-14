@@ -1,7 +1,11 @@
+import { IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
+import MenuNavBar from "../MenuNavBar/MenuNavBar";
+import { Badge } from '@mui/material';
 import "../Navbar/navbar.css";
+import { FavoriteBorder, ShoppingCartOutlined } from "@mui/icons-material";
 
 export default function NavBar() {
   const location = useLocation(); // once ready it returns the 'window.location' object
@@ -63,12 +67,18 @@ export default function NavBar() {
                 </li>
               </NavLink>
 
-              <NavLink to="/inicio" className={url === "/inicio" ? "underline" : "none"}>
+              <NavLink
+                to="/inicio"
+                className={url === "/inicio" ? "underline" : "none"}
+              >
                 <li class="nav-item mx-md-3 mx-lg-1">
                   <a class="nav-link">Inicio</a>
                 </li>
               </NavLink>
-              <NavLink to="/consultas" className={url === "/consultas" ? "underline" : "none"}>
+              <NavLink
+                to="/consultas"
+                className={url === "/consultas" ? "underline" : "none"}
+              >
                 <li class="nav-item mx-md-3 mx-lg-1">
                   <a class="nav-link">Consultas</a>
                 </li>
@@ -77,9 +87,17 @@ export default function NavBar() {
           </div>
         </div>
         <div className="iconos">
-          <span className="material-symbols-outlined">favorite</span>
-          <span className="material-symbols-outlined">shopping_cart</span>
-          <span className="material-symbols-outlined">account_circle</span>
+        <IconButton aria-label="cart">
+            <Badge badgeContent={4} color="primary">
+              <FavoriteBorder  />
+            </Badge>
+          </IconButton>
+          <IconButton aria-label="cart">
+            <Badge badgeContent={4} color="primary">
+              <ShoppingCartOutlined  />
+            </Badge>
+          </IconButton>
+          <MenuNavBar />
         </div>
       </nav>
     </header>

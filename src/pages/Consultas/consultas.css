@@ -44,3 +44,10 @@
     letter-spacing: 2px!important;
     margin-bottom: 20px!important;
 }
+
+.mc-TituloConsultas{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 25px;
+}

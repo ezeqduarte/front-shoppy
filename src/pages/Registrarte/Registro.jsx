@@ -31,11 +31,23 @@ export default function Registro() {
               <input type="text" />
             </label>
             <label>
+              EDAD
+              <input type="number" />
+            </label>
+            <label>
+              DNI
+              <input type="number" />
+            </label>
+            <label>
+              DOMICILIO
+              <input type="text" />
+            </label>
+            <label>
               EMAIL
               <input type="email" />
             </label>
             <label>
-              PASSWORD
+              CONTRASEÑA
               <input type="password" />
             </label>
           </form>
