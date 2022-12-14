@@ -3,11 +3,11 @@ import "./GoTo.css"
 
 export default function GoTo({texto}) {
   return (
-    <button class="learn-more">
-      <span class="circle" aria-hidden="true">
-        <span class="icon arrow"></span>
+    <button className="learn-more">
+      <span className="circle" aria-hidden="true">
+        <span className="icon arrow"></span>
       </span>
-      <span class="button-text">{texto}</span>
+      <span className="button-text">{texto}</span>
     </button>
   );
 }

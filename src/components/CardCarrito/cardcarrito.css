@@ -1,0 +1,24 @@
+.EdcardCarrito {
+  display: flex;
+  background-color: rgba(244, 243, 243, 0.816);
+  padding: 20px;
+  border-radius: 25px;
+}
+
+.EdcardCarrito img {
+  width: 150px;
+}
+
+.EdInfocardCarrito {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.EdInfocardCarrito h5 {
+  text-align: center;
+}
+
+.EdNombreProductoCarrito {
+  color: #ef837b;
+}

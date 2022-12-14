@@ -17,10 +17,10 @@ export default function Carrousel({ array }) {
     <>
       <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
         <SwiperSlide>
-          {array1.map(objeto=><Card objeto={objeto}></Card>)}
+          {array1.map(objeto=><Card key={objeto._id} objeto={objeto}></Card>)}
         </SwiperSlide>
         <SwiperSlide>
-        {array2.map(objeto=><Card objeto={objeto}></Card>)}
+        {array2.map(objeto=><Card key={objeto._id}  objeto={objeto}></Card>)}
         </SwiperSlide>
       </Swiper>
     </>
