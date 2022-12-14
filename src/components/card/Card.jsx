@@ -10,7 +10,9 @@ export default function Card({ objeto }) {
           alt="headphone"
         />
       </div>
-      <span class="material-symbols-outlined">favorite</span>
+      
+      <div class="material-symbols-reaction"><span class="material-symbols-outlined">favorite</span></div>
+      
       <div className="cartel">DESTACADO</div>
       <div class="card-infos">
         <h3 class="card-title">{objeto.nombre}</h3>
