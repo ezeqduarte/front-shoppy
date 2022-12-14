@@ -89,6 +89,11 @@
   color: #333333;
 }
 
+.BotonRegistrarme:hover{
+  text-decoration: none;
+  color: #ef837b;
+}
+
 .edVolverAInicio p {
   color: white;
   margin: 0;
