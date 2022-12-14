@@ -1,26 +1,35 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./ingresar.css";
+import "../Registrarte/registro.css";
+import "./registro.css";
 
-export default function Ingresar() {
-  const ingresar = () => {
-    console.log("Ingrese");
+export default function Registro() {
+  const registro = () => {
+    console.log("registrado");
   };
 
   return (
     <div className="Ingreso">
       <img
-        className="shoppyLogoIngreso"
+        className="shoppyLogoRegistro"
         src="https://cdn.discordapp.com/attachments/830354293822324736/1051744433550397510/Sin_titulo-2.png"
         alt="logo_shoppy"
       />
-      <div className="edFotoIngreso"></div>
-      <div className="edFormIngreso">
+
+      <div className="edFormRegistro">
         <h2>
-          INGRESO<span className="blanco">.</span>
+          REGISTRATE<span className="blanco">.</span>
         </h2>
         <div>
           <form>
+          <label>
+              NOMBRE
+              <input type="text" />
+            </label>
+            <label>
+              APELLIDO
+              <input type="text" />
+            </label>
             <label>
               EMAIL
               <input type="email" />
@@ -31,15 +40,16 @@ export default function Ingresar() {
             </label>
           </form>
           <div className="botonesForm">
-            <NavLink className="BotonRegistrarme" to="/registro">
-              <p>REGISTRARME</p>
+            <NavLink className="BotonRegistrarme" to="/ingresar">
+              <p>INGRESAR CON CUENTA</p>
             </NavLink>
-            <button onClick={ingresar}>INGRESA A SHOPPY</button>
+            <button onClick={registro}>REGISTRATE</button>
           </div>
         </div>
       </div>
+      <div className="edFotoRegistro"></div>
       <NavLink to={"/inicio"}>
-        <div className="edVolverAInicio">
+        <div className="edVolverAInicioRegistro">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="26"

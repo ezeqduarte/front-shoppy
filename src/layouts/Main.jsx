@@ -6,7 +6,7 @@ import { useHref } from "react-router-dom";
 export default function Main(props) {
   const href = useHref();
 
-  return href === "/" || href === "/ingresar" ? null : (
+  return href === "/" || href === "/ingresar" || href === "/registro" ? null : (
     <>
       <NavBar />
       <div className="Main">{props.children}</div>

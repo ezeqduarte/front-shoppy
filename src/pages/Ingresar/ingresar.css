@@ -84,6 +84,11 @@
   flex-direction: column;
 }
 
+.BotonRegistrarme{
+  text-decoration: none;
+  color: #333333;
+}
+
 .edVolverAInicio p {
   color: white;
   margin: 0;
