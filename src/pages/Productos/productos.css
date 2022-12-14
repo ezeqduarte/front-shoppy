@@ -65,6 +65,8 @@
     margin-bottom: 15px;
     color: #000;
     font-weight: 500; 
+    padding: 4px;
+    border-radius: 8px;
 }
 
 .titulos-input{
@@ -77,13 +79,14 @@
     margin-bottom: 15px;
 }
 .mc-containerPublicidad{
-    margin-top: 30px;
+    margin-top: 40px;
     margin-bottom: 10px;
     width: 100%;
     height: 100%;
     background-image: url("https://img.globaldata.pt/products/CC-9011231-WW_9.jpg");
     background-size: cover;
     object-position: center;
+    border-radius: 12px;
     /* background-position: center; */
 }
 
@@ -155,4 +158,11 @@
 .slider .slide {
     height: 100px;
     width: 250px;
+}
+
+.mc-containerPrecios{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
 }
