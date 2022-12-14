@@ -65,6 +65,7 @@
 .edFormRegistro form label {
   display: flex;
   flex-direction: column;
+  margin: 3px 0px;
   width: 500px;
 }
 

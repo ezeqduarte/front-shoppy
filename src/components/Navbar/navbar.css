@@ -33,9 +33,18 @@
   font-weight: 200;
 }
 
+.css-i4bv87-MuiSvgIcon-root{
+  font-size: 2rem !important;
+}
+
+.css-1mhxotf-MuiSvgIcon-root{
+  color: #f3f3f3 !important;
+  margin: 0 !important;
+}
+
 .navbar div span {
   color: #f3f3f3;
-  font-size: 2.5rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
