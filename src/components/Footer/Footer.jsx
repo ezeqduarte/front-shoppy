@@ -1,11 +1,12 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "../Footer/footer.css";
 
 export default function Footer() {
   return (
     <div className="footer">
       <div className="divMayorFooter">
-        <div className="divMenorFooter" >
+        <div className="divMenorFooter">
           <p id="titulo">Sobre nosotros</p>
           <p>
             Somos una empresa dedicada a la venta de accesorios de todo tipo
@@ -15,10 +16,18 @@ export default function Footer() {
         <div className="divMenorFooter">
           <p id="titulo">Navegacion</p>
           <ul>
-            <li>Inicio</li>
-            <li>Productos</li>
-            <li>Carrito</li>
-            <li>Contacto</li>
+            <NavLink to="/inicio" style={{ textDecoration: "none" }}>
+              <li>Inicio</li>
+            </NavLink>
+            <NavLink to="/productos" style={{ textDecoration: "none" }}>
+              <li>Productos</li>
+            </NavLink>
+            <NavLink to="/carrito" style={{ textDecoration: "none" }}>
+              <li>Carrito</li>
+            </NavLink>
+            <NavLink to="/contacto" style={{ textDecoration: "none" }}>
+              <li>Contacto</li>
+            </NavLink>
           </ul>
         </div>
         <div className="divMenorFooter">
@@ -50,12 +59,11 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <hr/>
+      <hr />
       <div className="divInferiorFooter">
         <p>shoppy store© all rights reserved.</p>
-        <div className="divInferiorFooterimg" >
+        <div className="divInferiorFooterimg">
           <img
-          
             src="https://cdn.discordapp.com/attachments/830354293822324736/1051744433550397510/Sin_titulo-2.png"
             alt="logo_shoppy"
           />

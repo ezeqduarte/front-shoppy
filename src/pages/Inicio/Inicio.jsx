@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import GoTo from "../../components/GoTo/GoTo";
 import ItemsShoppy from "../../components/ItemsShoppy/ItemsShoppy";
+import imagenes from "../../imagenes/imagenes";
 import "../Inicio/inicio.css";
 
 export default function Inicio() {
+  const { amd, adata, rogstrix, tForce, zotac } = imagenes;
   const [activeNuevos, setActiveNuevos] = useState(false);
   const [activeMasVendidos, setMasVendidos] = useState(false);
   const [activeOfertas, setActiveOfertas] = useState(false);
@@ -154,12 +156,46 @@ export default function Inicio() {
           </p>
           <a className="buttonInicioRegistrate">REGISTRATE</a>
         </div>
-        {/* <div className="CarrouselMarcas">
-          <img
-            src="https://cdn.discordapp.com/attachments/830354293822324736/1051988778824249445/Mesa_de_trabajo_2.jpg"
-            alt=""
-          />
-        </div> */}
+        <div class="slider" style={{marginTop:50, marginBottom: 50}}>
+          <div class="slide-track">
+            <div class="slide">
+              <img src={adata} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={amd} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={rogstrix} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={tForce} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={zotac} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={rogstrix} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={tForce} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={adata} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={zotac} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={rogstrix} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={tForce} height="100" width="250" alt="" />
+            </div>
+            <div class="slide">
+              <img src={zotac} height="100" width="250" alt="" />
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
