@@ -281,6 +281,11 @@ export default function Consultas() {
           /* defaultValue="Default Value" */
           className="mc-inputPregunta"
         />
+      <div className="mc-containerButton">
+          <Button variant="contained" size="medium" className="mc-buttonSubmit">
+                Enviar
+          </Button>
+      </div>
       </div>
       <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
         <div className="slide-track">
