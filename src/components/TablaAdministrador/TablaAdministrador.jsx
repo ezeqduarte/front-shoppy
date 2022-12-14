@@ -108,8 +108,7 @@ const data = [
   },
 ];
 
-const marcas = [...new Set(data.map((x) => x.marca))];
-const tipos = [...new Set(data.map((x) => x.tipo))];
+
 
 const TablaAdministrador = () => {
   const [createModalOpen, setCreateModalOpen] = useState(false);

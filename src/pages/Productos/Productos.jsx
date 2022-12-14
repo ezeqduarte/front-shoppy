@@ -225,46 +225,46 @@ export default function Productos() {
             <h2 className="mc-TituloProductos">Nuestra Tienda<span className="blanco">.</span></h2>
           </div>
           {array.map((x) => (
-            <Card objeto={x}></Card>
+            <Card objeto={x} key={x._id}></Card>
           ))}
         </div>
       </div>
-      <div class="slider" style={{marginTop:50, marginBottom: 50}}>
-        <div class="slide-track">
-          <div class="slide">
+      <div className="slider" style={{marginTop:50, marginBottom: 50}}>
+        <div className="slide-track">
+          <div className="slide">
             <img src={adata} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={amd} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={rogstrix} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={tForce} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={zotac} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={rogstrix} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={tForce} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={adata} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={zotac} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={rogstrix} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={tForce} height="100" width="250" alt="" />
           </div>
-          <div class="slide">
+          <div className="slide">
             <img src={zotac} height="100" width="250" alt="" />
           </div>
         </div>

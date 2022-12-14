@@ -25,7 +25,7 @@ export default function TemporaryDrawer() {
     right: false,
   });
 
-  const logged = false;
+  const logged = true;
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -47,9 +47,17 @@ export default function TemporaryDrawer() {
     >
       <List>
         {logged
-          ? ["Perfil", "Carrito", "Favoritos", "Mis compras"].map(
-              (text, index) => (
-                <ListItem key={text} disablePadding>
+          ? [
+              { nombre: "Perfil", ruta: "/perfil" },
+              { nombre: "Carrito", ruta: "/carrito" },
+              { nombre: "Favoritos", ruta: "/favoritos" },
+              { nombre: "Mis compras", ruta: "/miscompras" },
+            ].map((boton, index) => (
+              <NavLink
+                to={boton.ruta}
+                style={{ textDecoration: "none", color: "#333333" }}
+              >
+                <ListItem key={boton.nombre} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       {index === 0 ? <SettingsOutlined /> : null}
@@ -57,11 +65,11 @@ export default function TemporaryDrawer() {
                       {index === 2 ? <FavoriteBorderOutlined /> : null}
                       {index === 3 ? <PaymentsOutlined /> : null}
                     </ListItemIcon>
-                    <ListItemText primary={text} />
+                    <ListItemText primary={boton.nombre} />
                   </ListItemButton>
                 </ListItem>
-              )
-            )
+              </NavLink>
+            ))
           : null}
       </List>
       <Divider />
