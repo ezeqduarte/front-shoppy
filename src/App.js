@@ -5,6 +5,7 @@ import Ingresar from "./pages/Ingresar/Ingresar";
 import Inicio from "./pages/Inicio/Inicio";
 import Productos from "./pages/Productos/Productos";
 import Registro from "./pages/Registrarte/Registro";
+import Consultas from "./pages/Consultas/Consultas";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/productos" element={<Productos />} />
+          <Route path="/consultas" element={<Consultas />} />
         </Routes>
       </Main>
     </>

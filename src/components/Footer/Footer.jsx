@@ -25,8 +25,8 @@ export default function Footer() {
             <NavLink to="/carrito" style={{ textDecoration: "none" }}>
               <li>Carrito</li>
             </NavLink>
-            <NavLink to="/contacto" style={{ textDecoration: "none" }}>
-              <li>Contacto</li>
+            <NavLink to="/consultas" style={{ textDecoration: "none" }}>
+              <li>Consultas</li>
             </NavLink>
           </ul>
         </div>

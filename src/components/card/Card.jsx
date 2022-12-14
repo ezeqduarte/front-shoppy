@@ -1,5 +1,11 @@
 import React from "react";
 import "./card.css";
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import { pink } from '@mui/material/colors';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function Card({ objeto }) {
   return (
@@ -11,7 +17,11 @@ export default function Card({ objeto }) {
         />
       </div>
       
-      <div class="material-symbols-reaction"><span class="material-symbols-outlined">favorite</span></div>
+      <div class="material-symbols-reaction"><Checkbox {...label} icon={<FavoriteBorder />} sx={{color: pink[800],
+          '&.Mui-checked': {
+            color: pink[600],
+          },}} checkedIcon={<Favorite />} />
+</div>
       
       <div className="cartel">DESTACADO</div>
       <div class="card-infos">

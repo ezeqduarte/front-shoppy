@@ -47,7 +47,7 @@ export default function NavBar() {
                   <a class="nav-link">Inicio</a>
                 </li>
                 <li class="nav-item mx-md-3 mx-lg-1">
-                  <a class="nav-link">Contacto</a>
+                  <a class="nav-link">Consultas</a>
                 </li>
               </ul>
             ) : null}
@@ -68,9 +68,9 @@ export default function NavBar() {
                   <a class="nav-link">Inicio</a>
                 </li>
               </NavLink>
-              <NavLink to="/contacto" className={url === "/contacto" ? "underline" : "none"}>
+              <NavLink to="/consultas" className={url === "/consultas" ? "underline" : "none"}>
                 <li class="nav-item mx-md-3 mx-lg-1">
-                  <a class="nav-link">Contacto</a>
+                  <a class="nav-link">Consultas</a>
                 </li>
               </NavLink>
             </ul>
