@@ -8,11 +8,14 @@ import { pink } from '@mui/material/colors';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function Card({ objeto }) {
+
+  console.log(objeto);
+
   return (
     <div className="card">
       <div className="card-headphone">
         <img
-          src={objeto.foto}
+          src={objeto.photo}
           alt="headphone"
         />
       </div>
@@ -25,9 +28,9 @@ export default function Card({ objeto }) {
       
       <div className="cartel">DESTACADO</div>
       <div className="card-infos">
-        <h3 className="card-title">{objeto.nombre}</h3>
+        <h3 className="card-title">{objeto.name}</h3>
         <h2 className="price">
-          $ {objeto.precio}
+          $ {objeto.price}
         </h2>
         <a href="#" className="buy">
           Buy Now

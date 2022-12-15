@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import GoTo from "../../components/GoTo/GoTo";
 import ItemsShoppy from "../../components/ItemsShoppy/ItemsShoppy";
 import imagenes from "../../imagenes/imagenes";
 import "../Inicio/inicio.css";
+import productsActions from "../../redux/actions/productsActions";
 
 export default function Inicio() {
   const { amd, adata, rogstrix, tForce, zotac } = imagenes;
   const [activeNuevos, setActiveNuevos] = useState(false);
   const [activeMasVendidos, setMasVendidos] = useState(false);
   const [activeOfertas, setActiveOfertas] = useState(false);
+
+  let { TodosLosproductos: array } = useSelector((store) => store.productsReducer);
+
 
   const nuevos = () => {
     setActiveNuevos(!activeNuevos);
@@ -41,68 +46,17 @@ export default function Inicio() {
     setActiveOfertas(!activeOfertas);
   };
 
-  let array = [
-    {
-      nombre: "1Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "2Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "3Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "4Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "5Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "6Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "7Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "8Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "9Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "10Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-  ];
+  const dispatch = useDispatch();
+  const { productos } = productsActions;
+
+  const productosTotales = async () => {
+    dispatch(productos());
+  };
+
+  useEffect(() => {
+    productosTotales();
+  }, []);
+
 
   return (
     <>
@@ -156,7 +110,7 @@ export default function Inicio() {
           </p>
           <a className="buttonInicioRegistrate">REGISTRATE</a>
         </div>
-        <div className="slider" style={{marginTop:50, marginBottom: 50}}>
+        <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
           <div className="slide-track">
             <div className="slide">
               <img src={adata} height="100" width="250" alt="" />

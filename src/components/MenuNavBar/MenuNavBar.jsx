@@ -136,10 +136,10 @@ export default function TemporaryDrawer() {
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <AccessibilityNewOutlinedIcon
+           {/*  <AccessibilityNewOutlinedIcon
               color="success"
               fontSize="large"
-            ></AccessibilityNewOutlinedIcon>
+            ></AccessibilityNewOutlinedIcon> */}
           </Button>
           <Drawer
             anchor={anchor}
