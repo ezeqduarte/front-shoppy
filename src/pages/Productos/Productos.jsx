@@ -229,7 +229,7 @@ export default function Productos() {
             <h2 className="mc-TituloProductos">Nuestra Tienda<span className="blanco">.</span></h2>
           </div>
           {array.map((x) => (
-            <Card objeto={x} key={x._id}></Card>
+            <Card objeto={x} texto="COMPRAR" key={x._id}></Card>
           ))}
         </div>
       </div>

@@ -10,53 +10,48 @@ import productsActions from "../../redux/actions/productsActions";
 export default function Inicio() {
   const { amd, adata, rogstrix, tForce, zotac } = imagenes;
   const [activeNuevos, setActiveNuevos] = useState(false);
-  const [activeMasVendidos, setMasVendidos] = useState(false);
-  const [activeOfertas, setActiveOfertas] = useState(false);
-
-  let { TodosLosproductos: array } = useSelector((store) => store.productsReducer);
-
-
-  const nuevos = () => {
-    setActiveNuevos(!activeNuevos);
-    activeMasVendidos
-      ? setMasVendidos(!activeMasVendidos)
-      : setMasVendidos(activeMasVendidos);
-    activeOfertas
-      ? setActiveOfertas(!activeOfertas)
-      : setActiveOfertas(activeOfertas);
-  };
-
-  const masVendidos = () => {
-    activeNuevos
-      ? setActiveNuevos(!activeNuevos)
-      : setActiveNuevos(activeNuevos);
-    setMasVendidos(!activeMasVendidos);
-    activeOfertas
-      ? setActiveOfertas(!activeOfertas)
-      : setActiveOfertas(activeOfertas);
-  };
-
-  const ofertas = () => {
-    activeNuevos
-      ? setActiveNuevos(!activeNuevos)
-      : setActiveNuevos(activeNuevos);
-    activeMasVendidos
-      ? setMasVendidos(!activeMasVendidos)
-      : setMasVendidos(activeMasVendidos);
-    setActiveOfertas(!activeOfertas);
-  };
+  const [activeUltimosStocks, setUltimosStocks] = useState(false);
 
   const dispatch = useDispatch();
   const { productos } = productsActions;
 
+ 
+
+  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
+  let [productosInicio, setProductos] = useState(TodosLosproductos);
+
+  const array1 = productosInicio.slice(0, 10);
+  const array2 = productosInicio.slice(10, 20);
+
+
   const productosTotales = async () => {
-    dispatch(productos());
+    const res = await dispatch(productos());
+    setProductos(res.payload.response)
   };
 
   useEffect(() => {
     productosTotales();
+        
   }, []);
 
+  const nuevos = () => {
+    setActiveNuevos(!activeNuevos);
+    activeUltimosStocks
+      ? setUltimosStocks(!activeUltimosStocks)
+      : setUltimosStocks(activeUltimosStocks);
+  };
+
+  const UltimosStocks = () => {
+    activeNuevos
+      ? setActiveNuevos(!activeNuevos)
+      : setActiveNuevos(activeNuevos);
+    setUltimosStocks(!activeUltimosStocks);
+  };
+
+  useEffect(() => {
+    productosTotales();
+    
+  }, []);
 
   return (
     <>
@@ -81,23 +76,20 @@ export default function Inicio() {
             NUESTROS PRODUCTOS <span className="blanco">.</span>
           </h2>
           <div className="selectsInicio">
-            <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
+           {/*  <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
               NUEVOS
             </p>
             <p
-              className={activeMasVendidos ? "underline" : ""}
-              onClick={masVendidos}
+              className={activeUltimosStocks ? "underline" : ""}
+              onClick={UltimosStocks}
             >
-              MAS VENDIDOS
-            </p>
-            <p className={activeOfertas ? "underline" : ""} onClick={ofertas}>
-              OFERTAS
-            </p>
+              ULTIMOS STOCKS
+            </p> */}
           </div>
         </div>
         <div className="containerCardsInicio">
-          <Carrousel array={array}></Carrousel>
-          <Carrousel array={array}></Carrousel>
+          <Carrousel array={array1}></Carrousel>
+          <Carrousel array={array2}></Carrousel>
         </div>
         <ItemsShoppy />
         <div className="Registrate">

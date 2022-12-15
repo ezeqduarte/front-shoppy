@@ -23,15 +23,16 @@ const userReducer = createReducer(initialState, (builder) => {
     if (success) {
       let { user, token } = response;
       localStorage.setItem("token", JSON.stringify({ token: { user: token } }));
+      console.log(user);
       let newState = {
         ...state,
         nombre: user.name,
-        apellido: user.lname,
+        apellido: user.lastName,
         dni: user.dni,
         direccion: user.adress,
-        rol: user.rol,
+        rol: user.role,
         foto: user.photo,
-        edad: null,
+        edad: user.age,
         email: user.email,
         logged: true,
         carrito: user.products,
@@ -51,16 +52,25 @@ const userReducer = createReducer(initialState, (builder) => {
   builder.addCase(reIngress.fulfilled, (state, action) => {
     const { success, response } = action.payload;
 
+   
+
     if (success) {
       let { user, token } = response;
-
+      console.log(user);
       let newState = {
         ...state,
         nombre: user.name,
-        foto: user.photo,
-        logged: true,
-        token: token,
+        apellido: user.lastName,
+        dni: user.dni,
+        direccion: user.adress,
         rol: user.role,
+        foto: user.photo,
+        edad: user.age,
+        email: user.email,
+        logged: true,
+        carrito: user.products,
+        favoritos: user.favorites,
+        token: token
       };
       return newState;
     } else {
