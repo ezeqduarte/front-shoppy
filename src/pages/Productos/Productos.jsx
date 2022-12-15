@@ -103,7 +103,7 @@ export default function Productos() {
       foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
     },
   ];
-
+  
   return (
     <>
       <div className="mainProductos">
@@ -130,6 +130,7 @@ export default function Productos() {
               <div>{`inputValue: '${inputValue}'`}</div> */}
           <br />
           <Autocomplete
+            style={{width:"100%"}}
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
@@ -153,6 +154,7 @@ export default function Productos() {
           <br />
           <Autocomplete
             value={value2}
+            style={{width:"100%"}}
             onChange={(event, newValue) => {
               setValue2(newValue);
             }}
@@ -170,6 +172,7 @@ export default function Productos() {
           <br />
           <Autocomplete
             value={value3}
+            style={{width:"100%"}}
             onChange={(event, newValue) => {
               setValue3(newValue);
             }}
@@ -187,6 +190,7 @@ export default function Productos() {
           <br />
           <Autocomplete
             value={value4}
+            style={{width:"100%"}}
             onChange={(event, newValue) => {
               setValue4(newValue);
             }}
@@ -202,7 +206,7 @@ export default function Productos() {
           <br />
           {/* <input type="range" className='input-filterRange'/>
             <input type="range" className='input-filterRange' /> */}
-          <h3 className="titulos-input">Precio</h3>
+          <h3 className="titulos-inputPrecio">Precio</h3>
           <div className="mc-containerPrecios">
             <TextField
               id="outlined-basic"

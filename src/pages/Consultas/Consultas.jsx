@@ -227,7 +227,7 @@ export default function Consultas() {
         </Accordion>
       </div>
       <div className="mc-containerPregunta">
-        <Card className="mc-cardConsultas">
+        <Card>
           <CardContent>
             <Typography
               className="mc-tituloConsultasCartel"
@@ -282,7 +282,7 @@ export default function Consultas() {
           className="mc-inputPregunta"
         />
       <div className="mc-containerButton">
-          <Button variant="contained" size="medium" className="mc-buttonSubmit">
+          <Button variant="contained" size="medium" className="mc-buttonSubmit" >
                 Enviar
           </Button>
       </div>
