@@ -1,22 +1,41 @@
-import { IconButton, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
+import {
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  TextField,
+} from "@mui/material";
 import * as React from "react";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import userActions from "../../redux/actions/userActions";
 
 import { NavLink } from "react-router-dom";
 import "./ingresar.css";
+import { useDispatch } from "react-redux";
 
 export default function Ingresar() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const dispatch = useDispatch();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const [loginUsuario, setLoginUsuario] = React.useState({
+    password: "",
+    password: "",
+  });
+  const { ingress } = userActions;
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const ingresar = () => {
-    console.log("Ingrese");
+  const handleInputText = (e) => {
+    setLoginUsuario({ ...loginUsuario, [e.target.id]: e.target.value });
+  };
+
+  const ingresar = async () => {
+    const respuesta = await dispatch(ingress(loginUsuario));
+    console.log(respuesta);
   };
 
   return (
@@ -34,9 +53,10 @@ export default function Ingresar() {
         <div>
           <form>
             <TextField
-              id="standard-number"
+              id="email"
               label="Email"
               type="email"
+              onChange={handleInputText}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -46,8 +66,9 @@ export default function Ingresar() {
               Password
             </InputLabel>
             <Input
-              id="standard-adornment-password"
+              id="password"
               type={showPassword ? "text" : "password"}
+              onChange={handleInputText}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
