@@ -1,7 +1,7 @@
 import React from "react";
-import "./GoTo.css"
+import "./GoTo.css";
 
-export default function GoTo({texto}) {
+export default function GoTo({ texto }) {
   return (
     <button className="learn-more">
       <span className="circle" aria-hidden="true">

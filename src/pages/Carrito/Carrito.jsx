@@ -53,7 +53,7 @@ export default function Carrito() {
       <div className="mainCarrito">
         <div className="divInicio">
           <h2>
-            REALIZA TU COMPRA<span className="blanco">.</span>
+            FINALIZA TU COMPRA<span className="blanco">.</span>
           </h2>
           <p className="parrafoInicio">
             En esta seccion podes ver todos los componentes que fuiste agregando

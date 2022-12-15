@@ -1,4 +1,4 @@
-import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
+import { IconButton, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
 import * as React from "react";
 
 import Visibility from "@mui/icons-material/Visibility";
@@ -8,7 +8,6 @@ import { NavLink } from "react-router-dom";
 import "./ingresar.css";
 
 export default function Ingresar() {
-  
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -34,10 +33,15 @@ export default function Ingresar() {
         </h2>
         <div>
           <form>
-            <label>
-              EMAIL
-              <input type="email" />
-            </label>
+            <TextField
+              id="standard-number"
+              label="Email"
+              type="email"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+            />
             <InputLabel htmlFor="standard-adornment-password">
               Password
             </InputLabel>

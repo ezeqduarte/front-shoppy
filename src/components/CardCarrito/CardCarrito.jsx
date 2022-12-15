@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import DeleteIcon from "@mui/icons-material/ClearOutlined";
+import "primeicons/primeicons.css";
 import "./cardcarrito.css";
+import { Button } from "primereact/button";
 
 export default function CardCarrito({ producto }) {
   let [cantidad, setCantidad] = useState(producto.cantidad);
@@ -20,32 +23,22 @@ export default function CardCarrito({ producto }) {
   }, [cantidad]);
 
   return (
-    <article className="product">
-      <header>
-        <a className="remove">
-          <img src={producto.foto} alt="" />
-
-          <h3>Remove product</h3>
-        </a>
-      </header>
-
-      <div className="content">
-        <h1>{producto.nombre}</h1>
-        <p>{producto.descripcion}</p>
+    <div className="cardCarritoEd">
+      <div className="fotocardCarritoEd">
+        <img src={producto.foto} alt="" />
+        <div className="buttonDeleteCarrito">X</div>
       </div>
 
-      <footer className="content">
-        <span className="qt-minus" onClick={restar}>
-          -
-        </span>
-        <span className="qt">{cantidad}</span>
-        <span className="qt-plus" onClick={sumar}>
-          +
-        </span>
-
-        <h2 className="price">{producto.precio}</h2>
-        <h2 className="full-price">{precioTotal}</h2>
-      </footer>
-    </article>
+      <div className="infoCardCarrito">
+        <h5>{producto.tipo.toUpperCase()}</h5>
+        <h4 className="blanco">{producto.nombre}</h4>
+        <p>Cantidad en carro</p>
+        <div className="sumarRestarProductos">
+          <p className="botonesCarritoRestaSuma" onClick={restar}>-</p>
+          <p  className="cantidadCarrito">{cantidad}</p>
+          <p className="botonesCarritoRestaSuma" onClick={sumar}>+</p>
+        </div>
+      </div>
+    </div>
   );
 }
