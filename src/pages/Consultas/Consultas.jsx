@@ -38,8 +38,8 @@ export default function Consultas() {
     <>
       <div className="mainConsultas">
         <div className="divInicio">
-          <h2>
-            CONSULTAS<span className="blanco">.</span>
+          <h2 id="consultasFrecuentes">
+            CONSULTAS FRECUENTES<span className="blanco">.</span>
           </h2>
           <p className="parrafoInicio">
             Tenemos algunas consultas que suelen hacerse nuestros usuarios, a

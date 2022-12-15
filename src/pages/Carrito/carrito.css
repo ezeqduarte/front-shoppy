@@ -1,8 +1,8 @@
 .mainCarrito {
   min-height: 100vh;
   width: 100%;
-  background-image: url("https://www.islabit.com/wp-content/uploads/2022/10/evitar-GPU-caiga-hunda-0.webp");
-  background-color: rgba(0, 0, 0, 0.698);
+  background-image: url("https://c1.wallpaperflare.com/path/719/495/578/computer-screen-mouse-keyboard-4a9ffb6e6ab85cc4e1743ebd0d3ce1e1.jpg");
+  background-color: rgba(0, 0, 0, 0.756);
   background-blend-mode: color;
   background-attachment: fixed;
   background-size: cover;
@@ -20,6 +20,10 @@
     
 }
 
+.contentDescription{
+    overflow: visible;
+}
+
 .edContainerCarrito h2{ 
     width: 100%;
     text-align: center;
@@ -34,7 +38,7 @@
     justify-content: center;
     align-items: center;
     width: 70%;
-    gap: 30px;
+    gap: 5px;
 }
 
 

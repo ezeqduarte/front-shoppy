@@ -67,6 +67,7 @@
 .botonesForm button {
   background-color: #ef837b;
   color: white;
+  border: none;
   padding: 3px 25px;
 }
 

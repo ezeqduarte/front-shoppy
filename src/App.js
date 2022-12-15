@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import Main from "./layouts/Main";
 import Administrador from "./pages/Administrador/Administrador";
@@ -9,8 +11,21 @@ import Inicio from "./pages/Inicio/Inicio";
 import PerfilUser from "./pages/PerfilUser/PerfilUser";
 import Productos from "./pages/Productos/Productos";
 import Registro from "./pages/Registrarte/Registro";
+import userActions from "./redux/actions/userActions";
 
 function App() {
+  let { rol, nombre, logged } = useSelector((store) => store.userReducer);
+  const { reIngress } = userActions;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let token = JSON.parse(localStorage.getItem("token"));
+
+    if (token) {
+      dispatch(reIngress(token.token.user));
+    }
+  }, []);
+
   return (
     <>
       <Routes>

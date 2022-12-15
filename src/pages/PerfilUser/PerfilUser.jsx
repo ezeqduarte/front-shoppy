@@ -24,10 +24,10 @@ export default function PerfilUser() {
             <div className="mainPerfil">
                 <div className="divInicio">
                     <h2>
-                       Perfil<span className="blanco">.</span>
+                       TU LUGAR EN SHOPPY<span className="blanco">.</span>
                     </h2>
                     <p className="parrafoInicio">
-                       
+                       Al registrarte ayudas a que esta gran familia como es shoppy siga creciendo y pueda seguir ayudandote en la busqueda de los componentes para tu pc. Por eso es que decidimos darte este pequeño lugar para que te sientas aun mas parte de todo esto.
                     </p>
                     <a href="#consultas" className="buttonInicio">
                       <GoTo texto="VER MAS" />

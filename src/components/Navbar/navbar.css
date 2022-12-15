@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+.css-106c1u2-MuiBadge-badge {
+  background-color: #ef837b !important;
+}
+
 .nav-link:hover {
   color: #ef837b;
 }

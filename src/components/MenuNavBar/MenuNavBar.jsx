@@ -18,14 +18,39 @@ import {
   SettingsOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import userActions from "../../redux/actions/userActions";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function TemporaryDrawer() {
+  let { rol, nombre, token, logged } = useSelector(
+    (store) => store.userReducer
+  );
   const [state, setState] = React.useState({
     right: false,
   });
 
-  const logged = true;
+  const { logout } = userActions;
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const logoutAccion = () => {
+    dispatch(logout(token));
+    toast.success(`Cerraste tu sesion exitosamente, vuelva pronto!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(function () {
+      navigate("/");
+    }, 4000);
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -54,6 +79,7 @@ export default function TemporaryDrawer() {
               { nombre: "Mis compras", ruta: "/miscompras" },
             ].map((boton, index) => (
               <NavLink
+                key={index}
                 to={boton.ruta}
                 style={{ textDecoration: "none", color: "#333333" }}
               >
@@ -78,6 +104,7 @@ export default function TemporaryDrawer() {
           ? ["Login"].map((text, index) => (
               <NavLink
                 to="/ingresar"
+                key={index}
                 style={{ textDecoration: "none", color: (0, 0, 0, 0.54) }}
               >
                 <ListItem key={text} disablePadding>
@@ -91,7 +118,7 @@ export default function TemporaryDrawer() {
               </NavLink>
             ))
           : ["Logout"].map((text, index) => (
-              <ListItem key={text} disablePadding>
+              <ListItem onClick={logoutAccion} key={index} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     {index % 2 === 0 ? <LogoutOutlined /> : <LogoutOutlined />}
@@ -123,6 +150,7 @@ export default function TemporaryDrawer() {
           </Drawer>
         </React.Fragment>
       ))}
+      <ToastContainer />
     </div>
   );
 }

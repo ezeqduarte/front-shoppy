@@ -1,11 +1,100 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import {
+  Alert,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  TextField,
+} from "@mui/material";
+import * as React from "react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../Registrarte/registro.css";
 import "./registro.css";
+import axios from "axios";
+import API from "../../config/api";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Registro() {
-  const registro = () => {
-    console.log("registrado");
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const navigate = useNavigate();
+  const form = React.useRef();
+
+  const [nuevoUsuario, setnuevoUsuario] = React.useState({
+    name: "",
+    lastName: "",
+    dni: "",
+    adress: "",
+    role: "user",
+    photo: "https://img.icons8.com/fluency-systems-regular/48/000000/user.png",
+    age: 0,
+    email: "",
+    password: "",
+    products: [],
+    favorites: [],
+  });
+
+  const handleChange = (e) => {
+    setnuevoUsuario({ ...nuevoUsuario, [e.target.id]: e.target.value });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const registro = async () => {
+    const respuesta = await axios.post(`${API}auth/signup`, nuevoUsuario);
+
+
+    if (respuesta.data.success) {
+      toast.success(
+        `Su cuenta fue creada correctamente, verifiquela para ingresar`,
+        {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
+      setnuevoUsuario({
+        name: "",
+        lastName: "",
+        dni: "",
+        adress: "",
+        role: "user",
+        photo:
+          "https://img.icons8.com/fluency-systems-regular/48/000000/user.png",
+        age: 0,
+        email: "",
+        password: "",
+        products: [],
+        favorites: [],
+      });
+      form.current.reset();
+      setTimeout(function () {
+        navigate("/ingresar");
+      }, 4500);
+    } else if (!respuesta.data.success) {
+      respuesta.data.message.map((mensaje) =>
+        toast.error(`${mensaje}`, {
+          position: "bottom-right",
+          autoClose: 8000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      );
+    }
   };
 
   return (
@@ -21,35 +110,86 @@ export default function Registro() {
           REGISTRATE<span className="blanco">.</span>
         </h2>
         <div>
-          <form>
-          <label>
-              NOMBRE
-              <input type="text" />
-            </label>
-            <label>
-              APELLIDO
-              <input type="text" />
-            </label>
-            <label>
-              EDAD
-              <input type="number" />
-            </label>
-            <label>
-              DNI
-              <input type="number" />
-            </label>
-            <label>
-              DOMICILIO
-              <input type="text" />
-            </label>
-            <label>
-              EMAIL
-              <input type="email" />
-            </label>
-            <label>
-              CONTRASEÑA
-              <input type="password" />
-            </label>
+          <form ref={form}>
+            <TextField
+              id="name"
+              label="Nombre"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <TextField
+              id="lastName"
+              label="Apellido"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <TextField
+              id="age"
+              label="Edad"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <TextField
+              id="dni"
+              label="Dni"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <TextField
+              id="adress"
+              label="Domicilio"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <TextField
+              id="email"
+              label="Email"
+              type="email"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <InputLabel htmlFor="standard-adornment-password">
+              Password
+            </InputLabel>
+            <Input
+              id="password"
+              onChange={handleChange}
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
           </form>
           <div className="botonesForm">
             <NavLink className="BotonRegistrarme" to="/ingresar">
@@ -75,6 +215,7 @@ export default function Registro() {
           </svg>
           <p>volver</p>
         </div>
+        <ToastContainer />
       </NavLink>
     </div>
   );
