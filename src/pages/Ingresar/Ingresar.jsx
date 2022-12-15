@@ -1,8 +1,21 @@
-import React from "react";
+import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material";
+import * as React from "react";
+
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
 import { NavLink } from "react-router-dom";
 import "./ingresar.css";
 
 export default function Ingresar() {
+  
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const ingresar = () => {
     console.log("Ingrese");
   };
@@ -25,10 +38,24 @@ export default function Ingresar() {
               EMAIL
               <input type="email" />
             </label>
-            <label>
-              PASSWORD
-              <input type="password" />
-            </label>
+            <InputLabel htmlFor="standard-adornment-password">
+              Password
+            </InputLabel>
+            <Input
+              id="standard-adornment-password"
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
           </form>
           <div className="botonesForm">
             <NavLink className="BotonRegistrarme" to="/registro">

@@ -109,7 +109,7 @@ export default function Productos() {
       <div className="mainProductos">
         <div className="divInicio">
           <h2>
-            PRODUCTOS<span className="blanco">.</span>
+            NUESTROS PRODUCTOS<span className="blanco">.</span>
           </h2>
           <p className="parrafoInicio">
             Tenemos todo lo que buscas, tenemos los mejores productos y las

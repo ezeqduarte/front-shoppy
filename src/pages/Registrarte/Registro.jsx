@@ -1,9 +1,19 @@
-import React from "react";
+import { IconButton, Input, InputAdornment, InputLabel, TextField } from "@mui/material";
+import * as React from "react";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { NavLink } from "react-router-dom";
 import "../Registrarte/registro.css";
 import "./registro.css";
 
 export default function Registro() {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const registro = () => {
     console.log("registrado");
   };
@@ -22,34 +32,78 @@ export default function Registro() {
         </h2>
         <div>
           <form>
-          <label>
-              NOMBRE
-              <input type="text" />
-            </label>
-            <label>
-              APELLIDO
-              <input type="text" />
-            </label>
-            <label>
-              EDAD
-              <input type="number" />
-            </label>
-            <label>
-              DNI
-              <input type="number" />
-            </label>
-            <label>
-              DOMICILIO
-              <input type="text" />
-            </label>
-            <label>
-              EMAIL
-              <input type="email" />
-            </label>
-            <label>
-              CONTRASEÑA
-              <input type="password" />
-            </label>
+          <TextField
+              id="standard-number"
+              label="Nombre"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+            />
+            <TextField
+              id="standard-number"
+              label="Apellido"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+            />
+            <TextField
+              id="standard-number"
+              label="Edad"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+            />
+            <TextField
+              id="standard-number"
+              label="Dni"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+            />
+           <TextField
+              id="standard-number"
+              label="Domicilio"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+            />
+            <TextField
+              id="standard-number"
+              label="Email"
+              type="email"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+            />
+            <InputLabel htmlFor="standard-adornment-password">
+              Password
+            </InputLabel>
+            <Input
+              id="standard-adornment-password"
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
           </form>
           <div className="botonesForm">
             <NavLink className="BotonRegistrarme" to="/ingresar">

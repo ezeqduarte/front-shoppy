@@ -7,6 +7,7 @@ export default function Carrito() {
   let array = [
     {
       _id: "4fgsfigoas22",
+      cantidad: 1,
       nombre: "7Wireless headphones",
       marca: "CORSAIR",
       tipo: "Auriculares",
@@ -19,6 +20,7 @@ export default function Carrito() {
       nombre: "8Wireless headphones",
       marca: "HyperX",
       tipo: "Auriculares",
+      cantidad: 4,
       stock: 53,
       precio: 40.99,
       foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
@@ -26,6 +28,7 @@ export default function Carrito() {
     {
       nombre: "9Wireless headphones",
       marca: "Acer",
+      cantidad: 1,
       tipo: "Auriculares",
       stock: 1,
       precio: 40.99,
@@ -36,6 +39,7 @@ export default function Carrito() {
       nombre: "10Wireless headphones",
       tipo: "Auriculares",
       marca: "Logitech",
+      cantidad: 2,
       stock: 17,
       precio: 40.99,
       foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
