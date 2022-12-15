@@ -52,10 +52,10 @@ export default function Registro() {
 
     if (respuesta.data.success) {
       toast.success(
-        `Tu cuenta fue creada correctamente, te llegara un email para verificar`,
+        `Su cuenta fue creada correctamente, verifiquela para ingresar`,
         {
           position: "bottom-right",
-          autoClose: 8000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -79,7 +79,9 @@ export default function Registro() {
         favorites: [],
       });
       form.current.reset();
-      navigate("/ingresar")
+      setTimeout(function () {
+        navigate("/ingresar");
+      }, 4500);
     } else if (!respuesta.data.success) {
       respuesta.data.message.map((mensaje) =>
         toast.error(`${mensaje}`, {
