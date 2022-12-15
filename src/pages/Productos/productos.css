@@ -91,6 +91,11 @@
   border-radius: 12px;
   /* background-position: center; */
 }
+.titulos-inputPrecio{
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+  font-size: 20px;
+}
 
 @media screen and (max-width: 1005px) {
   .mc-containerProductos {
@@ -103,14 +108,18 @@
   }
   .mc-ContainerFiltros {
     padding: 20px 50px;
-  }
-}
-@media screen and (max-width: 1005px) {
-  .mc-ContainerFiltros {
     width: 100%;
     margin-left: 0;
+    border-right: none;
+  }
+  .mc-containerPrecios{
+    justify-content: center;
+  }
+  .titulos-inputPrecio{
+    text-align: center;
   }
 }
+
 
 /* ----------------------------------------------------------------------------------------- */
 @keyframes scroll {

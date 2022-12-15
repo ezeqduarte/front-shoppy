@@ -1,0 +1,133 @@
+.mc-containerPerfil{
+    padding: 0 20%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.mainPerfil{
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("https://media.discordapp.net/attachments/1026952248552603818/1051963559078268978/Codashop-min-scaled.jpg?width=1201&height=676");
+  background-color: rgba(0, 0, 0, 0.596);
+  background-blend-mode: color;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mc-cardPerfil{
+    height: 25%;
+    min-width: 45%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin-bottom: 40px;
+}
+.mc-iconoAvatar{
+    width: 70px!important;
+    height: 70px!important;
+}
+
+.mc-titulosPerfilMisDatos{
+    margin-bottom: 40px;
+    font-size: 25px;
+}
+.mc-titulosDatosPersonales{
+    margin-bottom: 40px;
+    margin-top: 40px;
+    font-size: 25px;
+}
+.mc-inputsPerfil{
+    margin-bottom: 30px!important;
+}
+.mc-containerMisDatos{
+    display: flex;
+    flex-direction: column;
+}
+.mc-containerDatosPersonales{
+    display: flex;
+    flex-direction: column;
+}
+.mc-tituloCartelFactura{
+    font-weight: 600!important;
+    letter-spacing: 0;
+    font-size: 18px!important;
+}
+.mc-spanFactura{
+    font-weight: 400;
+    letter-spacing: 0;
+    font-size: 18px!important;
+}
+.mc-containerFacturas{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    
+}
+.mc-containerSubCardFacturas{
+    display: flex;
+    align-items: center;
+}
+.mc-containerFacturasYPreguntas{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.mc-cardPerfilFacturas{
+    margin-top: 40px;
+}
+.mc-containerPregYCoins{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.mc-titulosFacturas{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.mc-tituloCartelCoins{
+    font-size: 18px!important;
+}
+.mc-subContainerFactura{
+    display: flex;
+    flex-direction: column;
+}
+.mc-buttonCoins{
+    background-color: #FF5733!important;
+    margin-top: 20px!important;
+}
+.mc-subContainerCoins{
+    display: flex;
+    flex-direction: column;
+}
+.mc-titulosCoins{
+    font-size: 18px!important;
+    margin-bottom: 10px!important;
+}
+.mc-containerCardCoinsYPreguntas{
+    display: flex;
+    align-items: center;
+    padding-left: 35px!important;
+}
+@media screen and (max-width: 1005px) {
+
+    .mc-containerPerfil{
+        padding: 15px;
+    }
+    .mc-containerFacturas{
+        width: 90%;
+    }
+    .mc-containerFacturasYPreguntas{
+        flex-direction: column;
+    }
+    .mc-containerSubCardFacturas{
+        justify-content: space-between;
+    }
+  }

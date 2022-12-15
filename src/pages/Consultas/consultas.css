@@ -60,3 +60,15 @@
   width: 100%;
   margin-top: 25px;
 }
+
+.mc-containerButton{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.mc-buttonSubmit{
+    width: 12%;
+    background-color: #FF5733!important;
+}

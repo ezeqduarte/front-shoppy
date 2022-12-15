@@ -28,10 +28,10 @@ import western from "../../imagenes/western-digital.png";
 import zotac from "../../imagenes/zotacGaming.png";
 
 export default function Consultas() {
-  const [age, setAge] = React.useState("");
+  const [option, setOption] = React.useState("");
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setOption(event.target.value);
   };
 
   return (
@@ -227,7 +227,7 @@ export default function Consultas() {
         </Accordion>
       </div>
       <div className="mc-containerPregunta">
-        <Card className="mc-cardConsultas">
+        <Card>
           <CardContent>
             <Typography
               className="mc-tituloConsultasCartel"
@@ -254,23 +254,23 @@ export default function Consultas() {
           <Select
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
-            value={age}
+            value={option}
             onChange={handleChange}
-            label="Age"
+            label="option"
           >
             <MenuItem value="">
               <em>Nada</em>
             </MenuItem>
-            <MenuItem value={10}>Consulta sobre un producto</MenuItem>
-            <MenuItem value={10}>Consulta general</MenuItem>
-            <MenuItem value={10}>Consulta sobre mi Pedido</MenuItem>
-            <MenuItem value={30}>
+            <MenuItem value={"Consulta sobre un producto"}>Consulta sobre un producto</MenuItem>
+            <MenuItem value={"Consulta general"}>Consulta general</MenuItem>
+            <MenuItem value={"Consulta sobre mi Pedido"}>Consulta sobre mi Pedido</MenuItem>
+            <MenuItem value={"Necesito ayuda para realizar mi compra"}>
               Necesito ayuda para realizar mi compra
             </MenuItem>
-            <MenuItem value={30}>
+            <MenuItem value={"Consulta sobre subir un Comprobante de Pago"}>
               Consulta sobre subir un Comprobante de Pago
             </MenuItem>
-            <MenuItem value={30}>Consulta sobre mi envio</MenuItem>
+            <MenuItem value={"Consulta sobre mi envio"}>Consulta sobre mi envio</MenuItem>
           </Select>
         </FormControl>
         <TextField
@@ -281,6 +281,11 @@ export default function Consultas() {
           /* defaultValue="Default Value" */
           className="mc-inputPregunta"
         />
+      <div className="mc-containerButton">
+          <Button variant="contained" size="medium" className="mc-buttonSubmit" >
+                Enviar
+          </Button>
+      </div>
       </div>
       <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
         <div className="slide-track">

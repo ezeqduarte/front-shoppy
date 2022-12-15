@@ -8,6 +8,7 @@ import Carrito from "./pages/Carrito/Carrito";
 import Consultas from "./pages/Consultas/Consultas";
 import Ingresar from "./pages/Ingresar/Ingresar";
 import Inicio from "./pages/Inicio/Inicio";
+import PerfilUser from "./pages/PerfilUser/PerfilUser";
 import Productos from "./pages/Productos/Productos";
 import Registro from "./pages/Registrarte/Registro";
 import userActions from "./redux/actions/userActions";
@@ -39,6 +40,7 @@ function App() {
           <Route path="/consultas" element={<Consultas />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/admin" element={<Administrador />} />
+          <Route path="/perfil" element={<PerfilUser />}/>
         </Routes>
       </Main>
     </>
