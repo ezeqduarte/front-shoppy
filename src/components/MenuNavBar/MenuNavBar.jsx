@@ -18,9 +18,10 @@ import {
   SettingsOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import userActions from "../../redux/actions/userActions";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function TemporaryDrawer() {
   let { rol, nombre, token, logged } = useSelector(
@@ -32,9 +33,23 @@ export default function TemporaryDrawer() {
 
   const { logout } = userActions;
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const logoutAccion = () => {
     dispatch(logout(token));
+    toast.success(`Cerraste tu sesion exitosamente, vuelva pronto!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(function () {
+      navigate("/");
+    }, 4000);
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -90,11 +105,10 @@ export default function TemporaryDrawer() {
               <NavLink
                 to="/ingresar"
                 key={index}
-                
                 style={{ textDecoration: "none", color: (0, 0, 0, 0.54) }}
               >
                 <ListItem key={text} disablePadding>
-                  <ListItemButton >
+                  <ListItemButton>
                     <ListItemIcon>
                       <LoginOutlined />
                     </ListItemIcon>
@@ -136,6 +150,7 @@ export default function TemporaryDrawer() {
           </Drawer>
         </React.Fragment>
       ))}
+      <ToastContainer />
     </div>
   );
 }
