@@ -25,8 +25,8 @@ export default function Ingresar() {
     password: "",
   });
   const { ingress } = userActions;
-  const form = React.useRef()
-  const navigate = useNavigate()
+  const form = React.useRef();
+  const navigate = useNavigate();
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -38,18 +38,20 @@ export default function Ingresar() {
 
   const ingresar = async () => {
     const respuesta = await dispatch(ingress(loginUsuario));
-    console.log(respuesta.payload.response);
     if (respuesta.payload.success) {
-      toast.success(`Bienvenido a shoppy ${respuesta.payload.response.user.name} `, {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.success(
+        `Bienvenido a shoppy ${respuesta.payload.response.user.name} `,
+        {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
       form.current.reset();
       setTimeout(function () {
         navigate("/inicio");

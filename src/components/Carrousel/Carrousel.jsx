@@ -11,16 +11,18 @@ export default function Carrousel({ array }) {
   const array1 = array.slice(0, 5);
   const array2 = array.slice(5, 10);
 
-  console.log(array1);
-  console.log(array2);
   return (
     <>
       <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
         <SwiperSlide>
-          {array1.map(objeto=><Card key={objeto._id} objeto={objeto}></Card>)}
+          {array1.map((objeto) => (
+            <Card key={objeto._id} objeto={objeto}></Card>
+          ))}
         </SwiperSlide>
         <SwiperSlide>
-        {array2.map(objeto=><Card key={objeto._id}  objeto={objeto}></Card>)}
+          {array2.map((objeto) => (
+            <Card key={objeto._id} objeto={objeto}></Card>
+          ))}
         </SwiperSlide>
       </Swiper>
     </>

@@ -48,7 +48,6 @@ export default function Registro() {
   const registro = async () => {
     const respuesta = await axios.post(`${API}auth/signup`, nuevoUsuario);
 
-    console.log(respuesta.data.success);
 
     if (respuesta.data.success) {
       toast.success(

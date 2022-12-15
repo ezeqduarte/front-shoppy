@@ -5,7 +5,7 @@ import API from "../../config/api";
 const ingress = createAsyncThunk("ingress", async (datos) => {
   try {
     const res = await axios.post(`${API}auth/signin`, datos);
-    console.log(res);
+  
     if(res.data.success){
         return {
             success: true,
