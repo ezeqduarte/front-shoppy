@@ -6,10 +6,18 @@ const ingress = createAsyncThunk("ingress", async (datos) => {
   try {
     const res = await axios.post(`${API}auth/signin`, datos);
     console.log(res);
-    return {
-      success: true,
-      response: res.data.response,
-    };
+    if(res.data.success){
+        return {
+            success: true,
+            response: res.data.response,
+          };
+    } else {
+        return {
+            success: false,
+            response: res.data.message,
+          };
+    }
+    
   } catch (error) {
     console.log(error.message);
   }
