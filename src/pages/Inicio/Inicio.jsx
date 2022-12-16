@@ -6,6 +6,7 @@ import ItemsShoppy from "../../components/ItemsShoppy/ItemsShoppy";
 import imagenes from "../../imagenes/imagenes";
 import "../Inicio/inicio.css";
 import productsActions from "../../redux/actions/productsActions";
+import { NavLink } from "react-router-dom";
 
 export default function Inicio() {
   const { amd, adata, rogstrix, tForce, zotac } = imagenes;
@@ -15,23 +16,19 @@ export default function Inicio() {
   const dispatch = useDispatch();
   const { productos } = productsActions;
 
- 
-
   let { TodosLosproductos } = useSelector((store) => store.productsReducer);
   let [productosInicio, setProductos] = useState(TodosLosproductos);
 
   const array1 = productosInicio.slice(0, 10);
   const array2 = productosInicio.slice(10, 20);
 
-
   const productosTotales = async () => {
     const res = await dispatch(productos());
-    setProductos(res.payload.response)
+    setProductos(res.payload.response);
   };
 
   useEffect(() => {
     productosTotales();
-        
   }, []);
 
   const nuevos = () => {
@@ -50,7 +47,6 @@ export default function Inicio() {
 
   useEffect(() => {
     productosTotales();
-    
   }, []);
 
   return (
@@ -76,7 +72,7 @@ export default function Inicio() {
             NUESTROS PRODUCTOS <span className="blanco">.</span>
           </h2>
           <div className="selectsInicio">
-           {/*  <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
+            {/*  <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
               NUEVOS
             </p>
             <p
@@ -100,7 +96,9 @@ export default function Inicio() {
             mes mundialista, por registrarte en nuestra pagina estaras
             participando de un sorteo por una camiseta de la seleccion.
           </p>
-          <a className="buttonInicioRegistrate">REGISTRATE</a>
+          <NavLink to={"/registro"}>
+            <a className="buttonInicioRegistrate">REGISTRATE</a>
+          </NavLink>
         </div>
         <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
           <div className="slide-track">
