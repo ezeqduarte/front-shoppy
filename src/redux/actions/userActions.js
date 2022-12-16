@@ -4,6 +4,7 @@ import API from "../../config/api";
 
 const ingress = createAsyncThunk("ingress", async (datos) => {
   try {
+    
     const res = await axios.post(`${API}auth/signin`, datos);
 
     if (res.data.success) {
@@ -63,6 +64,7 @@ const logout = createAsyncThunk("logout", async (token) => {
     };
   }
 });
+
 
 const userActions = {
   ingress,
