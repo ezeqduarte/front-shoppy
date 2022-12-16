@@ -261,16 +261,22 @@ export default function Consultas() {
             <MenuItem value="">
               <em>Nada</em>
             </MenuItem>
-            <MenuItem value={"Consulta sobre un producto"}>Consulta sobre un producto</MenuItem>
+            <MenuItem value={"Consulta sobre un producto"}>
+              Consulta sobre un producto
+            </MenuItem>
             <MenuItem value={"Consulta general"}>Consulta general</MenuItem>
-            <MenuItem value={"Consulta sobre mi Pedido"}>Consulta sobre mi Pedido</MenuItem>
+            <MenuItem value={"Consulta sobre mi Pedido"}>
+              Consulta sobre mi Pedido
+            </MenuItem>
             <MenuItem value={"Necesito ayuda para realizar mi compra"}>
               Necesito ayuda para realizar mi compra
             </MenuItem>
             <MenuItem value={"Consulta sobre subir un Comprobante de Pago"}>
               Consulta sobre subir un Comprobante de Pago
             </MenuItem>
-            <MenuItem value={"Consulta sobre mi envio"}>Consulta sobre mi envio</MenuItem>
+            <MenuItem value={"Consulta sobre mi envio"}>
+              Consulta sobre mi envio
+            </MenuItem>
           </Select>
         </FormControl>
         <TextField
@@ -281,11 +287,11 @@ export default function Consultas() {
           /* defaultValue="Default Value" */
           className="mc-inputPregunta"
         />
-      <div className="mc-containerButton">
-          <Button variant="contained" size="medium" className="mc-buttonSubmit" >
-                Enviar
+        <div className="mc-containerButton">
+          <Button variant="contained" size="medium" className="mc-buttonSubmit">
+            Enviar
           </Button>
-      </div>
+        </div>
       </div>
       <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
         <div className="slide-track">

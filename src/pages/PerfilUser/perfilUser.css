@@ -2,6 +2,7 @@
     padding: 0 20%;
     margin-top: 50px;
     margin-bottom: 50px;
+    min-height: 80vh;
 }
 .mainPerfil{
   min-height: 100vh;
@@ -45,10 +46,12 @@
 .mc-containerMisDatos{
     display: flex;
     flex-direction: column;
+    margin-bottom: 30px;
 }
 .mc-containerDatosPersonales{
     display: flex;
     flex-direction: column;
+    margin-bottom: 30px;
 }
 .mc-tituloCartelFactura{
     font-weight: 600!important;
@@ -65,26 +68,24 @@
     flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
-    
 }
 .mc-containerSubCardFacturas{
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .mc-containerFacturasYPreguntas{
-    display: flex;
-    gap: 20px;
-    align-items: center;
+    margin-top: 70px;
 }
 .mc-cardPerfilFacturas{
-    margin-top: 40px;
+    margin-bottom: 30px;
 }
 .mc-containerPregYCoins{
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
+    margin-top: 30px;
 }
 .mc-titulosFacturas{
     text-align: center;
@@ -116,6 +117,29 @@
     align-items: center;
     padding-left: 35px!important;
 }
+.mc-renderInput,.mc-renderInput2{
+    height: 112px;
+    /* border: .5px solid rgba(165, 165, 165, 0.825); */
+    border: .5px solid #FF5733;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 30px;
+}
+.mc-renderInput2{
+    height: 280px;
+}
+.mc-renderLetra{
+    font-weight: 600;
+}
+.mc-titulosCardsPerfil{
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    letter-spacing: 2px; 
+}
 @media screen and (max-width: 1005px) {
 
     .mc-containerPerfil{
@@ -124,10 +148,26 @@
     .mc-containerFacturas{
         width: 90%;
     }
-    .mc-containerFacturasYPreguntas{
-        flex-direction: column;
+    .mc-containerSubCardFacturas{
+        justify-content: space-between;
+    }
+  }
+
+  @media screen and (max-width: 440px) {
+
+    .mc-containerPerfil{
+        padding: 15px;
+    }
+    .mc-containerFacturas{
+        width: 90%;
     }
     .mc-containerSubCardFacturas{
         justify-content: space-between;
+    }
+    .mc-renderInput{
+        height: 250px;
+    }
+    .mc-renderInput2{
+        height: 400px;
     }
   }

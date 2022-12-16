@@ -23,6 +23,9 @@ import { useDispatch, useSelector } from "react-redux";
 import userActions from "../../redux/actions/userActions";
 import { toast, ToastContainer } from "react-toastify";
 
+import Avatar from "@mui/material/Avatar";
+import { deepOrange } from "@mui/material/colors";
+
 export default function TemporaryDrawer() {
   let { rol, nombre, token, logged } = useSelector(
     (store) => store.userReducer
@@ -135,12 +138,18 @@ export default function TemporaryDrawer() {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
-            <AccessibilityNewOutlinedIcon
-              color="success"
-              fontSize="large"
-            ></AccessibilityNewOutlinedIcon>
-          </Button>
+        { !logged ? <Button onClick={toggleDrawer(anchor, true)}>
+                      <AccessibilityNewOutlinedIcon
+                          color="success"
+                          fontSize="large">
+                      </AccessibilityNewOutlinedIcon> 
+                    </Button>
+                  : <Button onClick={toggleDrawer(anchor, true)}>
+                      <Avatar className="mc-iconoAvatarNavbar" sx={{ bgcolor: deepOrange[500] }}>
+                            {nombre?.charAt(0)}
+                      </Avatar>
+                    </Button>
+        }
           <Drawer
             anchor={anchor}
             open={state[anchor]}
