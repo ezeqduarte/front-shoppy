@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import userActions from "../actions/userActions";
-const { ingress, reIngress, logout, getDatos, editProfile } = userActions;
+const { ingress, reIngress, logout, getDatos, editUser } = userActions;
 
 const initialState = {
   nombre: "",
@@ -102,6 +102,17 @@ const userReducer = createReducer(initialState, (builder) => {
       return newState;
     }
   });
+
+  builder.addCase(editUser.fulfilled, (state, action) => {
+    console.log(action.payload)
+    return{
+      
+    }
+  });
 });
+
+
+
+
 
 export default userReducer;

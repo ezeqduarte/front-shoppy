@@ -64,12 +64,37 @@ const logout = createAsyncThunk("logout", async (token) => {
     };
   }
 });
+const editUser = createAsyncThunk("editUser", async  ({token,data})=>{
+      
+  let url = `${API}/auth/me`
+  let headers = { headers: { Authorization: `Bearer ${token}` } };
 
+      try {
+        let res = await axios.patch(url,data,headers)
+        console.log(res.data)
+        if(res.data.response._id)  {
+
+        return {
+          
+        }
+      }else{
+        return {
+          
+        }
+      }
+    }catch(error){
+      console.log(error);
+      return {
+        success: false, response:"error"
+      }
+    }
+      })
 
 const userActions = {
   ingress,
   reIngress,
   logout,
+  editUser
 };
 
 export default userActions;
