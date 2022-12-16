@@ -16,12 +16,12 @@ export default function Carrousel({ array }) {
       <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
         <SwiperSlide>
           {array1.map((objeto) => (
-            <Card key={objeto.nombre} objeto={objeto}></Card>
+            <Card key={objeto.nombre} texto="MAS DETALLES" objeto={objeto}></Card>
           ))}
         </SwiperSlide>
         <SwiperSlide>
           {array2.map((objeto) => (
-            <Card key={objeto.nombre} objeto={objeto}></Card>
+            <Card key={objeto.nombre} texto="MAS DETALLES" objeto={objeto}></Card>
           ))}
         </SwiperSlide>
       </Swiper>

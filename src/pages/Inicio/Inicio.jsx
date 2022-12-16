@@ -1,108 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Carrousel from "../../components/Carrousel/Carrousel";
 import GoTo from "../../components/GoTo/GoTo";
 import ItemsShoppy from "../../components/ItemsShoppy/ItemsShoppy";
 import imagenes from "../../imagenes/imagenes";
 import "../Inicio/inicio.css";
+import productsActions from "../../redux/actions/productsActions";
+import { NavLink } from "react-router-dom";
 
 export default function Inicio() {
   const { amd, adata, rogstrix, tForce, zotac } = imagenes;
   const [activeNuevos, setActiveNuevos] = useState(false);
-  const [activeMasVendidos, setMasVendidos] = useState(false);
-  const [activeOfertas, setActiveOfertas] = useState(false);
+  const [activeUltimosStocks, setUltimosStocks] = useState(false);
+
+  const dispatch = useDispatch();
+  const { productos } = productsActions;
+
+  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
+  let [productosInicio, setProductos] = useState(TodosLosproductos);
+
+  const array1 = productosInicio.slice(0, 10);
+  const array2 = productosInicio.slice(10, 20);
+
+  const productosTotales = async () => {
+    const res = await dispatch(productos());
+    setProductos(res.payload.response);
+  };
+
+  useEffect(() => {
+    productosTotales();
+  }, []);
 
   const nuevos = () => {
     setActiveNuevos(!activeNuevos);
-    activeMasVendidos
-      ? setMasVendidos(!activeMasVendidos)
-      : setMasVendidos(activeMasVendidos);
-    activeOfertas
-      ? setActiveOfertas(!activeOfertas)
-      : setActiveOfertas(activeOfertas);
+    activeUltimosStocks
+      ? setUltimosStocks(!activeUltimosStocks)
+      : setUltimosStocks(activeUltimosStocks);
   };
 
-  const masVendidos = () => {
+  const UltimosStocks = () => {
     activeNuevos
       ? setActiveNuevos(!activeNuevos)
       : setActiveNuevos(activeNuevos);
-    setMasVendidos(!activeMasVendidos);
-    activeOfertas
-      ? setActiveOfertas(!activeOfertas)
-      : setActiveOfertas(activeOfertas);
+    setUltimosStocks(!activeUltimosStocks);
   };
 
-  const ofertas = () => {
-    activeNuevos
-      ? setActiveNuevos(!activeNuevos)
-      : setActiveNuevos(activeNuevos);
-    activeMasVendidos
-      ? setMasVendidos(!activeMasVendidos)
-      : setMasVendidos(activeMasVendidos);
-    setActiveOfertas(!activeOfertas);
-  };
-
-  let array = [
-    {
-      nombre: "1Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "2Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "3Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "4Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "5Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "6Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "7Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "8Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "9Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "10Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-  ];
+  useEffect(() => {
+    productosTotales();
+  }, []);
 
   return (
     <>
@@ -127,23 +72,20 @@ export default function Inicio() {
             NUESTROS PRODUCTOS <span className="blanco">.</span>
           </h2>
           <div className="selectsInicio">
-            <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
+            {/*  <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
               NUEVOS
             </p>
             <p
-              className={activeMasVendidos ? "underline" : ""}
-              onClick={masVendidos}
+              className={activeUltimosStocks ? "underline" : ""}
+              onClick={UltimosStocks}
             >
-              MAS VENDIDOS
-            </p>
-            <p className={activeOfertas ? "underline" : ""} onClick={ofertas}>
-              OFERTAS
-            </p>
+              ULTIMOS STOCKS
+            </p> */}
           </div>
         </div>
         <div className="containerCardsInicio">
-          <Carrousel array={array}></Carrousel>
-          <Carrousel array={array}></Carrousel>
+          <Carrousel array={array1}></Carrousel>
+          <Carrousel array={array2}></Carrousel>
         </div>
         <ItemsShoppy />
         <div className="Registrate">
@@ -154,9 +96,11 @@ export default function Inicio() {
             mes mundialista, por registrarte en nuestra pagina estaras
             participando de un sorteo por una camiseta de la seleccion.
           </p>
-          <a className="buttonInicioRegistrate">REGISTRATE</a>
+          <NavLink to={"/registro"}>
+            <a className="buttonInicioRegistrate">REGISTRATE</a>
+          </NavLink>
         </div>
-        <div className="slider" style={{marginTop:50, marginBottom: 50}}>
+        <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
           <div className="slide-track">
             <div className="slide">
               <img src={adata} height="100" width="250" alt="" />

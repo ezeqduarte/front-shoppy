@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./productos.css";
 import Card from "../../components/card/Card";
 import GoTo from "../../components/GoTo/GoTo";
@@ -13,97 +13,82 @@ import Box from "@mui/material/Box";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Slider from "@mui/material/Slider";
-
-const options = ["Option 1", "Option 2"];
+import { useDispatch, useSelector } from "react-redux";
+import productsActions from "../../redux/actions/productsActions";
+const { productos, productosFiltrados } = productsActions;
 
 export default function Productos() {
-  const [value, setValue] = React.useState(options[0]);
-  const [inputValue, setInputValue] = React.useState("");
+  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
+  let { productosFiltradosArray } = useSelector(
+    (store) => store.productsReducer
+  );
 
-  const [value2, setValue2] = React.useState(options[0]);
-  const [inputValue2, setInputValue2] = React.useState("");
+  let [value, setValue] = React.useState("");
+  let [inputValue, setInputValue] = React.useState("");
 
-  const [value3, setValue3] = React.useState(options[0]);
-  const [inputValue3, setInputValue3] = React.useState("");
+  let [value2, setValue2] = React.useState("");
+  let [inputValue2, setInputValue2] = React.useState("");
 
-  const [value4, setValue4] = React.useState(options[0]);
-  const [inputValue4, setInputValue4] = React.useState("");
+  const dispatch = useDispatch();
+  let [nombre, setNombre] = useState(null);
 
-  let array = [
-    {
-      nombre: "1Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "2Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "3Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "4Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "5Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "6Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "7Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "8Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "9Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "10Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "9Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "10Wireless headphones",
-      marca: "CORSAIR",
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-  ];
-  
+  let [minimo, setMinimo] = useState(null);
+  let [maximo, setMaximo] = useState(null);
+
+  let [peticion, setPeticion] = useState("");
+
+  const tipos = [...new Set(TodosLosproductos.map((x) => x.category))];
+  const marcas = [...new Set(TodosLosproductos.map((x) => x.brand))];
+
+  const productosTotales = async () => {
+    dispatch(productos());
+  };
+
+  useEffect(() => {
+    productosTotales();
+  }, []);
+
+  const filtroTexto = (e) => {
+    setNombre(e.target.value);
+  };
+
+  const filtroMaxPrice = (e) => {
+    setMinimo(e.target.value);
+  };
+  const filtroMinPrice = (e) => {
+    setMaximo(e.target.value);
+  };
+
+  useEffect(() => {
+    let peticionVariable = "?";
+
+    if (nombre !== "" && nombre !== null) {
+      peticionVariable += `name=${nombre}&`;
+    }
+    if (value !== "" && value !== null) {
+      peticionVariable += `category=${value}&`;
+    }
+    if (value2 !== "" && value2 !== null) {
+      peticionVariable += `brand=${value2}&`;
+    }
+    if (minimo !== "" && minimo !== null) {
+      peticionVariable += `minPrice=${minimo}&`;
+    }
+    if (maximo !== "" && maximo !== null) {
+      peticionVariable += `maxPrice=${maximo}&`;
+    }
+
+    setPeticion(peticionVariable);
+  }, [nombre, value, value2, minimo, maximo]);
+
+  const peticionProductosFiltrados = async () => {
+    dispatch(productosFiltrados({ peticion: peticion }));
+  };
+
+  useEffect(() => {
+    peticionProductosFiltrados();
+  }, [peticion]);
+
   return (
     <>
       <div className="mainProductos">
@@ -125,12 +110,17 @@ export default function Productos() {
       <div className="mc-containerProductos" id="productos">
         <div className="mc-ContainerFiltros">
           <h2 className="mc-subtituloProducto">Busca tu Producto</h2>
-          <TextField id="outlined-basic" label="Nombre" variant="outlined" />
+          <TextField
+            onChange={filtroTexto}
+            id="name"
+            label="Nombre"
+            variant="outlined"
+          />
           {/* <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
               <div>{`inputValue: '${inputValue}'`}</div> */}
           <br />
           <Autocomplete
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
@@ -140,9 +130,9 @@ export default function Productos() {
               setInputValue(newInputValue);
             }}
             id="controllable-states-demo"
-            options={options}
+            options={tipos}
             sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Tipos" />}
+            renderInput={(params) => <TextField {...params} label="Tipo" />}
           />
           {/* <h3 className='titulos-input'>Marca</h3>
             <select name="" id="" className='mc-inputs'></select>
@@ -154,7 +144,7 @@ export default function Productos() {
           <br />
           <Autocomplete
             value={value2}
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
             onChange={(event, newValue) => {
               setValue2(newValue);
             }}
@@ -163,16 +153,16 @@ export default function Productos() {
               setInputValue2(newInputValue);
             }}
             id="controllable-states-demo"
-            options={options}
+            options={marcas}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Marca" />}
           />
           {/* <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
               <div>{`inputValue: '${inputValue}'`}</div> */}
-          <br />
+          {/*  <br />
           <Autocomplete
             value={value3}
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
             onChange={(event, newValue) => {
               setValue3(newValue);
             }}
@@ -185,12 +175,12 @@ export default function Productos() {
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Color" />}
           />
-          {/* <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
-              <div>{`inputValue: '${inputValue}'`}</div> */}
+           <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
+              <div>{`inputValue: '${inputValue}'`}</div> 
           <br />
           <Autocomplete
             value={value4}
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
             onChange={(event, newValue) => {
               setValue4(newValue);
             }}
@@ -202,22 +192,27 @@ export default function Productos() {
             options={options}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Tipos" />}
-          />
+          /> */}
           <br />
+          
           {/* <input type="range" className='input-filterRange'/>
             <input type="range" className='input-filterRange' /> */}
           <h3 className="titulos-inputPrecio">Precio</h3>
           <div className="mc-containerPrecios">
             <TextField
-              id="outlined-basic"
-              label="$ Minimo"
+              id="maxPrice"
+              onChange={filtroMaxPrice}
+              placeholder="$ Maximo"
               sx={{ width: 120 }}
+              type="number"
               variant="outlined"
             />
             <h4 className="mc-guionPrecio">-</h4>
             <TextField
-              id="outlined-basic"
-              label="$ Maximo"
+              id="minPrice"
+              onChange={filtroMinPrice}
+              placeholder="$ Maximo"
+              type="number"
               sx={{ width: 120 }}
               variant="outlined"
             />
@@ -226,14 +221,20 @@ export default function Productos() {
         </div>
         <div className="mc-containerCardsProductos">
           <div className="mc-containerTitulosProductos">
-            <h2 className="mc-TituloProductos">Nuestra Tienda<span className="blanco">.</span></h2>
+            <h2 className="mc-TituloProductos">
+              Nuestra Tienda<span className="blanco">.</span>
+            </h2>
           </div>
-          {array.map((x) => (
-            <Card objeto={x} key={x._id}></Card>
-          ))}
+          {productosFiltradosArray.length > 0
+            ? productosFiltradosArray.map((x) => (
+                <Card objeto={x} texto="COMPRAR" key={x._id}></Card>
+              ))
+
+              
+            : <h4>No se encontraron productos con su busqueda</h4> }
         </div>
       </div>
-      <div className="slider" style={{marginTop:50, marginBottom: 50}}>
+      <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
         <div className="slide-track">
           <div className="slide">
             <img src={adata} height="100" width="250" alt="" />
