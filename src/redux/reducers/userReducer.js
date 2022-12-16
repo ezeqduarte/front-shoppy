@@ -23,7 +23,7 @@ const userReducer = createReducer(initialState, (builder) => {
     if (success) {
       let { user, token } = response;
       localStorage.setItem("token", JSON.stringify({ token: { user: token } }));
-      console.log(user);
+
       let newState = {
         ...state,
         nombre: user.name,
@@ -56,7 +56,7 @@ const userReducer = createReducer(initialState, (builder) => {
 
     if (success) {
       let { user, token } = response;
-      console.log(user);
+
       let newState = {
         ...state,
         nombre: user.name,

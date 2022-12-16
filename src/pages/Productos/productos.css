@@ -19,20 +19,26 @@
   border-right: 1px solid rgba(3, 3, 3, 0.223);
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 300px;
   padding: 20px 20px;
-
   margin-top: 28px;
 }
 .mc-containerCardsProductos {
   display: flex;
   align-content: flex-start;
   justify-content: center;
+  align-items: center;
   flex-grow: 1;
   padding: 40px;
   gap: 30px;
   flex-wrap: wrap;
 }
+
+.mc-containerCardsProductos h4 {
+ font-size: xx-large;
+}
+
+
 .mc-containerTitulosProductos {
   display: flex;
   justify-content: center;
@@ -80,18 +86,32 @@
 .input-filterRange {
   margin-bottom: 15px;
 }
+
+.fotoSinFiltro{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fotoSinFiltro img{
+  width: 45%;
+  height: 70%; 
+}
+
 .mc-containerPublicidad {
   margin-top: 40px;
   margin-bottom: 10px;
   width: 100%;
-  height: 100%;
+  height: 550px;
   background-image: url("https://img.globaldata.pt/products/CC-9011231-WW_9.jpg");
   background-size: cover;
   object-position: center;
   border-radius: 12px;
   /* background-position: center; */
 }
-.titulos-inputPrecio{
+.titulos-inputPrecio {
   margin-bottom: 10px;
   letter-spacing: 2px;
   font-size: 20px;
@@ -112,14 +132,13 @@
     margin-left: 0;
     border-right: none;
   }
-  .mc-containerPrecios{
+  .mc-containerPrecios {
     justify-content: center;
   }
-  .titulos-inputPrecio{
+  .titulos-inputPrecio {
     text-align: center;
   }
 }
-
 
 /* ----------------------------------------------------------------------------------------- */
 @keyframes scroll {

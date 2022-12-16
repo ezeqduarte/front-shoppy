@@ -68,7 +68,7 @@ export default function Productos() {
     if (value !== "" && value !== null) {
       peticionVariable += `category=${value}&`;
     }
-    if (value !== "" && value2 !== null) {
+    if (value2 !== "" && value2 !== null) {
       peticionVariable += `brand=${value2}&`;
     }
     if (minimo !== "" && minimo !== null) {
@@ -80,8 +80,6 @@ export default function Productos() {
 
     setPeticion(peticionVariable);
   }, [nombre, value, value2, minimo, maximo]);
-
-  console.log(peticion);
 
   const peticionProductosFiltrados = async () => {
     dispatch(productosFiltrados({ peticion: peticion }));
@@ -196,6 +194,7 @@ export default function Productos() {
             renderInput={(params) => <TextField {...params} label="Tipos" />}
           /> */}
           <br />
+          
           {/* <input type="range" className='input-filterRange'/>
             <input type="range" className='input-filterRange' /> */}
           <h3 className="titulos-inputPrecio">Precio</h3>
@@ -226,9 +225,13 @@ export default function Productos() {
               Nuestra Tienda<span className="blanco">.</span>
             </h2>
           </div>
-          {productosFiltradosArray.map((x) => (
-            <Card objeto={x} texto="COMPRAR" key={x._id}></Card>
-          ))}
+          {productosFiltradosArray.length > 0
+            ? productosFiltradosArray.map((x) => (
+                <Card objeto={x} texto="COMPRAR" key={x._id}></Card>
+              ))
+
+              
+            : <h4>No se encontraron productos con su busqueda</h4> }
         </div>
       </div>
       <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>

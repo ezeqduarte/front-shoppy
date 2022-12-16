@@ -9,13 +9,15 @@ import { NavLink } from "react-router-dom";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function Card({ objeto, texto }) {
-  /* console.log(objeto); */
+
 
   let cartel = "";
 
   if (objeto.stock < 8) {
     cartel = "POCO STOCK";
   }
+
+
 
   return (
     <div className="card">

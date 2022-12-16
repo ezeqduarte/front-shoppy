@@ -37,7 +37,7 @@ const reIngress = createAsyncThunk("reIngress", async (token) => {
       },
     };
   } catch (error) {
-    console.log("");
+
     return {
       success: false,
       response: error.response.data.message,

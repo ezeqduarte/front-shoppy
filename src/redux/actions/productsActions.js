@@ -30,7 +30,7 @@ const productosFiltrados = createAsyncThunk("productosFiltrados", async ({petici
     const res = await axios.get(`${API}product/${peticion}`);
     const productosConStock = res.data.response.filter(producto=>producto.stock !== 0)
 
-    console.log(productosConStock);
+
     if (res.data.success) {
       return {
         success: true,

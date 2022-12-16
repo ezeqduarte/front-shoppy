@@ -22,14 +22,14 @@ export default function DetalleProducto() {
   }
 
   const sumarAlCarrito = () => {
-    console.log("sumarCarro");
+
     if (cantidad < producto?.stock) {
       setCantidad(cantidad + 1);
     }
   };
 
   const restarAlCarrito = () => {
-    console.log("restarCarro");
+
     if (cantidad > 0) {
       setCantidad(cantidad - 1);
     }

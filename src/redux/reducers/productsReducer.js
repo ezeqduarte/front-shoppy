@@ -10,7 +10,7 @@ const initialState = {
 const productsReducer = createReducer(initialState, (builder) => {
   builder.addCase(productos.fulfilled, (state, action) => {
     const { success, response } = action.payload;
-    console.log(action.payload);
+
     if (success) {
       return {
         ...state,
