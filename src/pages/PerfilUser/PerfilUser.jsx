@@ -52,9 +52,7 @@ export default function PerfilUser() {
 
   let [value, setValue] = useState();
 
-  useEffect(() => {
-    setValue(email);
-  }, [email]);
+  let {editUser}=userActions
 
   const [showPassword, setShowPassword] = React.useState(true);
   const [showPassword2, setShowPassword2] = React.useState(true);
@@ -360,7 +358,7 @@ export default function PerfilUser() {
                       color="text.black"
                       gutterBottom
                     >
-                      Tenés un total de 82 gamer coins. Para ver el detalle de
+                      Tenés un total de 82 coins. Para ver el detalle de
                       tus movimientos entrá
                     </Typography>
                   </div>
