@@ -14,17 +14,17 @@ const initialState = {
   logged: false,
   carrito: [],
   favoritos: [],
-  date:''
+  date: "",
 };
 
 const userReducer = createReducer(initialState, (builder) => {
-
   builder.addCase(ingress.fulfilled, (state, action) => {
     const { success, response } = action.payload;
 
     if (success) {
       let { user, token } = response;
       localStorage.setItem("token", JSON.stringify({ token: { user: token } }));
+
       let newState = {
         ...state,
         nombre: user.name,
@@ -39,7 +39,7 @@ const userReducer = createReducer(initialState, (builder) => {
         logged: true,
         carrito: user.products,
         favoritos: user.favorites,
-        token: token
+        token: token,
       };
       return newState;
     } else {
@@ -69,6 +69,13 @@ const userReducer = createReducer(initialState, (builder) => {
         logged: true,
         token: token,
         rol: user.role,
+        foto: user.photo,
+        edad: user.age,
+        email: user.email,
+        logged: true,
+        carrito: user.products,
+        favoritos: user.favorites,
+        token: token,
       };
       return newState;
     } else {

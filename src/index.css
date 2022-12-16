@@ -20,3 +20,7 @@ li {
 window {
   scroll-behavior: smooth;
 }
+
+.negrita {
+  font-weight: 700;
+}

@@ -1,5 +1,6 @@
 import userReducer from "./userReducer";
+import productsReducer from "./productsReducer";
 
-const rootReducer = {userReducer};
+const rootReducer = { userReducer, productsReducer };
 
 export default rootReducer;

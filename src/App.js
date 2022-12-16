@@ -6,6 +6,8 @@ import Administrador from "./pages/Administrador/Administrador";
 import Bienvenida from "./pages/Bienvenida/Bienvenida";
 import Carrito from "./pages/Carrito/Carrito";
 import Consultas from "./pages/Consultas/Consultas";
+import DetalleProducto from "./pages/DetalleProducto/DetalleProducto";
+import Error404 from "./pages/Error404/Error404";
 import Ingresar from "./pages/Ingresar/Ingresar";
 import Inicio from "./pages/Inicio/Inicio";
 import PerfilUser from "./pages/PerfilUser/PerfilUser";
@@ -14,9 +16,12 @@ import Registro from "./pages/Registrarte/Registro";
 import userActions from "./redux/actions/userActions";
 
 function App() {
-  let { rol, nombre, logged } = useSelector((store) => store.userReducer);
+  let { rol, nombre, apellido, logged, token } = useSelector(
+    (store) => store.userReducer
+  );
   const { reIngress } = userActions;
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));
@@ -35,12 +40,14 @@ function App() {
       </Routes>
       <Main>
         <Routes>
+          <Route path="*" element={<Error404 />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/productos" element={<Productos />} />
           <Route path="/consultas" element={<Consultas />} />
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/admin" element={<Administrador />} />
-          <Route path="/perfil" element={<PerfilUser />}/>
+          <Route path="/perfil" element={<PerfilUser />} />
+          <Route path="/detalle-producto/:id" element={<DetalleProducto />} />
         </Routes>
       </Main>
     </>

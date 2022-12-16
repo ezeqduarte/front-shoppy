@@ -24,13 +24,13 @@
   transform: skewY(390deg) !important;
 }
 .card::after {
-  content: 'CORSAIR';
+  content: 'SHOPPY';
   position: absolute;
   bottom: 0;
   left: 0;
   font-weight: 600;
   font-size: 6.5em;
-  color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.346);
 }
 .card .card-headphone {
   position: relative;
