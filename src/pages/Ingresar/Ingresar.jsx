@@ -22,7 +22,6 @@ export default function Ingresar() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [loginUsuario, setLoginUsuario] = React.useState({
     password: "",
-    password: "",
   });
   const { ingress } = userActions;
   const form = React.useRef();
