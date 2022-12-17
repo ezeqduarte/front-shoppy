@@ -101,7 +101,7 @@
     flex-direction: column;
 }
 .mc-buttonCoins{
-    background-color: #FF5733!important;
+    background-color: #ef837b !important;
     margin-top: 20px!important;
 }
 .mc-subContainerCoins{
@@ -120,7 +120,7 @@
 .mc-renderInput,.mc-renderInput2{
     height: 112px;
     /* border: .5px solid rgba(165, 165, 165, 0.825); */
-    border: .5px solid #FF5733;
+    border: .5px solid #ef837b;
     border-radius: 5px;
     margin-bottom: 30px;
     display: flex;

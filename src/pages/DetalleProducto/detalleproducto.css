@@ -18,28 +18,28 @@
 }
 
 .MainProductosDetalleEd h2 {
-    text-align: center;
-    padding-top: 45px;
+  text-align: center;
+  padding-top: 45px;
 }
 
-.contadorParaCarrito{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+.contadorParaCarrito {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.contadorParaCarrito p{
-   margin: 0;
-   font-size: 1.5rem;
-   margin: 0px 10px;
-   cursor: pointer;
+.contadorParaCarrito p {
+  margin: 0;
+  font-size: 1.5rem;
+  margin: 0px 10px;
+  cursor: pointer;
 }
 
-#agregarAlCarrito{
-    width: 100%;
-    text-align: center;
-    font-size: 1rem;
+#agregarAlCarrito {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
 }
 
 .HeaderProductosDetalleEd h2 {
@@ -77,8 +77,7 @@
 .cardDetalleDeProductoEd {
   display: flex;
   width: 100%;
-
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   padding: 35px;
 }
@@ -95,7 +94,6 @@
 }
 
 .BotonIrAlCarrito:hover {
-  
   color: #ef837b;
 }
 
@@ -139,9 +137,9 @@
 }
 
 .IconosyParrafosAdicionales {
-    display: flex;
-    align-items: center;
-    margin: 0px 15px;
+  display: flex;
+  align-items: center;
+  margin: 0px 15px;
 }
 
 @media (max-width: 992px) {
@@ -155,11 +153,11 @@
     width: 60%;
   }
 
-  .IconosyParrafosAdicionales{
+  .IconosyParrafosAdicionales {
     flex-direction: column;
   }
 
   .InfoDetalleDeProductoEd {
     width: 95%;
-}
+  }
 }

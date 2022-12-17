@@ -10,30 +10,44 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import API from "../../config/api";
+import { useDispatch, useSelector } from "react-redux";
+import productsActions from "../../redux/actions/productsActions";
 import "./detalleproducto.css";
 
 export default function DetalleProducto() {
+  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
   const { id } = useParams();
-  let [producto, setProducto] = useState();
-  const [cantidad, setCantidad] = useState(0);
-  async function productoDatos() {
-    const res = await axios.get(`${API}product/${id}`);
-    setProducto(res.data.response);
-  }
+  const { productos } = productsActions;
+  let producto = TodosLosproductos.filter((x) => x._id === id);
+  producto = producto[0];
+  const dispatch = useDispatch();
+
+  let [cantidad, setCantidad] = useState(1);
+
+  useEffect(() => {
+    dispatch(productos());
+  }, []);
 
   const sumarAlCarrito = () => {
-
     if (cantidad < producto?.stock) {
       setCantidad(cantidad + 1);
     }
   };
 
   const restarAlCarrito = () => {
-
-    if (cantidad > 0) {
+    if (cantidad > 1) {
       setCantidad(cantidad - 1);
     }
   };
+
+
+  const agregarAlCarrito = () => {
+
+
+    console.log("estoy agregando al carrito");
+
+  }
+
 
   let arrayDeEspecificaciones = [];
 
@@ -45,11 +59,11 @@ export default function DetalleProducto() {
     }
   }
 
-  useEffect(() => {}, [producto]);
-
-  useEffect(() => {
-    productoDatos();
-  }, []);
+  function separator(numb) {
+    var str = numb.toString().split(".");
+    str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return str.join(".");
+}
 
   return (
     <>
@@ -97,7 +111,7 @@ export default function DetalleProducto() {
             <div className="contadorParaCarrito">
               <p onClick={restarAlCarrito}>-</p> <p>{cantidad}</p>{" "}
               <p onClick={sumarAlCarrito}>+</p>
-              <p id="agregarAlCarrito">Agregar al carrito</p>
+              <p id="agregarAlCarrito" onClick={agregarAlCarrito}>Agregar al carrito</p>
               <NavLink className="BotonIrAlCarrito" to={"/carrito"}>
                 <ShoppingCart fontSize="large" />
                 <p id="agregarAlCarrito">Ir al carrito</p>
@@ -110,7 +124,7 @@ export default function DetalleProducto() {
                 className="
               negrita blanco"
               >
-                $ {producto?.price}
+                $ {separator(producto?.price)}
               </p>
               <p
                 className="

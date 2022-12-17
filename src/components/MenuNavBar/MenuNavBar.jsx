@@ -36,7 +36,7 @@ export default function TemporaryDrawer() {
 
   const { logout } = userActions;
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const logoutAccion = () => {
     dispatch(logout(token));
@@ -138,18 +138,23 @@ export default function TemporaryDrawer() {
     <div>
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
-        { !logged ? <Button onClick={toggleDrawer(anchor, true)}>
-                      <AccessibilityNewOutlinedIcon
-                          color="success"
-                          fontSize="large">
-                      </AccessibilityNewOutlinedIcon> 
-                    </Button>
-                  : <Button onClick={toggleDrawer(anchor, true)}>
-                      <Avatar className="mc-iconoAvatarNavbar" sx={{ bgcolor: deepOrange[500] }}>
-                            {nombre?.charAt(0)}
-                      </Avatar>
-                    </Button>
-        }
+          {!logged ? (
+            <Button onClick={toggleDrawer(anchor, true)}>
+              <AccessibilityNewOutlinedIcon
+                color="success"
+                fontSize="large"
+              ></AccessibilityNewOutlinedIcon>
+            </Button>
+          ) : (
+            <Button onClick={toggleDrawer(anchor, true)}>
+              <Avatar
+                className="mc-iconoAvatarNavbar"
+                sx={{ bgcolor: "#ef837b" }}
+              >
+                {nombre?.charAt(0)}
+              </Avatar>
+            </Button>
+          )}
           <Drawer
             anchor={anchor}
             open={state[anchor]}

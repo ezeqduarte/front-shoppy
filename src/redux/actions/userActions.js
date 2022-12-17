@@ -4,7 +4,6 @@ import API from "../../config/api";
 
 const ingress = createAsyncThunk("ingress", async (datos) => {
   try {
-    
     const res = await axios.post(`${API}auth/signin`, datos);
 
     if (res.data.success) {
@@ -38,7 +37,6 @@ const reIngress = createAsyncThunk("reIngress", async (token) => {
       },
     };
   } catch (error) {
-
     return {
       success: false,
       response: error.response.data.message,
@@ -64,37 +62,69 @@ const logout = createAsyncThunk("logout", async (token) => {
     };
   }
 });
-const editUser = createAsyncThunk("editUser", async  ({token,data})=>{
-      
-  let url = `${API}/auth/me`
+const editUser = createAsyncThunk("editUser", async ({ token, data }) => {
+  let url = `${API}/auth/me`;
   let headers = { headers: { Authorization: `Bearer ${token}` } };
 
-      try {
-        let res = await axios.patch(url,data,headers)
-        console.log(res.data)
-        if(res.data.response._id)  {
-
-        return {
-          
-        }
-      }else{
-        return {
-          
-        }
-      }
-    }catch(error){
-      console.log(error);
-      return {
-        success: false, response:"error"
-      }
+  try {
+    let res = await axios.patch(url, data, headers);
+    console.log(res.data);
+    if (res.data.response._id) {
+      return {};
+    } else {
+      return {};
     }
-      })
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      response: "error",
+    };
+  }
+});
+
+const getDatos = createAsyncThunk("getDatos", async ({ token }) => {
+  let url = `${API}auth/me`;
+  let headers = { headers: { Authorization: `Bearer ${token}` } };
+
+  try {
+    let res = await axios.get(url, null, headers);
+    return {
+      success: true,
+      response: res.data.response,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      response: error.message,
+    };
+  }
+});
+
+const agregarAcarro = createAsyncThunk("agregarAcarro", async ({ token , producto }) => {
+  let url = `${API}auth/me`;
+  let headers = { headers: { Authorization: `Bearer ${token}` } };
+
+  try {
+    let res = await axios.patch(url, producto, headers);
+    return {
+      success: true,
+      response: res.data.response,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      response: error.message,
+    };
+  }
+});
 
 const userActions = {
   ingress,
   reIngress,
   logout,
-  editUser
+  editUser,
+  getDatos,
 };
 
 export default userActions;

@@ -111,15 +111,27 @@ const userReducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(editUser.fulfilled, (state, action) => {
-    console.log(action.payload)
-    return{
-      
+    console.log(action.payload);
+    return {};
+  });
+
+  builder.addCase(getDatos.fulfilled, (state, action) => {
+    const { success, response } = action.payload;
+    if (success) {
+      let newState = {
+        ...state,
+        carrito: response.products,
+        favoritos: response.favorites,
+      };
+      return newState;
+    } else {
+      let newState = {
+        ...state,
+        message: response,
+      };
+      return newState;
     }
   });
 });
-
-
-
-
 
 export default userReducer;

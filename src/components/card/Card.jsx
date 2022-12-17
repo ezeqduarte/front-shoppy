@@ -9,15 +9,17 @@ import { NavLink } from "react-router-dom";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export default function Card({ objeto, texto }) {
-
-
   let cartel = "";
 
   if (objeto.stock < 8) {
     cartel = "POCO STOCK";
   }
 
-
+  function separator(numb) {
+    var str = numb.toString().split(".");
+    str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return str.join(".");
+}
 
   return (
     <div className="card">
@@ -41,7 +43,8 @@ export default function Card({ objeto, texto }) {
       <div className="cartel">{cartel}</div>
       <div className="card-infos">
         <h3 className="card-title">{objeto.name}</h3>
-        <h2 className="price">$ {objeto.price}</h2>
+        <h2 className="price">$ {separator(objeto.price)}</h2>
+       
         <NavLink className="buy" to={`/detalle-producto/${objeto._id}`}>
           {texto}
         </NavLink>

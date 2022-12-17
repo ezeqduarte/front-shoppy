@@ -218,6 +218,7 @@ export default function Productos() {
             />
           </div>
           <aside className="mc-containerPublicidad"></aside>
+          <aside className="mc-containerPublicidad2"></aside>
         </div>
         <div className="mc-containerCardsProductos">
           <div className="mc-containerTitulosProductos">
