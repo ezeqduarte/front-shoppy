@@ -71,8 +71,8 @@ export default function Inicio() {
           <h2>
             NUESTROS PRODUCTOS <span className="blanco">.</span>
           </h2>
-          <div className="selectsInicio">
-            {/*  <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
+          {/* <div className="selectsInicio">
+              <p className={activeNuevos ? "underline" : ""} onClick={nuevos}>
               NUEVOS
             </p>
             <p
@@ -80,8 +80,8 @@ export default function Inicio() {
               onClick={UltimosStocks}
             >
               ULTIMOS STOCKS
-            </p> */}
-          </div>
+            </p> 
+          </div> */}
         </div>
         <div className="containerCardsInicio">
           <Carrousel array={array1}></Carrousel>

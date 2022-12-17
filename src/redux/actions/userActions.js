@@ -4,7 +4,6 @@ import API from "../../config/api";
 
 const ingress = createAsyncThunk("ingress", async (datos) => {
   try {
-    
     const res = await axios.post(`${API}auth/signin`, datos);
 
     if (res.data.success) {
@@ -38,7 +37,6 @@ const reIngress = createAsyncThunk("reIngress", async (token) => {
       },
     };
   } catch (error) {
-
     return {
       success: false,
       response: error.response.data.message,
@@ -64,37 +62,44 @@ const logout = createAsyncThunk("logout", async (token) => {
     };
   }
 });
-const editUser = createAsyncThunk("editUser", async  ({token,data})=>{
-      
-  let url = `${API}/auth/me`
+const editUser = createAsyncThunk("editUser", async ({ token, data }) => {
+  
+  let url = `${API}auth/me`;
   let headers = { headers: { Authorization: `Bearer ${token}` } };
 
-      try {
-        let res = await axios.patch(url,data,headers)
-        console.log(res.data)
-        if(res.data.response._id)  {
+  try {
 
-        return {
-          
-        }
-      }else{
-        return {
-          
-        }
-      }
-    }catch(error){
-      console.log(error);
+    let res = await axios.patch(url,data, headers);
+    
+    if (res.data.id) {
+     
       return {
-        success: false, response:"error"
-      }
+        responseId: res.data.id,
+        success: true,
+        response: data,
+      };
+    } else {
+     
+      return {
+        success: false,
+        response: res.data.message,
+      };
     }
-      })
+  } 
+  catch (error) {
+     
+      return {
+        success: false,
+        response: 'error',
+      };
+  }
+});
 
 const userActions = {
   ingress,
   reIngress,
   logout,
-  editUser
+  editUser,
 };
 
 export default userActions;

@@ -17,6 +17,8 @@ import {
   AccordionSummary,
 } from "@mui/material";
 
+import EditIcon from "@mui/icons-material/Edit";
+
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Visibility from "@mui/icons-material/Visibility";
@@ -36,6 +38,8 @@ import GoTo from "../../components/GoTo/GoTo";
 import userActions from "../../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
+import { toast, ToastContainer } from "react-toastify";
+
 import adata from "../../imagenes/adata.png";
 import amd from "../../imagenes/amd.png";
 import asrock from "../../imagenes/asrock.png";
@@ -46,16 +50,24 @@ import zotac from "../../imagenes/zotacGaming.png";
 
 export default function PerfilUser() {
   const dispatch = useDispatch();
-  const { logged, nombre, apellido, date, dni, email, direccion } = useSelector(
-    (state) => state.userReducer
-  );
 
-  let [value, setValue] = useState();
+  const { logged, nombre, apellido, date, dni, email, direccion, nick, token } =
+    useSelector((state) => state.userReducer);
 
-  let {editUser}=userActions
+  let { editUser } = userActions;
 
   const [showPassword, setShowPassword] = React.useState(true);
   const [showPassword2, setShowPassword2] = React.useState(true);
+
+  const [inputNick, setInputNick] = useState("");
+  const [inputMail, setInputMail] = useState("");
+  const [inputContra, setInputContra] = useState("");
+  const [inputVerificarContra, setInputVerificarContra] = useState("");
+  const [inputNombreDni, setInputNombreDni] = useState("");
+  const [inputDni, setInputDni] = useState("");
+  const [inputDomicilio, setInputDomicilio] = useState("");
+  const [inputCP, setInputCP] = useState("");
+  const [inputTelefono, setInputTelefono] = useState("");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
@@ -64,7 +76,500 @@ export default function PerfilUser() {
     event.preventDefault();
   };
 
-  console.log(direccion);
+  let editNick = async () => {
+
+    if (inputNick === "") {
+      toast.error("Debe Completar todos los campos !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+
+          let data = { nick: inputNick}
+
+          try {
+
+              let res = await dispatch(editUser({ token, data }));
+          
+
+              if (res.payload.success) {
+                    toast.success(`El campo fue editado con exito `, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+              } else {
+                res.payload.response.map((x) =>
+                    toast.error(`${x}`, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                    ); 
+                    console.log(res)
+              }
+
+          }
+          catch(error){
+
+              console.log(error.message)
+
+          }
+        }
+    
+  };
+
+  let editMail = async () => {
+  
+
+    if (inputMail === "") {
+      toast.error("Debe Completar todos los campos !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+
+          let data = { email: inputMail}
+
+          try {
+
+              let res = await dispatch(editUser({ token, data }));
+          
+
+              if (res.payload.success) {
+                    toast.success(`El campo fue editado con exito `, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+              } else {
+                res.payload.response.map((x) =>
+                    toast.error(`${x}`, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                    ); 
+                    console.log(res)
+              }
+
+          }
+          catch(error){
+
+              console.log(error.message)
+
+          }
+    }
+  };
+
+  let editContra = async () => {
+    console.log(inputContra);
+    console.log(inputVerificarContra);
+
+    if(inputContra.length!==0 && inputVerificarContra.length!==0){
+
+        if(inputContra===inputVerificarContra){
+            
+                let data = { password: inputContra}
+        
+            try {
+        
+                let res = await dispatch(editUser({ token, data }));
+                  
+                      if (res.payload.success) {
+                            toast.success(`El campo fue editado con exito `, {
+                                position: "bottom-left",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                        });
+                      } else {
+                        res.payload.response.map((x) =>
+                            toast.error(`${x}`, {
+                                position: "bottom-left",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                              })
+                            ); 
+                            console.log(res)
+                      }
+        
+                  }
+                  catch(error){
+        
+                      console.log(error.message)
+        
+                  }
+          }
+          else{
+
+            toast.error("Los caracteres no coinciden", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+
+          }
+    }
+    else{
+
+        toast.error("Se Debe Completar todos los campos !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+    }
+    
+  };
+
+  let editNomDni = async () => {
+
+    if (inputNombreDni === "") {
+      toast.error("Debe Completar todos los campos !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+
+          let data = { nameDni: inputNombreDni}
+
+          try {
+
+              let res = await dispatch(editUser({ token, data }));
+          
+
+              if (res.payload.success) {
+                    toast.success(`El campo fue editado con exito `, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+              } else {
+                res.payload.response.map((x) =>
+                    toast.error(`${x}`, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                    ); 
+                    console.log(res)
+              }
+
+          }
+          catch(error){
+
+              console.log(error.message)
+
+          }
+    }
+
+  };
+  let editDni = async () => {
+
+    if (inputDni === "") {
+      toast.error("Debe Completar todos los campos !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+
+          let data = { dni: inputDni}
+
+          try {
+
+              let res = await dispatch(editUser({ token, data }));
+          
+
+              if (res.payload.success) {
+                    toast.success(`El campo fue editado con exito `, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+              } else {
+                res.payload.response.map((x) =>
+                    toast.error(`${x}`, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                    ); 
+                    console.log(res)
+              }
+
+          }
+          catch(error){
+
+              console.log(error.message)
+
+          }
+    }
+
+  };
+  let editDom = async () => {
+    
+
+    if (inputDomicilio === "") {
+      toast.error("Debe Completar todos los campos !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+
+          let data = { adress: inputDomicilio}
+
+          try {
+
+              let res = await dispatch(editUser({ token, data }));
+          
+
+              if (res.payload.success) {
+                    toast.success(`El campo fue editado con exito `, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+              } else {
+                res.payload.response.map((x) =>
+                    toast.error(`${x}`, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                    ); 
+                    console.log(res)
+              }
+
+          }
+          catch(error){
+
+              console.log(error.message)
+
+          }
+    }
+
+  };
+
+  let editCP = async () => {
+    console.log(inputCP);
+
+    if (inputCP === "") {
+      toast.error("Debe Completar todos los campos !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+
+          let data = { CP: inputCP}
+
+          try {
+
+              let res = await dispatch(editUser({ token, data }));
+          
+
+              if (res.payload.success) {
+                    toast.success(`El campo fue editado con exito `, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+              } else {
+                res.payload.response.map((x) =>
+                    toast.error(`${x}`, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                    ); 
+                    console.log(res)
+              }
+
+          }
+          catch(error){
+
+              console.log(error.message)
+
+          }
+    }
+
+  };
+
+  let editTel = async () => {
+    
+
+    if (inputTelefono === "") {
+      toast.error("Debe Completar todos los campos !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+
+          let data = { phone: inputTelefono}
+
+          try {
+
+              let res = await dispatch(editUser({ token, data }));
+          
+
+              if (res.payload.success) {
+                    toast.success(`El campo fue editado con exito `, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                });
+              } else {
+                res.payload.response.map((x) =>
+                    toast.error(`${x}`, {
+                        position: "bottom-left",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                      })
+                    ); 
+                    console.log(res)
+              }
+
+          }
+          catch(error){
+
+              console.log(error.message)
+
+          }
+    }
+
+  };
+
   return (
     <>
       <div className="mainPerfil">
@@ -78,26 +583,36 @@ export default function PerfilUser() {
             componentes para tu pc. Por eso es que decidimos darte este pequeño
             lugar para que te sientas aun mas parte de todo esto.
           </p>
-          <a href="#consultas" className="buttonInicio">
+          <a href="#perfil" className="buttonInicio">
             <GoTo texto="VER MAS" />
           </a>
         </div>
       </div>
-      <div className="mc-containerPerfil">
-        {/* <Avatar className='mc-iconoAvatar' sx={{ bgcolor: deepOrange[500] }}>N</Avatar> */}
+      <div id="perfil" className="mc-containerPerfil">
         <Card className="mc-cardPerfil">
           <Avatar className="mc-iconoAvatar" sx={{ bgcolor: deepOrange[500] }}>
-            {nombre.charAt(0)}
+            {/* {nombre.charAt(0)} */}
           </Avatar>
           <CardContent className="mc-containerSubCard">
-            <Typography
-              className="mc-tituloConsultasCartel"
-              sx={{ fontSize: 20 }}
-              color="text.black"
-              gutterBottom
-            >
-              {nombre + " " + apellido}
-            </Typography>
+            {nick !== undefined ? (
+              <Typography
+                className="mc-tituloConsultasCartel"
+                sx={{ fontSize: 20 }}
+                color="text.black"
+                gutterBottom
+              >
+                {nick}
+              </Typography>
+            ) : (
+              <Typography
+                className="mc-tituloConsultasCartel"
+                sx={{ fontSize: 20 }}
+                color="text.black"
+                gutterBottom
+              >
+                {nombre + " " + apellido}
+              </Typography>
+            )}
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               Perfil creado : {date}
             </Typography>
@@ -125,61 +640,112 @@ export default function PerfilUser() {
                 </p>
               </div>
               <div className="mc-containerDatosPersonales">
-                <TextField
-                  id="nombre"
-                  label="Nombre de Usuario"
-                  variant="outlined"
-                  onChange={(event) => setValue(event.target.value)}
-                  className="mc-inputsPerfil"
-                />
-                <TextField
-                  id="email"
-                  label="E-mail"
-                  variant="outlined"
-                  className="mc-inputsPerfil"
-                />
-                <FormControl variant="outlined" className="mc-inputsPerfil">
-                  <InputLabel htmlFor="password">Contraseña</InputLabel>
-                  <OutlinedInput
-                    id="password"
-                    type={!showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Contraseña"
+                <div className="mc-inputsPerfil">
+                  <TextField
+                    id="nombre"
+                    label="Nombre de Usuario"
+                    variant="outlined"
+                    className="mc-inputsPerfilAcordion"
+                    onChange={(text) => setInputNick(text.target.value)}
                   />
-                </FormControl>
-                <FormControl variant="outlined" className="mc-inputsPerfil">
-                  <InputLabel htmlFor="confirmacionPassword">
-                    Verifique su contraseña{" "}
-                  </InputLabel>
-                  <OutlinedInput
-                    id="confirmacionPassword"
-                    type={!showPassword2 ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword2}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword2 ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Verifique su contraseña"
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="mc-buttonAcordion"
+                    onClick={editNick}
+                  >
+                    {<EditIcon className="mc-iconButtonPerfil" />}
+                  </Button>
+                </div>
+                <div className="mc-inputsPerfil">
+                  <TextField
+                    id="email"
+                    label="E-mail"
+                    variant="outlined"
+                    className="mc-inputsPerfilAcordion"
+                    onChange={(text) => setInputMail(text.target.value)}
                   />
-                </FormControl>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="mc-buttonAcordion"
+                    onClick={editMail}
+                  >
+                    {<EditIcon className="mc-iconButtonPerfil" />}
+                  </Button>
+                </div>
+                <div className="mc-inputsPerfilContra">
+                  <div className="mc-inputsPerfilContraSub ">
+                    <FormControl
+                      variant="outlined"
+                      onChange={(text) => setInputContra(text.target.value)}
+                    >
+                      <InputLabel htmlFor="password">Contraseña</InputLabel>
+                      <OutlinedInput
+                        id="password"
+                        type={!showPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Contraseña"
+                      />
+                    </FormControl>
+                    <FormControl
+                      variant="outlined"
+                      onChange={(text) =>
+                        setInputVerificarContra(text.target.value)
+                      }
+                    >
+                      <InputLabel htmlFor="confirmacionPassword">
+                        Verifique su contraseña{" "}
+                      </InputLabel>
+                      <OutlinedInput
+                        id="confirmacionPassword"
+                        type={!showPassword2 ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword2}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword2 ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                        label="Verifique su contraseña"
+                      />
+                    </FormControl>
+                  </div>
+                  <div className="mc-containerButtonContra">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      className="mc-buttonAcordionContra"
+                      onClick={editContra}
+                    >
+                      {<EditIcon className="mc-iconButtonPerfilContra" />}
+                    </Button>
+                  </div>
+                </div>
               </div>
             </AccordionDetails>
           </Accordion>
@@ -217,43 +783,97 @@ export default function PerfilUser() {
                 </p>
               </div>
               <div className="mc-containerDatosPersonales">
-                <TextField
-                  id="nombreDeDNI"
-                  label="Nombre de DNI"
-                  variant="outlined"
-                  className="mc-inputsPerfil"
-                />
-                <TextField
-                  id="dni"
-                  label="DNI"
-                  variant="outlined"
-                  className="mc-inputsPerfil"
-                />
-                <TextField
-                  id="domicilio"
-                  label="Domicilio"
-                  variant="outlined"
-                  className="mc-inputsPerfil"
-                />
-                <TextField
-                  id="codigoPostal"
-                  label="Codigo Postal"
-                  variant="outlined"
-                  className="mc-inputsPerfil"
-                />
-                <TextField
-                  id="agregarNumeroDeContacto"
-                  label="Agregar numero de contacto"
-                  variant="outlined"
-                  className="mc-inputsPerfil"
-                />
+                <div className="mc-inputsPerfil">
+                  <TextField
+                    id="nombreDeDNI"
+                    label="Nombre de DNI"
+                    variant="outlined"
+                    className="mc-inputsPerfilAcordion"
+                    onChange={(text) => setInputNombreDni(text.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="mc-buttonAcordion"
+                    onClick={editNomDni}
+                  >
+                    {<EditIcon className="mc-iconButtonPerfil" />}
+                  </Button>
+                </div>
+                <div className="mc-inputsPerfil">
+                  <TextField
+                    id="dni"
+                    label="DNI"
+                    variant="outlined"
+                    className="mc-inputsPerfilAcordion"
+                    onChange={(text) => setInputDni(text.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="mc-buttonAcordion"
+                    onClick={editDni}
+                  >
+                    {<EditIcon className="mc-iconButtonPerfil" />}
+                  </Button>
+                </div>
+                <div className="mc-inputsPerfil">
+                  <TextField
+                    id="domicilio"
+                    label="Domicilio"
+                    variant="outlined"
+                    className="mc-inputsPerfilAcordion"
+                    onChange={(text) => setInputDomicilio(text.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="mc-buttonAcordion"
+                    onClick={editDom}
+                  >
+                    {<EditIcon className="mc-iconButtonPerfil" />}
+                  </Button>
+                </div>
+                <div className="mc-inputsPerfil">
+                  <TextField
+                    id="codigoPostal"
+                    label="Codigo Postal"
+                    variant="outlined"
+                    className="mc-inputsPerfilAcordion"
+                    onChange={(text) => setInputCP(text.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="mc-buttonAcordion"
+                    onClick={editCP}
+                  >
+                    {<EditIcon className="mc-iconButtonPerfil" />}
+                  </Button>
+                </div>
+                <div className="mc-inputsPerfil">
+                  <TextField
+                    id="agregarNumeroDeContacto"
+                    label="Agregar numero de contacto"
+                    variant="outlined"
+                    className="mc-inputsPerfilAcordion"
+                    onChange={(text) => setInputTelefono(text.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    size="small"
+                    className="mc-buttonAcordion"
+                    onClick={editTel}
+                  >
+                    {<EditIcon className="mc-iconButtonPerfil" />}
+                  </Button>
+                </div>
               </div>
             </AccordionDetails>
           </Accordion>
-          
         </div>
-        <div>
-        <Accordion>
+        <div className="mc-containerFacturas">
+          <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -314,7 +934,6 @@ export default function PerfilUser() {
           </Accordion>
         </div>
         <div className="mc-containerFacturasYPreguntas">
-          
           <div className="mc-containerPregYCoins">
             <div className="mc-containerDatosPersonales">
               <h2 className="mc-titulosCardsPerfil">Mis Facturas :</h2>
@@ -358,8 +977,8 @@ export default function PerfilUser() {
                       color="text.black"
                       gutterBottom
                     >
-                      Tenés un total de 82 coins. Para ver el detalle de
-                      tus movimientos entrá
+                      Tenés un total de 82 coins. Para ver el detalle de tus
+                      movimientos entrá
                     </Typography>
                   </div>
                   <CardActions>
