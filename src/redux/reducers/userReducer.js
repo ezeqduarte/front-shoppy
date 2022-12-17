@@ -15,6 +15,8 @@ const initialState = {
   carrito: [],
   favoritos: [],
   date: "",
+  token: "",
+  id:"",
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -111,15 +113,12 @@ const userReducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(editUser.fulfilled, (state, action) => {
-    console.log(action.payload)
-    return{
-      
-    }
+    
+    return {
+      ...state,
+      id:action.payload.id 
+    };
   });
 });
-
-
-
-
 
 export default userReducer;
