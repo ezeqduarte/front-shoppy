@@ -22,7 +22,6 @@ export default function Carrito() {
   }, [])
 
 
-  console.log(carrito);
 
 
   return (

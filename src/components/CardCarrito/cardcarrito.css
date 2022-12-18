@@ -4,6 +4,7 @@
   height: 200px;
   display: flex;
   border-radius: 5px;
+  position: relative;
 }
 
 .cardCarrito hr {
@@ -50,4 +51,12 @@
   .cardCarrito img {
     width: 30%;
   }
+}
+.mc-botonCarritoEliminar{
+  position: absolute!important;
+  background-color:  #ef837b !important;
+}
+.botonCardCarrito{
+  cursor: pointer;
+  font-size: 20px;
 }
