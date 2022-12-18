@@ -12,18 +12,14 @@ import userActions from "../../redux/actions/userActions";
 
 export default function Carrito() {
   let { carrito, token } = useSelector((store) => store.userReducer);
-  const {getDatos} = userActions
-  const dispatch = useDispatch()
+  const { getDatos } = userActions;
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-
-    dispatch(getDatos({token: token}))
-
-  }, [])
-
+  useEffect(() => {
+    dispatch(getDatos({ token: token }));
+  }, []);
 
   console.log(carrito);
-
 
   return (
     <>
@@ -47,9 +43,16 @@ export default function Carrito() {
           TUS PRODUCTOS SELECCIONADOS <span className="blanco">.</span>
         </h2>
         <div className="edContainerCardsCarrito">
-          {carrito.map((x) => (
-            <CardCarrito producto={x} key={x._id} />
-          ))}
+          {carrito.length === 0 ? (
+            <div className="sinarticulosencarro">
+              <h3>No tienes articulos en el carrito</h3>
+              <div className="botonIrAproductos">
+                Investigar los productos disponibles
+              </div>
+            </div>
+          ) : (
+            carrito.map((x) => <CardCarrito producto={x} key={x._id} />)
+          )}
         </div>
         <div className="IconosDetallesEd">
           <div>
