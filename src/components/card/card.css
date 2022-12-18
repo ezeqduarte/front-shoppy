@@ -8,6 +8,19 @@
   border: none;
   border-radius: none;
 }
+
+.agregarAcarroDesdeProductos{
+  display: flex;
+  gap: 10px;
+}
+
+.sumarAlcarritoProductosED{
+  display: flex;
+  gap: 20px;
+}
+
+
+
 .card::before {
   content: '';
   position: absolute;
@@ -68,6 +81,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
 }
 .card .card-infos .price {
   font-size: 24px;

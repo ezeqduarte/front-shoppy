@@ -122,7 +122,7 @@ export default function PerfilUser() {
                         theme: "light",
                       })
                     ); 
-                    console.log(res)
+                   
               }
 
           }
@@ -182,7 +182,7 @@ export default function PerfilUser() {
                         theme: "light",
                       })
                     ); 
-                    console.log(res)
+                   
               }
 
           }
@@ -195,8 +195,7 @@ export default function PerfilUser() {
   };
 
   let editContra = async () => {
-    console.log(inputContra);
-    console.log(inputVerificarContra);
+   
 
     if(inputContra.length!==0 && inputVerificarContra.length!==0){
 
@@ -232,7 +231,7 @@ export default function PerfilUser() {
                                 theme: "light",
                               })
                             ); 
-                            console.log(res)
+                          
                       }
         
                   }
@@ -320,7 +319,7 @@ export default function PerfilUser() {
                         theme: "light",
                       })
                     ); 
-                    console.log(res)
+                   
               }
 
           }
@@ -378,7 +377,7 @@ export default function PerfilUser() {
                         theme: "light",
                       })
                     ); 
-                    console.log(res)
+                   
               }
 
           }
@@ -437,7 +436,7 @@ export default function PerfilUser() {
                         theme: "light",
                       })
                     ); 
-                    console.log(res)
+                    
               }
 
           }
@@ -451,7 +450,6 @@ export default function PerfilUser() {
   };
 
   let editCP = async () => {
-    console.log(inputCP);
 
     if (inputCP === "") {
       toast.error("Debe Completar todos los campos !", {
@@ -497,7 +495,7 @@ export default function PerfilUser() {
                         theme: "light",
                       })
                     ); 
-                    console.log(res)
+                 
               }
 
           }
@@ -557,7 +555,7 @@ export default function PerfilUser() {
                         theme: "light",
                       })
                     ); 
-                    console.log(res)
+                   
               }
 
           }

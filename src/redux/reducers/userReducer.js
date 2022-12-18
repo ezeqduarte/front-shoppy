@@ -1,6 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import userActions from "../actions/userActions";
-const { ingress, reIngress, logout, getDatos, editUser } = userActions;
+const { ingress, reIngress, logout, getDatos, agregarAcarro, editUser } =
+  userActions;
 
 const initialState = {
   nombre: "",
@@ -16,7 +17,7 @@ const initialState = {
   favoritos: [],
   date: "",
   token: "",
-  id:"",
+  id: "",
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -113,11 +114,46 @@ const userReducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(editUser.fulfilled, (state, action) => {
-    
     return {
       ...state,
-      id:action.payload.id 
+      id: action.payload.id,
     };
+  });
+
+  builder.addCase(getDatos.fulfilled, (state, action) => {
+    const { success, response } = action.payload;
+  
+    if (success) {
+      let newState = {
+        ...state,
+        carrito: response.products,
+        favoritos: response.favorites,
+      };
+      return newState;
+    } else {
+      let newState = {
+        ...state,
+        message: response,
+      };
+      return newState;
+    }
+  });
+
+  builder.addCase(agregarAcarro.fulfilled, (state, action) => {
+    const { success, response } = action.payload;
+    if (success) {
+      let newState = {
+        ...state,
+        carrito: response,
+      };
+      return newState;
+    } else {
+      let newState = {
+        ...state,
+        message: response,
+      };
+      return newState;
+    }
   });
 });
 

@@ -1,82 +1,53 @@
-.cardCarritoEd {
-  background-color: rgb(238, 238, 238);
-  width: 550px;
-  height: 230px;
+.cardCarrito {
+  background-color: rgb(239, 239, 239);
+  width: 80%;
+  height: 200px;
   display: flex;
-  position: relative;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 
-.fotocardCarritoEd {
-  width: 40%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  background-color: rgb(193, 193, 193);
+.cardCarrito hr {
+  width: 80%;
 }
 
-.cardCarritoEd div img {
+.cardCarrito img {
+  background-color: rgb(227, 227, 227);
+  width: 20%;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.preciosCarrito{
+  display: flex;
+  justify-content: space-evenly;
   width: 100%;
-  object-fit: cover;
 }
 
-.fotocardCarritoEd svg {
-  width: 100px ;
-  height: 100px;
-}
-
-.buttonDeleteCarrito {
-  border: none !important;
-  background-color: red !important;
-  color: white !important;
-  font-weight: bolder;
-  padding: 15px;
-  width: 20px;
-  height: 20px;
-  border-radius: 360px;
-  position: absolute;
+.infoCardCarrito {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 5px;
-  right: 5px;
-  cursor: pointer;
-}
-
-.infoCardCarrito  {
-  display: flex;
-  flex-grow: 1;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
- }
-
-.infoCardCarrito h4 {
- text-align: center;
- width: 100%;
- font-weight: 700;
+  flex-grow: 1;
+  justify-content: center;
 }
 
-.sumarRestarProductos{
+.contadorCarrito{
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 30px;
-  font-size: 15px;
+  width: 100%;
 }
 
-.botonesCarritoRestaSuma{
-  background-color: #b1b1b1;
-  color: white;
-  border-radius: 360px;
-  cursor: pointer;
-  padding: 0px 5px;
-  font-weight: 500;
+@media (max-width: 992px) {
+  .cardCarrito {
+    background-color: gray;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cardCarrito img {
+    width: 30%;
+  }
 }
-
-.cantidadCarrito{
-  font-size: 25px;
-  font-weight: 600;
-}
-
-

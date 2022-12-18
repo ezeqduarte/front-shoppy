@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/ClearOutlined";
 import "primeicons/primeicons.css";
 import "./cardcarrito.css";
-import { Button } from "primereact/button";
+
+import funciones from "../../config/funciones";
+const { separator } = funciones;
 
 export default function CardCarrito({ producto }) {
-  let [cantidad, setCantidad] = useState(producto.cantidad);
+
+ 
+
+  let [cantidad, setCantidad] = useState(producto?.quantity);
   let [precioTotal, setPrecioTotal] = useState(
-    producto.precio * producto.cantidad
+    producto?.productId?.price * producto?.quantity
   );
 
   const sumar = () => {
@@ -19,24 +24,29 @@ export default function CardCarrito({ producto }) {
   };
 
   useEffect(() => {
-    setPrecioTotal(producto.precio * cantidad);
+    setPrecioTotal(producto?.productId?.price * cantidad);
   }, [cantidad]);
 
-  return (
-    <div className="cardCarritoEd">
-      <div className="fotocardCarritoEd">
-        <img src={producto.foto} alt="" />
-        <div className="buttonDeleteCarrito">X</div>
-      </div>
 
+
+  return (
+    <div className="cardCarrito">
+      <img src={producto?.productId?.photo} alt={producto?.productId?._id} />
       <div className="infoCardCarrito">
-        <h5>{producto.tipo.toUpperCase()}</h5>
-        <h4 className="blanco">{producto.nombre}</h4>
-        <p>Cantidad en carro</p>
-        <div className="sumarRestarProductos">
-          <p className="botonesCarritoRestaSuma" onClick={restar}>-</p>
-          <p  className="cantidadCarrito">{cantidad}</p>
-          <p className="botonesCarritoRestaSuma" onClick={sumar}>+</p>
+        <h5>
+          {producto?.quantity}x {producto?.productId?.category}{" "}
+          {producto?.productId?.brand} {producto?.productId?.name}
+        </h5>
+        <hr className="hr" />
+        <div className="contadorCarrito">
+          <p onClick={restar}>-</p>
+          <p>{cantidad}</p>
+          <p onClick={sumar}>+</p>
+        </div>
+        <hr className="hr" />
+        <div className="preciosCarrito">
+          <p>Unitario: $ {separator(producto?.productId?.price)}</p>
+          <p>Subtotal: $ {separator(precioTotal)}</p>
         </div>
       </div>
     </div>

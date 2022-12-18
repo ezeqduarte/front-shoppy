@@ -105,12 +105,26 @@
   margin-bottom: 10px;
   width: 100%;
   height: 550px;
+  /* background-image: url("https://img.globaldata.pt/products/CC-9011231-WW_9.jpg"); */
+  background-image: url("https://cdn.discordapp.com/attachments/830354293822324736/1053650918874292234/Sin_titulo-1.jpg");
+  background-size: cover;
+  object-position: center;
+  border-radius: 12px;
+  /* background-position: center; */
+}
+
+.mc-containerPublicidad2 {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 550px;
   background-image: url("https://img.globaldata.pt/products/CC-9011231-WW_9.jpg");
   background-size: cover;
   object-position: center;
   border-radius: 12px;
   /* background-position: center; */
 }
+
 .titulos-inputPrecio {
   margin-bottom: 10px;
   letter-spacing: 2px;

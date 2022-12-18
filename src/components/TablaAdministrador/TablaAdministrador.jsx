@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import MaterialReactTable from "material-react-table";
 import {
   Box,
@@ -14,105 +14,21 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
-
-const data = [
-  {
-    _id: "4fgsfigoas22",
-    nombre: "1Wireless headphones",
-    marca: "CORSAIR",
-    tipo: "Auriculares",
-    stock: 3,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "2Wireless headphones",
-    marca: "CORSAIR",
-    tipo: "Auriculares",
-    stock: 5,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "3Wireless headphones",
-    marca: "CORSAIR",
-    tipo: "Auriculares",
-    stock: 5,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "4Wireless headphones",
-    marca: "CORSAIR",
-    tipo: "Auriculares",
-    stock: 5,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "5Wireless headphones",
-    marca: "CORSAIR",
-    tipo: "Auriculares",
-    stock: 17,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "6Wireless headphones",
-    marca: "CORSAIR",
-    tipo: "Auriculares",
-    stock: 15,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "7Wireless headphones",
-    marca: "CORSAIR",
-    tipo: "Auriculares",
-    stock: 35,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "8Wireless headphones",
-    marca: "HyperX",
-    tipo: "Auriculares",
-    stock: 53,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    nombre: "9Wireless headphones",
-    marca: "Acer",
-    tipo: "Auriculares",
-    stock: 1,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-  {
-    _id: "4fgsfigoas22",
-    nombre: "10Wireless headphones",
-    tipo: "Auriculares",
-    marca: "Logitech",
-    stock: 17,
-    precio: 40.99,
-    foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    descripcion: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-  },
-];
-
+import { useDispatch, useSelector } from "react-redux";
+import productsActions from "../../redux/actions/productsActions";
 
 
 const TablaAdministrador = () => {
+  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
+  const { productos } = productsActions;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(productos());
+  }, []);
+
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [tableData, setTableData] = useState(() => data);
+  const [tableData, setTableData] = useState(() => TodosLosproductos);
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleCreateNewRow = (values) => {
@@ -181,7 +97,16 @@ const TablaAdministrador = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: "nombre",
+        accessorKey: '_id',
+        header: 'ID',
+        enableColumnOrdering: false,
+        enableEditing: false, //disable editing on this column
+        enableSorting: false,
+        size: 80,
+      },
+      
+      {
+        accessorKey: "name",
         header: "Nombre",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -189,7 +114,7 @@ const TablaAdministrador = () => {
         }),
       },
       {
-        accessorKey: "marca",
+        accessorKey: "brand",
         header: "Marca",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -197,16 +122,8 @@ const TablaAdministrador = () => {
         }),
       },
       {
-        accessorKey: "tipo",
+        accessorKey: "category",
         header: "Tipo",
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
-      {
-        accessorKey: "color",
-        header: "Color",
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
@@ -214,7 +131,7 @@ const TablaAdministrador = () => {
       },
 
       {
-        accessorKey: "precio",
+        accessorKey: "price",
         header: "Precio",
         size: 80,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
@@ -230,23 +147,14 @@ const TablaAdministrador = () => {
           type: "number",
         }),
       },
+
       {
-        accessorKey: "descripcion",
-        header: "Descripcion",
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: "string",
-        }),
-      },
-      {
-        accessorKey: "foto",
+        accessorKey: "photo",
         header: "Foto",
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
-          type: "string",
-          
+          type: "image",
         }),
-        
       },
     ],
     [getCommonEditTextFieldProps]
@@ -264,7 +172,7 @@ const TablaAdministrador = () => {
           },
         }}
         columns={columns}
-        data={tableData}
+        data={TodosLosproductos}
         editingMode="modal" //default
         enableColumnOrdering
         enableEditing

@@ -3,21 +3,26 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
 import MenuNavBar from "../MenuNavBar/MenuNavBar";
-import { Badge } from '@mui/material';
+import { Badge } from "@mui/material";
 import "../Navbar/navbar.css";
 import { FavoriteBorder, ShoppingCartOutlined } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
-  const location = useLocation(); // once ready it returns the 'window.location' object
+  const location = useLocation();
+  let { rol, nombre, carrito, favoritos, apellido, logged, token } =
+    useSelector((store) => store.userReducer);
   const [url, setUrl] = useState(null);
   useEffect(() => {
     setUrl(location.pathname);
   }, [location]);
 
   let [mostrarMenu, setMostrarMenu] = useState(false);
-  const menuOn = (event) => {
+  const menuOn = () => {
     setMostrarMenu(!mostrarMenu);
   };
+
+ 
 
   return (
     <header className="bg-transparent">
@@ -87,14 +92,14 @@ export default function NavBar() {
           </div>
         </div>
         <div className="iconos">
-        <IconButton aria-label="cart">
-            <Badge badgeContent={4} color="primary">
-              <FavoriteBorder  />
+          <IconButton aria-label="cart">
+            <Badge badgeContent={favoritos.length} color="primary">
+              <FavoriteBorder />
             </Badge>
           </IconButton>
           <IconButton aria-label="cart">
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartOutlined  />
+            <Badge badgeContent={carrito.length} color="primary">
+              <ShoppingCartOutlined />
             </Badge>
           </IconButton>
           <MenuNavBar />

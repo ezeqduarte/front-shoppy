@@ -27,10 +27,6 @@ export default function Inicio() {
     setProductos(res.payload.response);
   };
 
-  useEffect(() => {
-    productosTotales();
-  }, []);
-
   const nuevos = () => {
     setActiveNuevos(!activeNuevos);
     activeUltimosStocks
