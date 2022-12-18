@@ -19,7 +19,6 @@ export default function Carrito() {
     dispatch(getDatos({ token: token }));
   }, []);
 
-  console.log(carrito);
 
   return (
     <>

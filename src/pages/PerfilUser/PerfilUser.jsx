@@ -589,7 +589,7 @@ export default function PerfilUser() {
       <div id="perfil" className="mc-containerPerfil">
         <Card className="mc-cardPerfil">
           <Avatar className="mc-iconoAvatar" sx={{ bgcolor: deepOrange[500] }}>
-            {/* {nombre.charAt(0)} */}
+           {nombre.charAt(0)} 
           </Avatar>
           <CardContent className="mc-containerSubCard">
             {nick !== undefined ? (
@@ -934,12 +934,12 @@ export default function PerfilUser() {
         <div className="mc-containerFacturasYPreguntas">
           <div className="mc-containerPregYCoins">
             <div className="mc-containerDatosPersonales">
-              <h2 className="mc-titulosCardsPerfil">Mis Facturas :</h2>
+              <h2 className="mc-titulosCardsPerfil">Mis Preguntas :</h2>
               <Card className="mc-cardPerfilFacturas">
                 <CardContent className="mc-containerCardCoinsYPreguntas">
                   <div className="mc-subContainerCoins">
                     <Typography className="mc-titulosCoins">
-                      <HelpIcon /> Mis Preguntas
+                      <HelpIcon /> Tenes un total de 2 preguntas
                     </Typography>
                     <Typography
                       className="mc-tituloCartelCoins"
@@ -967,7 +967,7 @@ export default function PerfilUser() {
                 <CardContent className="mc-containerCardCoinsYPreguntas">
                   <div className="mc-subContainerCoins">
                     <Typography className="mc-titulosCoins">
-                      <PaidIcon /> Mis Coins
+                      <PaidIcon /> 82 Coins
                     </Typography>
                     <Typography
                       className="mc-tituloCartelCoins"
