@@ -1,52 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./carrito.css";
 import GoTo from "../../components/GoTo/GoTo";
 import CardCarrito from "../../components/CardCarrito/CardCarrito";
+import {
+  Done,
+  LocalShippingOutlined,
+  SecurityOutlined,
+} from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import userActions from "../../redux/actions/userActions";
 
 export default function Carrito() {
-  let array = [
-    {
-      _id: "4fgsfigoas22",
-      cantidad: 1,
-      nombre: "7Wireless headphones",
-      marca: "CORSAIR",
-      tipo: "Auriculares",
-      stock: 35,
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      _id: "4fgsfigoas22",
-      nombre: "8Wireless headphones",
-      marca: "HyperX",
-      tipo: "Auriculares",
-      cantidad: 4,
-      stock: 53,
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      nombre: "9Wireless headphones",
-      marca: "Acer",
-      cantidad: 1,
-      tipo: "Auriculares",
-      stock: 1,
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      _id: "4fgsfigoas22",
-      nombre: "10Wireless headphones",
-      tipo: "Auriculares",
-      marca: "Logitech",
-      cantidad: 2,
-      stock: 17,
-      precio: 40.99,
-      foto: "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-      descripcion:
-        "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-  ];
+  let { carrito, token } = useSelector((store) => store.userReducer);
+  const {getDatos} = userActions
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+
+    dispatch(getDatos({token: token}))
+
+  }, [])
+
+
+
 
   return (
     <>
@@ -70,9 +46,32 @@ export default function Carrito() {
           TUS PRODUCTOS SELECCIONADOS <span className="blanco">.</span>
         </h2>
         <div className="edContainerCardsCarrito">
-          {array.map((x) => (
-            <CardCarrito producto={x} key={x._id}  />
+          {carrito.map((x) => (
+            <CardCarrito producto={x} key={x._id} />
           ))}
+        </div>
+        <div className="IconosDetallesEd">
+          <div>
+            <p className="IconosyParrafosAdicionales">
+              {" "}
+              <SecurityOutlined fontSize="large" />
+              Garantía - 12 meses
+            </p>
+          </div>
+          <div>
+            <p className="IconosyParrafosAdicionales">
+              {" "}
+              <Done fontSize="large" />
+              Stock disponible
+            </p>
+          </div>
+          <div>
+            <p className="IconosyParrafosAdicionales">
+              {" "}
+              <LocalShippingOutlined fontSize="large" />
+              Envíos a todo el país
+            </p>
+          </div>
         </div>
       </div>
     </>

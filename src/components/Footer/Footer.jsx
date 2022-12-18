@@ -2,7 +2,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "../Footer/footer.css";
 
+import { useSelector } from "react-redux";
+
 export default function Footer() {
+
+  const { logged } = useSelector((state) => state.userReducer);
+
   return (
     <div className="footer">
       <div className="divMayorFooter">
@@ -22,9 +27,14 @@ export default function Footer() {
             <NavLink to="/productos" style={{ textDecoration: "none" }}>
               <li>Productos</li>
             </NavLink>
-            <NavLink to="/carrito" style={{ textDecoration: "none" }}>
-              <li>Carrito</li>
-            </NavLink>
+            
+            {logged ?    
+                        <NavLink to="/carrito" style={{ textDecoration: "none" }}>
+                          <li>Carrito</li>
+                        </NavLink>
+
+                    : <></>  }
+
             <NavLink to="/consultas" style={{ textDecoration: "none" }}>
               <li>Consultas</li>
             </NavLink>

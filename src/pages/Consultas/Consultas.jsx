@@ -27,12 +27,16 @@ import tForce from "../../imagenes/t-force.png";
 import western from "../../imagenes/western-digital.png";
 import zotac from "../../imagenes/zotacGaming.png";
 
+import { useSelector } from "react-redux";
+
 export default function Consultas() {
   const [option, setOption] = React.useState("");
 
   const handleChange = (event) => {
     setOption(event.target.value);
   };
+
+  const { logged } = useSelector((state) => state.userReducer);
 
   return (
     <>
@@ -226,73 +230,79 @@ export default function Consultas() {
           </AccordionDetails>
         </Accordion>
       </div>
-      <div className="mc-containerPregunta">
-        <Card>
-          <CardContent>
-            <Typography
-              className="mc-tituloConsultasCartel"
-              sx={{ fontSize: 20 }}
-              color="text.black"
-              gutterBottom
-            >
-              Consultas
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{ fontSize: 16 }}
-              color="text.black"
-            >
-              Para consultas/reclamos mas especificos, realizarlos en el
-              apartado "Consultas" que se visualiza a continuacion.
-            </Typography>
-          </CardContent>
-        </Card>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel id="demo-simple-select-standard-label">
-            Elija un motivo...
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={option}
-            onChange={handleChange}
-            label="option"
-          >
-            <MenuItem value="">
-              <em>Nada</em>
-            </MenuItem>
-            <MenuItem value={"Consulta sobre un producto"}>
-              Consulta sobre un producto
-            </MenuItem>
-            <MenuItem value={"Consulta general"}>Consulta general</MenuItem>
-            <MenuItem value={"Consulta sobre mi Pedido"}>
-              Consulta sobre mi Pedido
-            </MenuItem>
-            <MenuItem value={"Necesito ayuda para realizar mi compra"}>
-              Necesito ayuda para realizar mi compra
-            </MenuItem>
-            <MenuItem value={"Consulta sobre subir un Comprobante de Pago"}>
-              Consulta sobre subir un Comprobante de Pago
-            </MenuItem>
-            <MenuItem value={"Consulta sobre mi envio"}>
-              Consulta sobre mi envio
-            </MenuItem>
-          </Select>
-        </FormControl>
-        <TextField
-          id="outlined-multiline-static"
-          label="Escriba su Pregunta"
-          multiline
-          rows={4}
-          /* defaultValue="Default Value" */
-          className="mc-inputPregunta"
-        />
-        <div className="mc-containerButton">
-          <Button variant="contained" size="medium" className="mc-buttonSubmit">
-            Enviar
-          </Button>
-        </div>
-      </div>
+      {logged 
+            ? <div className="mc-containerPregunta">
+                    <Card>
+                      <CardContent>
+                        <Typography
+                          className="mc-tituloConsultasCartel"
+                          sx={{ fontSize: 20 }}
+                          color="text.black"
+                          gutterBottom
+                        >
+                          Consultas
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ fontSize: 16 }}
+                          color="text.black"
+                        >
+                          Para consultas/reclamos mas especificos, realizarlos en el
+                          apartado "Consultas" que se visualiza a continuacion.
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                      <InputLabel id="demo-simple-select-standard-label">
+                        Elija un motivo...
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-standard-label"
+                        id="demo-simple-select-standard"
+                        value={option}
+                        onChange={handleChange}
+                        label="option"
+                      >
+                        <MenuItem value="">
+                          <em>Nada</em>
+                        </MenuItem>
+                        <MenuItem value={"Consulta sobre un producto"}>
+                          Consulta sobre un producto
+                        </MenuItem>
+                        <MenuItem value={"Consulta general"}>Consulta general</MenuItem>
+                        <MenuItem value={"Consulta sobre mi Pedido"}>
+                          Consulta sobre mi Pedido
+                        </MenuItem>
+                        <MenuItem value={"Necesito ayuda para realizar mi compra"}>
+                          Necesito ayuda para realizar mi compra
+                        </MenuItem>
+                        <MenuItem value={"Consulta sobre subir un Comprobante de Pago"}>
+                          Consulta sobre subir un Comprobante de Pago
+                        </MenuItem>
+                        <MenuItem value={"Consulta sobre mi envio"}>
+                          Consulta sobre mi envio
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Escriba su Pregunta"
+                      multiline
+                      rows={4}
+                      /* defaultValue="Default Value" */
+                      className="mc-inputPregunta"
+                    />
+                    <div className="mc-containerButton">
+                      <Button variant="contained" size="medium" className="mc-buttonSubmit">
+                        Enviar
+                      </Button>
+                    </div>
+              </div>
+            
+            : <></>
+              
+              }
+      
       <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
         <div className="slide-track">
           <div className="slide">

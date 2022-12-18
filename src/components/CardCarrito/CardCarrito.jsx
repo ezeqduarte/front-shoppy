@@ -2,43 +2,113 @@ import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/ClearOutlined";
 import "primeicons/primeicons.css";
 import "./cardcarrito.css";
-import { Button } from "primereact/button";
+import userActions from "../../redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  Button,
+} from "@mui/material";
+
+import funciones from "../../config/funciones";
+
+const { separator } = funciones;
+
 
 export default function CardCarrito({ producto }) {
-  let [cantidad, setCantidad] = useState(producto.cantidad);
-  let [precioTotal, setPrecioTotal] = useState(
-    producto.precio * producto.cantidad
-  );
 
-  const sumar = () => {
-    setCantidad(cantidad + 1);
+  const dispatch = useDispatch()
+
+  const { agregarAcarro } = userActions;
+  let { carrito, token } = useSelector((store) => store.userReducer);
+
+  let carritoMod=carrito
+
+  console.log(producto)
+
+  let [cantidad, setCantidad] = useState(producto.quantity);
+  let [precioTotal, setPrecioTotal] = useState(
+    producto.productId.price * producto.quantity
+  );
+  
+  let eliminarProducto=(id)=>{
+    carrito=carrito.filter(x => x.productId._id !== id)
+    dispatch(agregarAcarro({token,carrito}))
+  }
+
+  const sumar = (id) => {
+    if(cantidad < producto.productId.stock) {
+      setCantidad(cantidad + 1)
+      carritoMod=carritoMod.map(x => {
+        if (x.productId._id===id){  
+          let y={
+            ...x,
+            quantity: cantidad+1
+          }
+          return y }
+        else{
+          return x
+        }
+      } )
+      console.log(carritoMod)
+      dispatch(agregarAcarro({token,carrito: carritoMod})) 
+    } ;
   };
 
-  const restar = () => {
-    cantidad > 0 ? setCantidad(cantidad - 1) : setCantidad(0);
+  const restar = (id) => {
+    if(cantidad > 1) {
+      setCantidad(cantidad - 1)
+      carritoMod=carritoMod.map(x => {
+        if (x.productId._id===id){  
+          let y={
+            ...x,
+            quantity: cantidad-1
+          }
+          return y }
+        else{
+          return x
+        }
+      } )
+      console.log(carritoMod)
+      dispatch(agregarAcarro({token,carrito: carritoMod})) 
+    } ;
   };
 
   useEffect(() => {
-    setPrecioTotal(producto.precio * cantidad);
+    setPrecioTotal(producto?.productId?.price * cantidad);
   }, [cantidad]);
 
-  return (
-    <div className="cardCarritoEd">
-      <div className="fotocardCarritoEd">
-        <img src={producto.foto} alt="" />
-        <div className="buttonDeleteCarrito">X</div>
-      </div>
+  useEffect(()=>{
+    setPrecioTotal(producto.productId.price * producto.quantity)
+  },[producto.productId.price])
 
+  return (
+    <div className="cardCarrito">
+      <img src={producto?.productId?.photo} alt={producto?.productId?._id} />
       <div className="infoCardCarrito">
-        <h5>{producto.tipo.toUpperCase()}</h5>
-        <h4 className="blanco">{producto.nombre}</h4>
-        <p>Cantidad en carro</p>
-        <div className="sumarRestarProductos">
-          <p className="botonesCarritoRestaSuma" onClick={restar}>-</p>
-          <p  className="cantidadCarrito">{cantidad}</p>
-          <p className="botonesCarritoRestaSuma" onClick={sumar}>+</p>
+        <h5>
+          {producto?.quantity}x {producto?.productId?.category}{" "}
+          {producto?.productId?.brand} {producto?.productId?.name}
+        </h5>
+        <hr className="hr" />
+        <div className="contadorCarrito">
+          <p onClick={()=>restar(producto.productId._id)} className='botonCardCarrito' >-</p>
+          <p>{cantidad}</p>
+          <p onClick={()=>sumar(producto.productId._id)} className='botonCardCarrito'>+</p>
+        </div>
+        <hr className="hr" />
+        <div className="preciosCarrito">
+          <p>Unitario: $ {separator(producto?.productId?.price)}</p>
+          <p>Subtotal: $ {separator(precioTotal)}</p>
         </div>
       </div>
+      <Button
+              variant="contained"
+              size="small"
+              className="mc-botonCarritoEliminar"
+              onClick={()=>eliminarProducto(producto.productId._id)}
+              >
+                Eliminar
+      </Button>
     </div>
   );
 }

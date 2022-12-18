@@ -1,38 +1,79 @@
 import {
   Done,
-  HomeRepairServiceOutlined,
   LocalShippingOutlined,
   SecurityOutlined,
   ShoppingCart,
 } from "@mui/icons-material";
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
-import API from "../../config/api";
+
+import { useDispatch, useSelector } from "react-redux";
+import productsActions from "../../redux/actions/productsActions";
+import userActions from "../../redux/actions/userActions";
 import "./detalleproducto.css";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function DetalleProducto() {
   const { id } = useParams();
-  let [producto, setProducto] = useState();
-  const [cantidad, setCantidad] = useState(0);
-  async function productoDatos() {
-    const res = await axios.get(`${API}product/${id}`);
-    setProducto(res.data.response);
-  }
+  const dispatch = useDispatch();
+
+  const { productos } = productsActions;
+  const { agregarAcarro } = userActions;
+
+  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
+  let { carrito, token } = useSelector((store) => store.userReducer);
+
+  let producto = TodosLosproductos.filter((x) => x._id === id);
+  producto = producto[0];
+
+  let [cantidad, setCantidad] = useState(1);
+
+  useEffect(() => {
+    dispatch(productos());
+  }, []);
 
   const sumarAlCarrito = () => {
-
     if (cantidad < producto?.stock) {
       setCantidad(cantidad + 1);
     }
   };
 
   const restarAlCarrito = () => {
-
-    if (cantidad > 0) {
+    if (cantidad > 1) {
       setCantidad(cantidad - 1);
     }
+  };
+
+
+
+  const agregarAlCarritoFuncion = () => {
+    const nuevoCarrito = [
+      ...new Set(
+        carrito
+          .filter((x) => x.productId._id !== id)
+          .concat({ productId: id, quantity: cantidad })
+      ),
+    ];
+
+    
+
+    dispatch(agregarAcarro({ token: token, carrito: nuevoCarrito }));
+
+    toast.success(
+      `Tienes ${cantidad} ${producto.name} en el carrito`,
+      {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
   };
 
   let arrayDeEspecificaciones = [];
@@ -45,11 +86,13 @@ export default function DetalleProducto() {
     }
   }
 
-  useEffect(() => {}, [producto]);
-
-  useEffect(() => {
-    productoDatos();
-  }, []);
+  function separator(numb) {
+    if (producto) {
+      var str = numb.toString().split(".");
+      str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return str.join(".");
+    }
+  }
 
   return (
     <>
@@ -95,22 +138,27 @@ export default function DetalleProducto() {
             <hr className="hrDetallesProductos" />
 
             <div className="contadorParaCarrito">
+              <p id="CantidadCarrito" onClick={agregarAlCarritoFuncion}>
+                Cantidad
+              </p>
               <p onClick={restarAlCarrito}>-</p> <p>{cantidad}</p>{" "}
               <p onClick={sumarAlCarrito}>+</p>
-              <p id="agregarAlCarrito">Agregar al carrito</p>
+              <p id="agregarAlCarritoo" onClick={agregarAlCarritoFuncion}>
+                Agregar al carrito
+              </p>
               <NavLink className="BotonIrAlCarrito" to={"/carrito"}>
                 <ShoppingCart fontSize="large" />
                 <p id="agregarAlCarrito">Ir al carrito</p>
               </NavLink>
             </div>
-
+            <ToastContainer />
             <hr className="hrDetallesProductos" />
             <div className="PrecioStockDetalles">
               <p
                 className="
               negrita blanco"
               >
-                $ {producto?.price}
+                $ {separator(producto?.price)}
               </p>
               <p
                 className="

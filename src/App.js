@@ -16,12 +16,18 @@ import Registro from "./pages/Registrarte/Registro";
 import userActions from "./redux/actions/userActions";
 
 function App() {
-  let { rol, nombre, apellido, logged, token } = useSelector(
-    (store) => store.userReducer
-  );
-  const { reIngress } = userActions;
+  let { rol, nombre, carrito, favoritos, apellido, logged, token } =
+    useSelector((store) => store.userReducer);
+  const { reIngress, getDatos } = userActions;
   const dispatch = useDispatch();
 
+  console.log(token);
+
+  useEffect(() => {
+    if (logged) {
+      dispatch(getDatos({ token: token }));
+    }
+  }, [logged]);
 
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));
