@@ -1,45 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./carrito.css";
 import GoTo from "../../components/GoTo/GoTo";
 import CardCarrito from "../../components/CardCarrito/CardCarrito";
-import { Done, LocalShippingOutlined, SecurityOutlined } from "@mui/icons-material";
+import {
+  Done,
+  LocalShippingOutlined,
+  SecurityOutlined,
+} from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import userActions from "../../redux/actions/userActions";
 
 export default function Carrito() {
-  let array = [
-    {
-      _id: "4fgsfigoas22",
-      name: "10Wireless headphones",
-      category: "Auriculares",
-      brand: "Logitech",
-      stock: 17,
-      cantidad: 2,
-      price: 40.99,
-      photo:
-        "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      _id: "4fgsfigoas22",
-      name: "10Wireless headphones",
-      category: "Auriculares",
-      brand: "Logitech",
-      stock: 17,
-      cantidad: 2,
-      price: 40.99,
-      photo:
-        "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-    {
-      _id: "4fgsfigoas22",
-      name: "10Wireless headphones",
-      category: "Auriculares",
-      brand: "Logitech",
-      stock: 17,
-      cantidad: 2,
-      price: 40.99,
-      photo:
-        "https://www.corsair.com/lm/es/medias/sys_master/images/images/hb5/h6b/9597775020062/CA-9011185-NA/Gallery/VIRTUOSO_CARBON_01/-CA-9011185-NA-Gallery-VIRTUOSO-CARBON-01.png_515Wx515H",
-    },
-  ];
+  let { carrito, token } = useSelector((store) => store.userReducer);
+  const {getDatos} = userActions
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+
+    dispatch(getDatos({token: token}))
+
+  }, [])
+
+
+  console.log(carrito);
+
 
   return (
     <>
@@ -63,7 +47,7 @@ export default function Carrito() {
           TUS PRODUCTOS SELECCIONADOS <span className="blanco">.</span>
         </h2>
         <div className="edContainerCardsCarrito">
-          {array.map((x) => (
+          {carrito.map((x) => (
             <CardCarrito producto={x} key={x._id} />
           ))}
         </div>

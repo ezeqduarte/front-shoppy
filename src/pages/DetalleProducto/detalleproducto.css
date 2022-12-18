@@ -42,6 +42,23 @@
   font-size: 1rem;
 }
 
+#agregarAlCarritoo {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #ef837b;
+  padding: 10px 0px;
+  color: #f3f3f3;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+#CantidadCarrito {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
 .HeaderProductosDetalleEd h2 {
   color: #f3f3f3;
 }

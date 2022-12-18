@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/ClearOutlined";
 import "primeicons/primeicons.css";
 import "./cardcarrito.css";
-import { Button } from "primereact/button";
-import {
-  Done,
-  LocalShippingOutlined,
-  SecurityOutlined,
-  ShoppingCart,
-} from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+
+import funciones from "../../config/funciones";
+const { separator } = funciones;
 
 export default function CardCarrito({ producto }) {
-  let [cantidad, setCantidad] = useState(producto.cantidad);
+
+ 
+
+  let [cantidad, setCantidad] = useState(producto?.quantity);
   let [precioTotal, setPrecioTotal] = useState(
-    producto.precio * producto.cantidad
+    producto?.productId?.price * producto?.quantity
   );
 
   const sumar = () => {
@@ -26,47 +24,30 @@ export default function CardCarrito({ producto }) {
   };
 
   useEffect(() => {
-    setPrecioTotal(producto.precio * cantidad);
+    setPrecioTotal(producto?.productId?.price * cantidad);
   }, [cantidad]);
 
+
+
   return (
-    <div className="cardDetalleDeProductoEd">
-      <div className="fotoDetalleDeProductoEd">
-        <img src={producto?.photo} alt="" />
-      </div>
-      <div className="InfoDetalleDeProductoEd">
-        <p className="ProductoTitulo">
-          {producto?.name} <span className="blanco">.</span>
-        </p>
-
-        <hr className="hrDetallesProductos" />
-
-        <div className="contadorParaCarrito">
-          <p onClick={restar}>-</p> <p>{cantidad}</p> <p onClick={sumar}>+</p>
-          <p id="agregarAlCarrito">Agregar al carrito</p>
-          <NavLink className="BotonIrAlCarrito" to={"/carrito"}>
-            <ShoppingCart fontSize="large" />
-            <p id="agregarAlCarrito">Ir al carrito</p>
-          </NavLink>
+    <div className="cardCarrito">
+      <img src={producto?.productId?.photo} alt={producto?.productId?._id} />
+      <div className="infoCardCarrito">
+        <h5>
+          {producto?.quantity}x {producto?.productId?.category}{" "}
+          {producto?.productId?.brand} {producto?.productId?.name}
+        </h5>
+        <hr className="hr" />
+        <div className="contadorCarrito">
+          <p onClick={restar}>-</p>
+          <p>{cantidad}</p>
+          <p onClick={sumar}>+</p>
         </div>
-
-        <hr className="hrDetallesProductos" />
-        <div className="PrecioStockDetalles">
-          <p
-            className="
-              negrita blanco"
-          >
-          SUBTOTAL  $ {producto?.price}
-          </p>
-          <p
-            className="
-              negrita blanco"
-          >
-           TOTAL $ {producto?.price*cantidad}
-          </p>
+        <hr className="hr" />
+        <div className="preciosCarrito">
+          <p>Unitario: $ {separator(producto?.productId?.price)}</p>
+          <p>Subtotal: $ {separator(precioTotal)}</p>
         </div>
-        <hr className="hrDetallesProductos" />
-        
       </div>
     </div>
   );

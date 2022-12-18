@@ -63,19 +63,25 @@ const logout = createAsyncThunk("logout", async (token) => {
   }
 });
 const editUser = createAsyncThunk("editUser", async ({ token, data }) => {
-  let url = `${API}/auth/me`;
+  let url = `${API}auth/me`;
   let headers = { headers: { Authorization: `Bearer ${token}` } };
 
   try {
     let res = await axios.patch(url, data, headers);
-    console.log(res.data);
-    if (res.data.response._id) {
-      return {};
+
+    if (res.data.id) {
+      return {
+        responseId: res.data.id,
+        success: true,
+        response: data,
+      };
     } else {
-      return {};
+      return {
+        success: false,
+        response: res.data.message,
+      };
     }
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       response: "error",
@@ -83,41 +89,48 @@ const editUser = createAsyncThunk("editUser", async ({ token, data }) => {
   }
 });
 
-const getDatos = createAsyncThunk("getDatos", async ({ token }) => {
-  let url = `${API}auth/me`;
+const getDatos = createAsyncThunk("getDatos", async ({token}) => {
+
   let headers = { headers: { Authorization: `Bearer ${token}` } };
 
   try {
-    let res = await axios.get(url, null, headers);
+    let res = await axios.get(`${API}auth/me`, headers);
+    
     return {
       success: true,
       response: res.data.response,
     };
   } catch (error) {
+    console.log("aca");
     return {
+      
       success: false,
-      response: error.message,
+      response: "error",
     };
   }
 });
 
-const agregarAcarro = createAsyncThunk("agregarAcarro", async ({ token , producto }) => {
-  let url = `${API}auth/me`;
-  let headers = { headers: { Authorization: `Bearer ${token}` } };
+const agregarAcarro = createAsyncThunk(
+  "agregarAcarro",
+  async ({ token, carrito }) => {
+    let url = `${API}auth/me`;
+    let headers = { headers: { Authorization: `Bearer ${token}` } };
 
-  try {
-    let res = await axios.patch(url, producto, headers);
-    return {
-      success: true,
-      response: res.data.response,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      response: error.message,
-    };
+    try {
+      let res = await axios.patch(url, {products: carrito}, headers);
+      
+      return {
+        success: true,
+        response: res.data.response.products,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        response: error.message,
+      };
+    }
   }
-});
+);
 
 const userActions = {
   ingress,
@@ -125,6 +138,7 @@ const userActions = {
   logout,
   editUser,
   getDatos,
+  agregarAcarro,
 };
 
 export default userActions;

@@ -42,6 +42,39 @@
 }
 .mc-inputsPerfil{
     margin-bottom: 30px!important;
+    display: flex;
+    gap: 10px;
+}
+.mc-inputsPerfilAcordion{
+    width: 95%;
+}
+.mc-buttonAcordion,.mc-buttonAcordionContra{
+    width: 5%;
+    background-color: #FF5733!important;
+}
+.mc-containerButtonContra{
+    display: flex;
+    align-items: center;
+}
+.mc-buttonAcordionContra{
+    height: 45%;
+}
+.mc-iconButtonPerfil{
+    width: 55%!important;
+}
+.mc-iconButtonPerfilContra{
+    width: 65%!important;
+}
+.mc-inputsPerfilContra{
+    display: flex;
+    gap: 2%;
+    margin-bottom: 30px;
+}
+.mc-inputsPerfilContraSub{
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    gap:30px
 }
 .mc-containerMisDatos{
     display: flex;
@@ -51,7 +84,6 @@
 .mc-containerDatosPersonales{
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
 }
 .mc-tituloCartelFactura{
     font-weight: 600!important;
@@ -64,10 +96,7 @@
     font-size: 18px!important;
 }
 .mc-containerFacturas{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 10px;
+    margin-top: 30px;
 }
 .mc-containerSubCardFacturas{
     display: flex;
@@ -145,9 +174,6 @@
     .mc-containerPerfil{
         padding: 15px;
     }
-    .mc-containerFacturas{
-        width: 90%;
-    }
     .mc-containerSubCardFacturas{
         justify-content: space-between;
     }
@@ -158,8 +184,8 @@
     .mc-containerPerfil{
         padding: 15px;
     }
-    .mc-containerFacturas{
-        width: 90%;
+    .mc-inputsPerfilContra{
+        flex-direction: column;
     }
     .mc-containerSubCardFacturas{
         justify-content: space-between;
@@ -169,5 +195,20 @@
     }
     .mc-renderInput2{
         height: 400px;
+    }
+    .mc-containerButtonContra{
+        margin-top: 30px;
+        margin-bottom: 15px;
+        justify-content: center;
+    }
+    .mc-buttonAcordionContra{
+        width: 30%;
+        height: 100%;
+    }
+    .mc-iconButtonPerfilContra{
+        width: 45%!important;
+    }
+    .mc-inputsPerfilContraSub{
+        width: 100%;
     }
   }

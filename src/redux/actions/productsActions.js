@@ -50,6 +50,8 @@ const productosFiltrados = createAsyncThunk("productosFiltrados", async ({petici
 
 
 
+
+
 const productsActions = {productos, productosFiltrados};
 
 export default productsActions;
