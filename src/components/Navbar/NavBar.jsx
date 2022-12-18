@@ -22,8 +22,6 @@ export default function NavBar() {
     setMostrarMenu(!mostrarMenu);
   };
 
- 
-
   return (
     <header className="bg-transparent">
       <nav className="navbar  navbar-expand-lg pt-2 pt-lg-1">
@@ -99,7 +97,9 @@ export default function NavBar() {
           </IconButton>
           <IconButton aria-label="cart">
             <Badge badgeContent={carrito.length} color="primary">
-              <ShoppingCartOutlined />
+              <NavLink to={"/carrito"} style={{color: "#f3f3f3"}}>
+                <ShoppingCartOutlined />
+              </NavLink>
             </Badge>
           </IconButton>
           <MenuNavBar />
