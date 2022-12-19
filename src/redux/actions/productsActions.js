@@ -48,10 +48,73 @@ const productosFiltrados = createAsyncThunk("productosFiltrados", async ({petici
   
 });
 
+const nuevoProducto = createAsyncThunk("nuevoProducto", async ({token, producto}) => {
+
+  let headers = { headers: { Authorization: `Bearer ${token}` } };
+
+  try {
+    let res = await axios.post(`${API}product`, producto, headers);
+    
+    return {
+      success: true,
+      response: res.data.response,
+    };
+  } catch (error) {
+
+    return {
+      
+      success: false,
+      response: "error",
+    };
+  }
+});
+
+const editarProducto = createAsyncThunk("editarProducto", async ({token, producto}) => {
+
+  let headers = { headers: { Authorization: `Bearer ${token}` } };
+
+  try {
+    let res = await axios.put(`${API}product`, producto, headers);
+    
+    return {
+      success: true,
+      response: res.data.response,
+    };
+  } catch (error) {
+
+    return {
+      
+      success: false,
+      response: "error",
+    };
+  }
+});
+
+const eliminarProducto = createAsyncThunk("eliminarProducto", async ({token, id}) => {
+
+  let headers = { headers: { Authorization: `Bearer ${token}` } };
+
+  try {
+    let res = await axios.delete(`${API}product/${id}`, headers);
+    
+    return {
+      success: true,
+      response: res.data.response,
+    };
+  } catch (error) {
+
+    return {
+      
+      success: false,
+      response: "error",
+    };
+  }
+});
 
 
 
 
-const productsActions = {productos, productosFiltrados};
+
+const productsActions = {productos, productosFiltrados, nuevoProducto, editarProducto, eliminarProducto };
 
 export default productsActions;

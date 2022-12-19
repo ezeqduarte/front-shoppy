@@ -1,274 +1,199 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import MaterialReactTable from "material-react-table";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  MenuItem,
-  Stack,
-  TextField,
-  Tooltip,
-} from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
+import "../../pages/Productos/productos.css";
+import "./tablaadministrador.css";
+
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import Slider from "@mui/material/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import productsActions from "../../redux/actions/productsActions";
+import CardAdministrador from "../CardAdministrador/CardAdministrador";
+const { productos, productosFiltrados } = productsActions;
 
-
-const TablaAdministrador = () => {
+export default function TablaAdministrador() {
   let { TodosLosproductos } = useSelector((store) => store.productsReducer);
-  const { productos } = productsActions;
+  let { productosFiltradosArray } = useSelector(
+    (store) => store.productsReducer
+  );
+
+  let [value, setValue] = React.useState("");
+  let [inputValue, setInputValue] = React.useState("");
+
+  let [value2, setValue2] = React.useState("");
+  let [inputValue2, setInputValue2] = React.useState("");
+
+  let [value3, setValue3] = React.useState("");
+  let [inputValue3, setInputValue3] = React.useState("");
+
+  let [value4, setValue4] = React.useState("");
+  let [inputValue4, setInputValue4] = React.useState("");
+
   const dispatch = useDispatch();
+  let [nombre, setNombre] = useState(null);
+
+  let [minimo, setMinimo] = useState(null);
+  let [maximo, setMaximo] = useState(null);
+
+  let [peticion, setPeticion] = useState("");
+
+  const tipos = [...new Set(TodosLosproductos.map((x) => x.category))];
+  const marcas = [...new Set(TodosLosproductos.map((x) => x.brand))];
+
+  const productosTotales = async () => {
+    dispatch(productos());
+  };
 
   useEffect(() => {
-    dispatch(productos());
+    productosTotales();
   }, []);
 
-  const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [tableData, setTableData] = useState(() => TodosLosproductos);
-  const [validationErrors, setValidationErrors] = useState({});
-
-  const handleCreateNewRow = (values) => {
-    tableData.push(values);
-    setTableData([...tableData]);
+  const filtroTexto = (e) => {
+    setNombre(e.target.value);
   };
 
-  const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
-    if (!Object.keys(validationErrors).length) {
-      tableData[row.index] = values;
-      //send/receive api updates here, then refetch or update local table data for re-render
-      setTableData([...tableData]);
-      exitEditingMode(); //required to exit editing mode and close modal
+  const filtroMaxPrice = (e) => {
+    setMinimo(e.target.value);
+  };
+  const filtroMinPrice = (e) => {
+    setMaximo(e.target.value);
+  };
+
+  useEffect(() => {
+    let peticionVariable = "?";
+
+    if (nombre !== "" && nombre !== null) {
+      peticionVariable += `name=${nombre}&`;
     }
+    if (value !== "" && value !== null) {
+      peticionVariable += `category=${value}&`;
+    }
+    if (value2 !== "" && value2 !== null) {
+      peticionVariable += `brand=${value2}&`;
+    }
+    if (minimo !== "" && minimo !== null) {
+      peticionVariable += `minPrice=${minimo}&`;
+    }
+    if (maximo !== "" && maximo !== null) {
+      peticionVariable += `maxPrice=${maximo}&`;
+    }
+
+    setPeticion(peticionVariable);
+  }, [nombre, value, value2, minimo, maximo]);
+
+  const peticionProductosFiltrados = async () => {
+    dispatch(productosFiltrados({ peticion: peticion }));
   };
 
-  const handleCancelRowEdits = () => {
-    setValidationErrors({});
-  };
-
-  const handleDeleteRow = useCallback(
-    (row) => {
-      /*  if (
-        !confirm(`Are you sure you want to delete ${row.getValue("nombre")}`)
-      ) {
-        return;
-      } */
-      //send api delete request here, then refetch or update local table data for re-render
-      tableData.splice(row.index, 1);
-      setTableData([...tableData]);
-    },
-    [tableData]
-  );
-
-  const getCommonEditTextFieldProps = useCallback(
-    (cell) => {
-      return {
-        error: !!validationErrors[cell.id],
-        helperText: validationErrors[cell.id],
-        onBlur: (event) => {
-          const isValid =
-            cell.column.id === "email"
-              ? validateEmail(event.target.value)
-              : cell.column.id === "age"
-              ? validateAge(+event.target.value)
-              : validateRequired(event.target.value);
-          if (!isValid) {
-            //set validation error for cell if invalid
-            setValidationErrors({
-              ...validationErrors,
-              [cell.id]: `${cell.column.columnDef.header} is required`,
-            });
-          } else {
-            //remove validation error for cell if valid
-            delete validationErrors[cell.id];
-            setValidationErrors({
-              ...validationErrors,
-            });
-          }
-        },
-      };
-    },
-    [validationErrors]
-  );
-
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: '_id',
-        header: 'ID',
-        enableColumnOrdering: false,
-        enableEditing: false, //disable editing on this column
-        enableSorting: false,
-        size: 80,
-      },
-      
-      {
-        accessorKey: "name",
-        header: "Nombre",
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
-      {
-        accessorKey: "brand",
-        header: "Marca",
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
-      {
-        accessorKey: "category",
-        header: "Tipo",
-        size: 140,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
-      },
-
-      {
-        accessorKey: "price",
-        header: "Precio",
-        size: 80,
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: "number",
-        }),
-      },
-      {
-        accessorKey: "stock",
-        header: "Stock",
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: "number",
-        }),
-      },
-
-      {
-        accessorKey: "photo",
-        header: "Foto",
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-          type: "image",
-        }),
-      },
-    ],
-    [getCommonEditTextFieldProps]
-  );
+  useEffect(() => {
+    peticionProductosFiltrados();
+  }, [peticion]);
 
   return (
     <>
-      <MaterialReactTable
-        displayColumnDefOptions={{
-          "mrt-row-actions": {
-            muiTableHeadCellProps: {
-              align: "center",
-            },
-            size: 120,
-          },
-        }}
-        columns={columns}
-        data={TodosLosproductos}
-        editingMode="modal" //default
-        enableColumnOrdering
-        enableEditing
-        onEditingRowSave={handleSaveRowEdits}
-        onEditingRowCancel={handleCancelRowEdits}
-        renderRowActions={({ row, table }) => (
-          <Box sx={{ display: "flex", gap: "1rem" }}>
-            <Tooltip arrow placement="left" title="Edit">
-              <IconButton onClick={() => table.setEditingRow(row)}>
-                <Edit />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow placement="right" title="Delete">
-              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                <Delete />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        )}
-        renderTopToolbarCustomActions={() => (
-          <Button
-            color="secondary"
-            onClick={() => setCreateModalOpen(true)}
-            variant="contained"
-          >
-            Nuevo producto
-          </Button>
-        )}
-      />
-      <CreateNewAccountModal
-        columns={columns}
-        open={createModalOpen}
-        onClose={() => setCreateModalOpen(false)}
-        onSubmit={handleCreateNewRow}
-      />
+      <div className="ContainerAdminPrincipal" id="productos">
+        <div className="mc-containerTitulosProductos">
+          <h2 className="tituloAdmin">
+            Nuestros productos<span className="blanco">.</span>
+          </h2>
+        </div>
+        <div className="containerFiltrosAdmin">
+          <TextField
+            onChange={filtroTexto}
+            id="name"
+            label="Nombre"
+            variant="outlined"
+            sx={{ width: 315 }}
+          />
+
+          <Autocomplete
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+            id="controllable-states-demo"
+            options={tipos}
+            sx={{ width: 315 }}
+            renderInput={(params) => <TextField {...params} label="Tipo" />}
+          />
+
+          <Autocomplete
+            value={value2}
+            onChange={(event, newValue) => {
+              setValue2(newValue);
+            }}
+            inputValue={inputValue2}
+            onInputChange={(event, newInputValue) => {
+              setInputValue2(newInputValue);
+            }}
+            id="controllable-states-demo"
+            options={marcas}
+            sx={{ width: 315 }}
+            renderInput={(params) => <TextField {...params} label="Marca" />}
+          />
+
+          <div className="containerPreciosAdmin">
+            <TextField
+              id="maxPrice"
+              onChange={filtroMaxPrice}
+              placeholder="$ Maximo"
+              sx={{ width: 150 }}
+              type="number"
+              variant="outlined"
+            />
+            <h5 style={{ margin: 0 }}>-</h5>
+            <TextField
+              id="minPrice"
+              onChange={filtroMinPrice}
+              placeholder="$ Maximo"
+              type="number"
+              sx={{ width: 150 }}
+              variant="outlined"
+            />
+          </div>
+
+          <Autocomplete
+            value={value4}
+            onChange={(event, newValue) => {
+              setValue4(newValue);
+            }}
+            inputValue={inputValue4}
+            onInputChange={(event, newInputValue) => {
+              setInputValue4(newInputValue);
+            }}
+            id="controllable-states-demo"
+            options={["Menor precio", "Mayor precio"]}
+            sx={{ width: 315 }}
+            renderInput={(params) => <TextField {...params} label="Precio" />}
+          />
+          <Autocomplete
+            value={value3}
+            onChange={(event, newValue) => {
+              setValue3(newValue);
+            }}
+            inputValue={inputValue3}
+            onInputChange={(event, newInputValue) => {
+              setInputValue3(newInputValue);
+            }}
+            id="controllable-states-demo"
+            options={["Bajo stock", "Alto stock"]}
+            sx={{ width: 315 }}
+            renderInput={(params) => <TextField {...params} label="Stock" />}
+          />
+        </div>
+        <div className="mc-containerCardsProductos">
+          {productosFiltradosArray.length > 0 ? (
+            productosFiltradosArray.map((x) => (
+              <CardAdministrador producto={x} key={x._id}></CardAdministrador>
+            ))
+          ) : (
+            <h4>No se encontraron productos con su busqueda</h4>
+          )}
+        </div>
+      </div>
     </>
   );
-};
-
-//example of creating a mui dialog modal for creating new rows
-export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
-  const [values, setValues] = useState(() =>
-    columns.reduce((acc, column) => {
-      acc[column.accessorKey ?? ""] = "";
-      return acc;
-    }, {})
-  );
-
-  const handleSubmit = () => {
-    onSubmit(values);
-    onClose();
-  };
-
-  return (
-    <Dialog open={open}>
-      <DialogTitle textAlign="center">Crear producto</DialogTitle>
-      <DialogContent>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <Stack
-            sx={{
-              width: "100%",
-              minWidth: { xs: "300px", sm: "360px", md: "400px" },
-              gap: "1.5rem",
-            }}
-          >
-            {columns.map((column) => (
-              <TextField
-                key={column.accessorKey}
-                label={column.header}
-                name={column.accessorKey}
-                onChange={(e) =>
-                  setValues({ ...values, [e.target.name]: e.target.value })
-                }
-              />
-            ))}
-          </Stack>
-        </form>
-      </DialogContent>
-      <DialogActions sx={{ p: "1.25rem" }}>
-        <Button onClick={onClose}>Cancelar</Button>
-        <Button color="secondary" onClick={handleSubmit} variant="contained">
-          Crear producto
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
-
-const validateRequired = (value) => !!value.length;
-const validateEmail = (email) =>
-  !!email.length &&
-  email
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-const validateAge = (age) => age >= 18 && age <= 50;
-
-export default TablaAdministrador;
+}
