@@ -11,6 +11,7 @@ const {
 const initialState = {
   TodosLosproductos: [],
   productosFiltradosArray: [],
+  refresh: false,
 };
 
 const productsReducer = createReducer(initialState, (builder) => {
@@ -52,13 +53,12 @@ const productsReducer = createReducer(initialState, (builder) => {
     const { success, response } = action.payload;
 
     if (success) {
-      let newState = {
-        ...state,
-        TodosLosproductos: state.TodosLosproductos.concat(response),
-      };
+      let newState = state.TodosLosproductos.concat(response);
 
       return {
+        ...state,
         newState,
+        refresh: !state.refresh,
       };
     } else {
       let newState = {
@@ -73,36 +73,36 @@ const productsReducer = createReducer(initialState, (builder) => {
     const { success, response } = action.payload;
 
     if (success) {
-      let newState = {
-        ...state,
-        TodosLosproductos: state.TodosLosproductos.filter(x=> x._id !== response._id).concat(response),
-      };
+      let newState = state.TodosLosproductos.filter(
+        (x) => x._id !== response._id
+      ).concat(response);
 
       return {
+        ...state,
+        refresh: !state.refresh,
         newState,
       };
     } else {
       let newState = {
         ...state,
+
         message: response,
       };
       return newState;
-
-      
-
     }
   });
 
   builder.addCase(eliminarProducto.fulfilled, (state, action) => {
     const { success, response } = action.payload;
 
-    if (success) {
-      let newState = {
-        ...state,
-        TodosLosproductos: state.TodosLosproductos.filter(x=> x._id !== response._id),
-      };
-
+    if (action.payload.success) {
+      let newState = state.TodosLosproductos.filter(
+        (x) => x._id !== response._id
+      );
+      console.log(newState);
       return {
+        ...state,
+        refresh: !state.refresh,
         newState,
       };
     } else {

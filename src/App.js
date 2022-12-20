@@ -21,14 +21,6 @@ function App() {
   const { reIngress, getDatos } = userActions;
   const dispatch = useDispatch();
 
-  console.log(token);
-
-  useEffect(() => {
-    if (logged) {
-      dispatch(getDatos({ token: token }));
-    }
-  }, [logged]);
-
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));
 
@@ -36,6 +28,12 @@ function App() {
       dispatch(reIngress(token.token.user));
     }
   }, []);
+
+  useEffect(() => {
+    if (logged && token) {
+      dispatch(getDatos({ token: token }));
+    }
+  }, [logged]);
 
   return (
     <>
