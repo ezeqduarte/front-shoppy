@@ -53,6 +53,11 @@
   font-weight: 700;
 }
 
+#agregarAlCarritoo:hover {
+  background-color: #d4716a;
+  color: #f3f3f3;
+}
+
 #CantidadCarrito {
   width: 100%;
   text-align: center;

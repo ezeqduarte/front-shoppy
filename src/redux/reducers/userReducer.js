@@ -59,7 +59,7 @@ const userReducer = createReducer(initialState, (builder) => {
 
     if (success) {
       let { user, token } = response;
-
+      console.log(token);
       let newState = {
         ...state,
         nombre: user.name,
@@ -70,12 +70,10 @@ const userReducer = createReducer(initialState, (builder) => {
         direccion: user.adress,
         foto: user.photo,
         logged: true,
-        token: token,
         rol: user.role,
         foto: user.photo,
         edad: user.age,
         email: user.email,
-        logged: true,
         carrito: user.products,
         favoritos: user.favorites,
         token: token,
@@ -96,12 +94,21 @@ const userReducer = createReducer(initialState, (builder) => {
       localStorage.removeItem("token");
       let newState = {
         ...state,
-        name: "",
-        photo: "",
-        id: "",
+        nombre: "",
+        apellido: "",
+        date: "",
+        dni: "",
+        email: "",
+        direccion: "",
+        foto: "",
         logged: false,
         token: "",
-        role: "",
+        rol: "",
+        foto: "",
+        edad: "",
+        email: "",
+        carrito: [],
+        favoritos: [],
       };
       return newState;
     } else {
@@ -122,7 +129,7 @@ const userReducer = createReducer(initialState, (builder) => {
 
   builder.addCase(getDatos.fulfilled, (state, action) => {
     const { success, response } = action.payload;
-  
+
     if (success) {
       let newState = {
         ...state,

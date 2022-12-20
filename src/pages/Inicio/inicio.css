@@ -79,7 +79,7 @@
 }
 
 .marketing {
-  min-height: 37vh;
+  margin-top: 80px;
   display: flex;
   justify-content: center;
   gap: 40px;
@@ -98,6 +98,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 45px;
 }
 
 .Registrate p {
