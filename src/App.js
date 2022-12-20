@@ -14,6 +14,22 @@ import PerfilUser from "./pages/PerfilUser/PerfilUser";
 import Productos from "./pages/Productos/Productos";
 import Registro from "./pages/Registrarte/Registro";
 import userActions from "./redux/actions/userActions";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import Favoritos from "./pages/Favoritos/Favoritos";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC0spyE307eCf3EkhC3tFe39RYoEm1eRTY",
+  authDomain: "shoppy-5ff1c.firebaseapp.com",
+  projectId: "shoppy-5ff1c",
+  storageBucket: "shoppy-5ff1c.appspot.com",
+  messagingSenderId: "128159787191",
+  appId: "1:128159787191:web:819169fd09020816440532",
+  measurementId: "G-59BV0K2QMM",
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 function App() {
   let { rol, nombre, carrito, favoritos, apellido, logged, token } =
@@ -21,13 +37,6 @@ function App() {
   const { reIngress, getDatos } = userActions;
   const dispatch = useDispatch();
 
-  console.log(token);
-
-  useEffect(() => {
-    if (logged) {
-      dispatch(getDatos({ token: token }));
-    }
-  }, [logged]);
 
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));
@@ -36,6 +45,12 @@ function App() {
       dispatch(reIngress(token.token.user));
     }
   }, []);
+
+  useEffect(() => {
+    if (logged && token) {
+      dispatch(getDatos({ token: token }));
+    }
+  }, [logged]);
 
   return (
     <>
@@ -51,6 +66,7 @@ function App() {
           <Route path="/productos" element={<Productos />} />
           <Route path="/consultas" element={<Consultas />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/admin" element={<Administrador />} />
           <Route path="/perfil" element={<PerfilUser />} />
           <Route path="/detalle-producto/:id" element={<DetalleProducto />} />

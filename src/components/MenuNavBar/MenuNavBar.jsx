@@ -50,9 +50,8 @@ export default function TemporaryDrawer() {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(function () {
-      navigate("/");
-    }, 4000);
+
+    navigate("/inicio");
   };
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -74,7 +73,7 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {logged
+        {logged && rol === "user"
           ? [
               { nombre: "Perfil", ruta: "/perfil" },
               { nombre: "Carrito", ruta: "/carrito" },
@@ -99,6 +98,29 @@ export default function TemporaryDrawer() {
                 </ListItem>
               </NavLink>
             ))
+          : null}
+        {logged && rol === "admin"
+          ? [{ nombre: "Administracion", ruta: "/admin" }].map(
+              (boton, index) => (
+                <NavLink
+                  key={index}
+                  to={boton.ruta}
+                  style={{ textDecoration: "none", color: "#333333" }}
+                >
+                  <ListItem key={boton.nombre} disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        {index === 0 ? <SettingsOutlined /> : null}
+                        {index === 1 ? <ShoppingCartOutlined /> : null}
+                        {index === 2 ? <FavoriteBorderOutlined /> : null}
+                        {index === 3 ? <PaymentsOutlined /> : null}
+                      </ListItemIcon>
+                      <ListItemText primary={boton.nombre} />
+                    </ListItemButton>
+                  </ListItem>
+                </NavLink>
+              )
+            )
           : null}
       </List>
       <Divider />

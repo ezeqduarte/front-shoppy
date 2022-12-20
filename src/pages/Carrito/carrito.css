@@ -12,33 +12,99 @@
   align-items: center;
 }
 
-.edContainerCarrito{ 
-    min-height: 50vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    
+.edContainerCarrito {
+  min-height: 50vh;
+  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.contentDescription{
-    overflow: visible;
+.edContainerCarrito hr {
+    width: 90%;
 }
 
-.edContainerCarrito h2{ 
+.botonFinalizarCompraEd{
     width: 100%;
     text-align: center;
-    margin: 0;
-    padding-top: 20px;
+    font-size: 1rem;
+    background-color: #ef837b;
+    padding: 10px 0px;
+    color: #f3f3f3;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.botonFinalizarCompraEd:hover{
+   
+    background-color: #dc756e;
     
 }
 
-.edContainerCardsCarrito{
+.precioTotalCostadoEd{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+  }
+
+.sinarticulosencarro {
+  display: flex;
+  flex-direction: column;
+}
+
+.accordionCarrito{
+    width: 100%;
+}
+
+.FinalizarCompraDivEd{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ed-InputCodigoPromocional{
+    display: flex;
+    gap: 10px;
+}
+
+.botonIrAproductos {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #ef837b;
+  padding: 10px 0px;
+  color: #f3f3f3;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.botonIrAproductos:hover {
+  background-color: #d4716a;
+
+  color: #f3f3f3;
+}
+
+.contentDescription {
+  overflow: visible;
+}
+
+.edContainerCarrito h2 {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding-top: 20px;
+}
+
+.edContainerCardsCarrito {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    width: 70%;
+    align-items: flex-start;
+    width: 980px;
     gap: 5px;
+    padding: 25px 0px;
 }
-
-

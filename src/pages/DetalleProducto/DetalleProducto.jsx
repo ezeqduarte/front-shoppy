@@ -23,7 +23,7 @@ export default function DetalleProducto() {
   const { agregarAcarro } = userActions;
 
   let { TodosLosproductos } = useSelector((store) => store.productsReducer);
-  let { carrito, token } = useSelector((store) => store.userReducer);
+  let { carrito, token, logged } = useSelector((store) => store.userReducer);
 
   let producto = TodosLosproductos.filter((x) => x._id === id);
   producto = producto[0];
@@ -46,24 +46,19 @@ export default function DetalleProducto() {
     }
   };
 
-
-
   const agregarAlCarritoFuncion = () => {
-    const nuevoCarrito = [
-      ...new Set(
-        carrito
-          .filter((x) => x.productId._id !== id)
-          .concat({ productId: id, quantity: cantidad })
-      ),
-    ];
+    if (logged) {
+      const nuevoCarrito = [
+        ...new Set(
+          carrito
+            .filter((x) => x.productId._id !== id)
+            .concat({ productId: id, quantity: cantidad })
+        ),
+      ];
 
-    
+      dispatch(agregarAcarro({ token: token, carrito: nuevoCarrito }));
 
-    dispatch(agregarAcarro({ token: token, carrito: nuevoCarrito }));
-
-    toast.success(
-      `Tienes ${cantidad} ${producto.name} en el carrito`,
-      {
+      toast.success(`Tienes ${cantidad} ${producto.name} en el carrito`, {
         position: "bottom-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -72,17 +67,32 @@ export default function DetalleProducto() {
         draggable: true,
         progress: undefined,
         theme: "light",
-      }
-    );
+      });
+    } else {
+      toast.error(`Tienes que estar logeado para acceder al carrito`, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   let arrayDeEspecificaciones = [];
 
+
+
   function especificaciones() {
-    for (const [key, value] of Object.entries(producto.specifications)) {
-      arrayDeEspecificaciones.push(
-        `${key.toUpperCase()}: ${value.toUpperCase()}`
-      );
+    if (producto.specifications) {
+      for (const [key, value] of Object.entries(producto.specifications)) {
+        arrayDeEspecificaciones.push(
+          `${key.toUpperCase()}: ${value.toUpperCase()}`
+        );
+      }
     }
   }
 
@@ -136,6 +146,21 @@ export default function DetalleProducto() {
             ))}
 
             <hr className="hrDetallesProductos" />
+            <div className="PrecioStockDetalles">
+              <p
+                className="
+              negrita blanco"
+              >
+                PRECIO $ {separator(producto?.price)}
+              </p>
+              <p
+                className="
+              negrita blanco"
+              >
+                {producto?.stock} ARTICULOS EN STOCK
+              </p>
+            </div>
+            <hr className="hrDetallesProductos" />
 
             <div className="contadorParaCarrito">
               <p id="CantidadCarrito" onClick={agregarAlCarritoFuncion}>
@@ -152,22 +177,9 @@ export default function DetalleProducto() {
               </NavLink>
             </div>
             <ToastContainer />
+
             <hr className="hrDetallesProductos" />
-            <div className="PrecioStockDetalles">
-              <p
-                className="
-              negrita blanco"
-              >
-                $ {separator(producto?.price)}
-              </p>
-              <p
-                className="
-              negrita blanco"
-              >
-                {producto?.stock} ARTICULOS EN STOCK
-              </p>
-            </div>
-            <hr className="hrDetallesProductos" />
+
             <div className="IconosDetallesEd">
               <div>
                 <p className="IconosyParrafosAdicionales">

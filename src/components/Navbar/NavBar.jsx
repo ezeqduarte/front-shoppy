@@ -22,8 +22,6 @@ export default function NavBar() {
     setMostrarMenu(!mostrarMenu);
   };
 
- 
-
   return (
     <header className="bg-transparent">
       <nav className="navbar  navbar-expand-lg pt-2 pt-lg-1">
@@ -94,14 +92,18 @@ export default function NavBar() {
         <div className="iconos">
           <IconButton aria-label="cart">
             <Badge badgeContent={favoritos.length} color="primary">
-              <FavoriteBorder />
+              <NavLink to={"/favoritos"} style={{ color: "#f3f3f3" }}>
+                <FavoriteBorder />
+              </NavLink>
             </Badge>
           </IconButton>
           <IconButton aria-label="cart">
             <Badge badgeContent={carrito.length} color="primary">
-              <ShoppingCartOutlined />
+              <NavLink to={"/carrito"} style={{ color: "#f3f3f3" }}>
+                <ShoppingCartOutlined />
+              </NavLink>
             </Badge>
-          </IconButton>
+          </IconButton>{" "}
           <MenuNavBar />
         </div>
       </nav>

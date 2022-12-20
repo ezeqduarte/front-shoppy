@@ -43,7 +43,7 @@ export default function Ingresar() {
         `Bienvenido a shoppy ${respuesta.payload.response.user.name} `,
         {
           position: "bottom-left",
-          autoClose: 3000,
+          autoClose: 500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -55,7 +55,7 @@ export default function Ingresar() {
       form.current.reset();
       setTimeout(function () {
         navigate("/inicio");
-      }, 4000);
+      }, 1000);
     } else {
       respuesta.payload.response.map((x) =>
         toast.error(`${x}`, {

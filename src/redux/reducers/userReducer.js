@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import userActions from "../actions/userActions";
-const { ingress, reIngress, logout, getDatos, agregarAcarro, editUser } =
+const { ingress, reIngress, logout, getDatos, agregarAcarro, editUser, agregarAfavoritos } =
   userActions;
 
 const initialState = {
@@ -66,7 +66,7 @@ const userReducer = createReducer(initialState, (builder) => {
 
     if (success) {
       let { user, token } = response;
-
+      console.log(token);
       let newState = {
         ...state,
         nombre: user.name,
@@ -77,12 +77,10 @@ const userReducer = createReducer(initialState, (builder) => {
         direccion: user.adress,
         foto: user.photo,
         logged: true,
-        token: token,
         rol: user.role,
         foto: user.photo,
         edad: user.age,
         email: user.email,
-        logged: true,
         carrito: user.products,
         favoritos: user.favorites,
         token: token,
@@ -107,12 +105,21 @@ const userReducer = createReducer(initialState, (builder) => {
       localStorage.removeItem("token");
       let newState = {
         ...state,
-        name: "",
-        photo: "",
-        id: "",
+        nombre: "",
+        apellido: "",
+        date: "",
+        dni: "",
+        email: "",
+        direccion: "",
+        foto: "",
         logged: false,
         token: "",
-        role: "",
+        rol: "",
+        foto: "",
+        edad: "",
+        email: "",
+        carrito: [],
+        favoritos: [],
       };
       return newState;
     } else {
@@ -133,7 +140,7 @@ const userReducer = createReducer(initialState, (builder) => {
 
   builder.addCase(getDatos.fulfilled, (state, action) => {
     const { success, response } = action.payload;
-  
+
     if (success) {
       let newState = {
         ...state,
@@ -156,6 +163,24 @@ const userReducer = createReducer(initialState, (builder) => {
       let newState = {
         ...state,
         carrito: response,
+      };
+      return newState;
+    } else {
+      let newState = {
+        ...state,
+        message: response,
+      };
+      return newState;
+    }
+  });
+
+  builder.addCase(agregarAfavoritos.fulfilled, (state, action) => {
+    const { success, response } = action.payload;
+    console.log(response);
+    if (success) {
+      let newState = {
+        ...state,
+        favoritos: response,
       };
       return newState;
     } else {

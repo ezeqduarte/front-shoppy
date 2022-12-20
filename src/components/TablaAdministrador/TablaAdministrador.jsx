@@ -8,41 +8,143 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Input,
   MenuItem,
   Stack,
   TextField,
   Tooltip,
 } from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, PhotoCamera } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
 import productsActions from "../../redux/actions/productsActions";
+import "./tablaadministrador.css";
+import FileUpload from "../FileUpload/FileUpload";
 
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 const TablaAdministrador = () => {
-  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
-  const { productos } = productsActions;
+  let { TodosLosproductos, refresh } = useSelector(
+    (store) => store.productsReducer
+  );
+  let { token } = useSelector((store) => store.userReducer);
   const dispatch = useDispatch();
+  const { productos, nuevoProducto, eliminarProducto, editarProducto } =
+    productsActions;
 
   useEffect(() => {
     dispatch(productos());
-  }, []);
+  }, [refresh]);
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
+
+  const [value, setValue] = useState(0); //para definir el % de carga
+  const [picture, setPicture] = useState(null); //para definir la URL de la imagen
+  const { fotoCargada } = productsActions;
+  const handleUpload = (event) => {
+    //función manejadora de la carga
+    const file = event.target.files[0]; //el elemento cero o el/los que sean
+    const storageRef = ref(getStorage(), "events/" + file.name); //para indicar la carpeta raiz
+    const task = uploadBytesResumable(storageRef, file, {
+      contentType: "image/png",
+    });
+    task.on(
+      "state_changed", //para configurar la carga
+      (snapshot) =>
+        setValue(100 * (snapshot.bytesTransferred / snapshot.totalBytes)),
+      (error) => console.log(error.message),
+      async () => setPicture(await getDownloadURL(task.snapshot.ref))
+    );
+  };
+
+  useEffect(() => {
+    console.log(picture);
+    console.log(value);
+  }, [picture]);
+
   const [tableData, setTableData] = useState(() => TodosLosproductos);
   const [validationErrors, setValidationErrors] = useState({});
 
-  const handleCreateNewRow = (values) => {
-    tableData.push(values);
+  const handleCreateNewRow = async (values) => {
+    const fechaActual = Date.now().toString();
+
+    const nuevoProductoBody = {
+      name: values.name,
+      category: values.category,
+      photo: picture,
+      brand: values.brand,
+      price: Number(values.price),
+      stock: Number(values.stock),
+      dateCreated: fechaActual,
+      specifications: {},
+    };
+
+    console.log(nuevoProductoBody);
+
+    const dispatchNuevoProducto = await dispatch(
+      nuevoProducto({ token, producto: nuevoProductoBody })
+    );
+
+    if (!dispatchNuevoProducto.payload.success) {
+      dispatchNuevoProducto.payload.error.map((x) =>
+        toast.error(` ${x} `, {
+          position: "bottom-left",
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      );
+    } else {
+      toast.success(` Se creo el producto correctamente `, {
+        position: "bottom-left",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+
     setTableData([...tableData]);
   };
 
   const handleSaveRowEdits = async ({ exitEditingMode, row, values }) => {
-    if (!Object.keys(validationErrors).length) {
-      tableData[row.index] = values;
-      //send/receive api updates here, then refetch or update local table data for re-render
-      setTableData([...tableData]);
-      exitEditingMode(); //required to exit editing mode and close modal
-    }
+    //send/receive api updates here, then refetch or update local table data for re-render
+
+    dispatch(
+      editarProducto({ token: token, producto: values, id: row.original._id })
+    );
+
+    toast.success(
+      ` ${row.original.category}  ${row.original.brand} ${row.original.name} fue modificado `,
+      {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
+
+    //required to exit editing mode and close modal
+
+    setTableData([...tableData]);
+    exitEditingMode();
   };
 
   const handleCancelRowEdits = () => {
@@ -50,16 +152,26 @@ const TablaAdministrador = () => {
   };
 
   const handleDeleteRow = useCallback(
-    (row) => {
-      /*  if (
-        !confirm(`Are you sure you want to delete ${row.getValue("nombre")}`)
-      ) {
-        return;
-      } */
-      //send api delete request here, then refetch or update local table data for re-render
-      tableData.splice(row.index, 1);
-      setTableData([...tableData]);
+    (row, token) => {
+      Swal.fire({
+        title: `Quieres eliminar ${row.original.brand} ${row.original.name}? `,
+        imageUrl: "https://img.icons8.com/ios-glyphs/60/ef837b/break.png",
+        showCancelButton: true,
+        cancelButtonColor: "#c3c3c3",
+        confirmButtonColor: "#c3c3c3",
+        confirmButtonText: "Eliminarlo",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(eliminarProducto({ token: token, id: row.original._id }));
+          Swal.fire(
+            "Eliminado",
+            `${row.original.brand} ${row.original.name} se elimino correctamente`,
+            "success"
+          );
+        }
+      });
     },
+
     [tableData]
   );
 
@@ -70,10 +182,10 @@ const TablaAdministrador = () => {
         helperText: validationErrors[cell.id],
         onBlur: (event) => {
           const isValid =
-            cell.column.id === "email"
-              ? validateEmail(event.target.value)
-              : cell.column.id === "age"
-              ? validateAge(+event.target.value)
+            cell.column.id === "name"
+              ? validateName(event.target.value)
+              : cell.column.id === "stock"
+              ? validateStock(+event.target.value)
               : validateRequired(event.target.value);
           if (!isValid) {
             //set validation error for cell if invalid
@@ -96,15 +208,6 @@ const TablaAdministrador = () => {
 
   const columns = useMemo(
     () => [
-      {
-        accessorKey: '_id',
-        header: 'ID',
-        enableColumnOrdering: false,
-        enableEditing: false, //disable editing on this column
-        enableSorting: false,
-        size: 80,
-      },
-      
       {
         accessorKey: "name",
         header: "Nombre",
@@ -153,15 +256,22 @@ const TablaAdministrador = () => {
         header: "Foto",
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
-          type: "image",
+          type: "text",
         }),
       },
     ],
     [getCommonEditTextFieldProps]
   );
 
+  const setearStates = () => {
+    setCreateModalOpen(false);
+    setValue(value===0);
+    setPicture(picture===null);
+  };
+
   return (
     <>
+      <ToastContainer />
       <MaterialReactTable
         displayColumnDefOptions={{
           "mrt-row-actions": {
@@ -186,7 +296,10 @@ const TablaAdministrador = () => {
               </IconButton>
             </Tooltip>
             <Tooltip arrow placement="right" title="Delete">
-              <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+              <IconButton
+                color="error"
+                onClick={() => handleDeleteRow(row, token)}
+              >
                 <Delete />
               </IconButton>
             </Tooltip>
@@ -205,15 +318,25 @@ const TablaAdministrador = () => {
       <CreateNewAccountModal
         columns={columns}
         open={createModalOpen}
-        onClose={() => setCreateModalOpen(false)}
         onSubmit={handleCreateNewRow}
+        onClose={setearStates}
+        picture={picture}
+        value={value}
+        handleUpload={handleUpload}
       />
     </>
   );
 };
 
-//example of creating a mui dialog modal for creating new rows
-export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
+export const CreateNewAccountModal = ({
+  open,
+  columns,
+  onClose,
+  onSubmit,
+  picture,
+  value,
+  handleUpload,
+}) => {
   const [values, setValues] = useState(() =>
     columns.reduce((acc, column) => {
       acc[column.accessorKey ?? ""] = "";
@@ -238,16 +361,98 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
               gap: "1.5rem",
             }}
           >
-            {columns.map((column) => (
-              <TextField
-                key={column.accessorKey}
-                label={column.header}
-                name={column.accessorKey}
-                onChange={(e) =>
-                  setValues({ ...values, [e.target.name]: e.target.value })
-                }
-              />
-            ))}
+            <TextField
+              placeholder="Placeholder"
+              label={"Nombre"}
+              name={"name"}
+              size="small"
+              onChange={(e) =>
+                setValues({
+                  ...values,
+                  [e.target.name]:
+                    e.target.value.slice(0, 1).toUpperCase() +
+                    e.target.value.slice(1).toLowerCase(),
+                })
+              }
+              inputProps={"ariaLabel"}
+            />
+
+            <TextField
+              label={"Marca"}
+              name={"brand"}
+              size="small"
+              onChange={(e) =>
+                setValues({
+                  ...values,
+                  [e.target.name]:
+                    e.target.value.slice(0, 1).toUpperCase() +
+                    e.target.value.slice(1).toLowerCase(),
+                })
+              }
+            />
+            <TextField
+              label={"Tipo"}
+              name={"category"}
+              size="small"
+              onChange={(e) =>
+                setValues({
+                  ...values,
+                  [e.target.name]:
+                    e.target.value.slice(0, 1).toUpperCase() +
+                    e.target.value.slice(1).toLowerCase(),
+                })
+              }
+            />
+            <TextField
+              label={"Precio"}
+              name={"price"}
+              size="small"
+              onChange={(e) =>
+                setValues({ ...values, [e.target.name]: e.target.value })
+              }
+            />
+            <TextField
+              label={"Stock"}
+              name={"stock"}
+              size="small"
+              onChange={(e) =>
+                setValues({ ...values, [e.target.name]: e.target.value })
+              }
+            />
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              <p style={{ width: "100%" }}>Foto</p>
+              {/*  <TextField
+                className="ingresarFotoTexto"
+                disabled
+                label={prueba}
+                size="small"
+              /> */}
+              {/*  <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="label"
+                label="Foto"
+              >
+                <input
+                  hidden
+                  accept="image/*"
+                  type="file"
+                  name="photo"
+                  onChange={nuevaFoto}
+                />
+                <PhotoCamera />
+              </IconButton> */}
+              <>
+                <input type="file" onChange={handleUpload} />{" "}
+                {/*/input de carga de archivo/*/}
+                <input type="hidden" name="file" id={picture} />{" "}
+                {/*/input cuyo id será la
+      url del archivo/*/}
+                <progress value={value} max="100" name="file" />{" "}
+                {/*/barra porcentual de
+      carga/*/}
+              </>
+            </div>
           </Stack>
         </form>
       </DialogContent>
@@ -261,14 +466,9 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
   );
 };
 
-const validateRequired = (value) => !!value.length;
-const validateEmail = (email) =>
-  !!email.length &&
-  email
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-const validateAge = (age) => age >= 18 && age <= 50;
+const validateRequired = (value) => console.log(value);
+const validateName = (name) => !!name.length && name.toLowerCase();
+
+const validateStock = (stock) => stock >= 1;
 
 export default TablaAdministrador;

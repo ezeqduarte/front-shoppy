@@ -132,6 +132,28 @@ const agregarAcarro = createAsyncThunk(
   }
 );
 
+const agregarAfavoritos = createAsyncThunk(
+  "agregarAfavoritos",
+  async ({ token, favoritos }) => {
+    let url = `${API}auth/me`;
+    let headers = { headers: { Authorization: `Bearer ${token}` } };
+    
+    try {
+      let res = await axios.patch(url, {favorites: favoritos}, headers);
+      console.log(res);
+      return {
+        success: true,
+        response: res.data.response.favorites,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        response: error.message,
+      };
+    }
+  }
+);
+
 
 const userActions = {
   ingress,
@@ -140,6 +162,7 @@ const userActions = {
   editUser,
   getDatos,
   agregarAcarro,
+  agregarAfavoritos,
 };
 
 export default userActions;
