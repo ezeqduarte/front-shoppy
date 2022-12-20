@@ -51,13 +51,13 @@ import zotac from "../../imagenes/zotacGaming.png";
 export default function PerfilUser() {
   const dispatch = useDispatch();
 
-  const { logged, nombre, apellido, date, dni, email, direccion, nick, token } =
+  const { logged, nombre, apellido, date, dni, email, direccion, nick, token,cp,phone,nombreDni } =
     useSelector((state) => state.userReducer);
 
   let { editUser } = userActions;
 
-  const [showPassword, setShowPassword] = React.useState(true);
-  const [showPassword2, setShowPassword2] = React.useState(true);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword2, setShowPassword2] = React.useState(false);
 
   const [inputNick, setInputNick] = useState("");
   const [inputMail, setInputMail] = useState("");
@@ -464,7 +464,7 @@ export default function PerfilUser() {
       });
     } else {
 
-          let data = { CP: inputCP}
+          let data = { cp: inputCP}
 
           try {
 
@@ -588,11 +588,15 @@ export default function PerfilUser() {
       </div>
       <div id="perfil" className="mc-containerPerfil">
         <Card className="mc-cardPerfil">
-          <Avatar className="mc-iconoAvatar" sx={{ bgcolor: deepOrange[500] }}>
-           {nombre.charAt(0)} 
-          </Avatar>
+          {nick===""
+                  ? <Avatar className="mc-iconoAvatar" sx={{ bgcolor: deepOrange[500] }}>
+                        {nombre.charAt(0)} 
+                    </Avatar>
+                  : <Avatar className="mc-iconoAvatar" sx={{ bgcolor: deepOrange[500] }}>
+                        {nick.charAt(0)} 
+                    </Avatar>}
           <CardContent className="mc-containerSubCard">
-            {nick !== undefined ? (
+            {nick !== "" ? (
               <Typography
                 className="mc-tituloConsultasCartel"
                 sx={{ fontSize: 20 }}
@@ -630,8 +634,10 @@ export default function PerfilUser() {
             <AccordionDetails>
               <div className="mc-renderInput">
                 <p>
-                  Nombre de Usuario :{" "}
-                  <span className="mc-renderLetra">{nombre}</span>
+                  Nombre de Usuario :
+                  {nick==="" ?
+                            <span className="mc-renderLetra"> {nombre + " " + apellido}</span>
+                          : <span className="mc-renderLetra"> {nick}</span>}
                 </p>
                 <p>
                   E-mail : <span className="mc-renderLetra">{email}</span>
@@ -681,7 +687,7 @@ export default function PerfilUser() {
                       <InputLabel htmlFor="password">Contraseña</InputLabel>
                       <OutlinedInput
                         id="password"
-                        type={!showPassword ? "text" : "password"}
+                        type={showPassword ? "text" : "password"}
                         endAdornment={
                           <InputAdornment position="end">
                             <IconButton
@@ -712,7 +718,7 @@ export default function PerfilUser() {
                       </InputLabel>
                       <OutlinedInput
                         id="confirmacionPassword"
-                        type={!showPassword2 ? "text" : "password"}
+                        type={showPassword2 ? "text" : "password"}
                         endAdornment={
                           <InputAdornment position="end">
                             <IconButton
@@ -763,7 +769,9 @@ export default function PerfilUser() {
               <div className="mc-renderInput2">
                 <p>
                   Nombre de DNI :{" "}
-                  <span className="mc-renderLetra">Matias A Calvi</span>
+                  {nombreDni!==""
+                          ? <span className="mc-renderLetra">{nombreDni}</span>
+                          : <span className="mc-renderLetra">Agregar el nombre del DNI para el realizamiento de sus compras virtuales</span>}
                 </p>
                 <p>
                   DNI : <span className="mc-renderLetra">{dni}</span>
@@ -773,12 +781,17 @@ export default function PerfilUser() {
                   <span className="mc-renderLetra">{direccion}</span>
                 </p>
                 <p>
-                  C.P : <span className="mc-renderLetra">{1832}</span>
+                  C.P : <span className="mc-renderLetra">{cp}</span>
                 </p>
-                <p>
-                  Numero de Contacto :{" "}
-                  <span className="mc-renderLetra">1167581426</span>
-                </p>
+                {phone!==""
+                        ? <p>
+                            Numero de Contacto :{" "}
+                            <span className="mc-renderLetra">{phone}</span>
+                          </p>
+                        : <p>
+                            Numero de Contacto :{" "}
+                            <span className="mc-renderLetra">No se registra algun numero de contacto, si lo desea puede agregarlo</span>
+                          </p>} 
               </div>
               <div className="mc-containerDatosPersonales">
                 <div className="mc-inputsPerfil">
@@ -787,7 +800,8 @@ export default function PerfilUser() {
                     label="Nombre de DNI"
                     variant="outlined"
                     className="mc-inputsPerfilAcordion"
-                    onChange={(text) => setInputNombreDni(text.target.value)}
+                    defaultValue={nombre}
+                    /* onChange={(text) => setInputNombreDni(text.target.value)} */
                   />
                   <Button
                     variant="contained"

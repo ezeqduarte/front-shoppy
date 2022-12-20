@@ -35,6 +35,9 @@ export default function Registro() {
     password: "",
     products: [],
     favorites: [],
+    cp:"",
+    phone:"",
+    nick:''
   });
 
   const handleChange = (e) => {
@@ -76,6 +79,9 @@ export default function Registro() {
         password: "",
         products: [],
         favorites: [],
+        nick:"",
+        cp:"",
+        phone:"",
       });
       form.current.reset();
       setTimeout(function () {
@@ -154,6 +160,16 @@ export default function Registro() {
             <TextField
               id="adress"
               label="Domicilio"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+            <TextField
+              id="cp"
+              label="CP"
               type="text"
               InputLabelProps={{
                 shrink: true,
