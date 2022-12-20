@@ -50,9 +50,8 @@ export default function TemporaryDrawer() {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(function () {
-      navigate("/");
-    }, 4000);
+
+    navigate("/inicio");
   };
 
   const toggleDrawer = (anchor, open) => (event) => {

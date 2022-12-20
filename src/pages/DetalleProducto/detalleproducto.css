@@ -144,6 +144,11 @@
   align-items: center;
 }
 
+.precio{
+  font-weight: 600;
+  color: #333333;
+}
+
 .PrecioStockDetalles p {
   margin: 0px;
 }
@@ -161,7 +166,9 @@
 .IconosyParrafosAdicionales {
   display: flex;
   align-items: center;
+  text-align: center;
   margin: 0px 15px;
+  flex-direction: column;
 }
 
 @media (max-width: 992px) {

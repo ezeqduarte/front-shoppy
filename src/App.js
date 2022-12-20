@@ -16,6 +16,7 @@ import Registro from "./pages/Registrarte/Registro";
 import userActions from "./redux/actions/userActions";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import Favoritos from "./pages/Favoritos/Favoritos";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC0spyE307eCf3EkhC3tFe39RYoEm1eRTY",
@@ -35,6 +36,7 @@ function App() {
     useSelector((store) => store.userReducer);
   const { reIngress, getDatos } = userActions;
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));
@@ -64,6 +66,7 @@ function App() {
           <Route path="/productos" element={<Productos />} />
           <Route path="/consultas" element={<Consultas />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/admin" element={<Administrador />} />
           <Route path="/perfil" element={<PerfilUser />} />
           <Route path="/detalle-producto/:id" element={<DetalleProducto />} />

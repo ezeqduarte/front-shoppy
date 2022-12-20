@@ -90,23 +90,20 @@ export default function NavBar() {
           </div>
         </div>
         <div className="iconos">
-          {logged ? (
-            <>
-              {" "}
-              <IconButton aria-label="cart">
-                <Badge badgeContent={favoritos.length} color="primary">
-                  <FavoriteBorder />
-                </Badge>
-              </IconButton>
-              <IconButton aria-label="cart">
-                <Badge badgeContent={carrito.length} color="primary">
-                  <NavLink to={"/carrito"} style={{ color: "#f3f3f3" }}>
-                    <ShoppingCartOutlined />
-                  </NavLink>
-                </Badge>
-              </IconButton>{" "}
-            </>
-          ) : null}
+          <IconButton aria-label="cart">
+            <Badge badgeContent={favoritos.length} color="primary">
+              <NavLink to={"/favoritos"} style={{ color: "#f3f3f3" }}>
+                <FavoriteBorder />
+              </NavLink>
+            </Badge>
+          </IconButton>
+          <IconButton aria-label="cart">
+            <Badge badgeContent={carrito.length} color="primary">
+              <NavLink to={"/carrito"} style={{ color: "#f3f3f3" }}>
+                <ShoppingCartOutlined />
+              </NavLink>
+            </Badge>
+          </IconButton>{" "}
           <MenuNavBar />
         </div>
       </nav>
