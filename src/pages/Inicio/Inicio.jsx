@@ -7,6 +7,7 @@ import imagenes from "../../imagenes/imagenes";
 import "../Inicio/inicio.css";
 import productsActions from "../../redux/actions/productsActions";
 import { NavLink } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 export default function Inicio() {
   let { rol, nombre, carrito, favoritos, apellido, logged, token } =
@@ -100,6 +101,7 @@ export default function Inicio() {
             </NavLink>
           </div>
         ) : null}
+        <ToastContainer/>
         <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
           <div className="slide-track">
             <div className="slide">

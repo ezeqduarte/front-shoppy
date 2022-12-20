@@ -33,6 +33,7 @@ export default function Registro() {
     age: 0,
     email: "",
     password: "",
+    cp:"",
     products: [],
     favorites: [],
   });
@@ -74,6 +75,7 @@ export default function Registro() {
         age: 0,
         email: "",
         password: "",
+        cp: "",
         products: [],
         favorites: [],
       });
@@ -154,6 +156,16 @@ export default function Registro() {
             <TextField
               id="adress"
               label="Domicilio"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              onChange={handleChange}
+            />
+             <TextField
+              id="cp"
+              label="Codigo Postal"
               type="text"
               InputLabelProps={{
                 shrink: true,
