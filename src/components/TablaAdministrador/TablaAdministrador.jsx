@@ -40,20 +40,7 @@ const TablaAdministrador = () => {
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleCreateNewRow = async (values) => {
-    let dateOriginal = new Date();
-
-    function formatoFecha(fecha, formato) {
-      const map = {
-        dd: fecha.getDate(),
-        mm: fecha.getMonth() + 1,
-        yy: fecha.getFullYear().toString().slice(-2),
-        yyyy: fecha.getFullYear(),
-      };
-
-      return formato.replace(/dd|mm|yy|yyy/gi, (matched) => map[matched]);
-    }
-
-    let date = formatoFecha(dateOriginal, "dd/mm/yy");
+    const fechaActual = Date.now().toString();
 
     const nuevoProductoBody = {
       name: values.name,
@@ -62,31 +49,20 @@ const TablaAdministrador = () => {
       brand: values.brand,
       price: Number(values.price),
       stock: Number(values.stock),
-      dateCreated: date,
-      specifications: {},
+      dateCreated: fechaActual,
+      specifications: { color: "negro" },
     };
 
-    console.log(nuevoProductoBody);
+
 
     const dispatchNuevoProducto = await dispatch(
       nuevoProducto({ token, producto: nuevoProductoBody })
     );
 
-    console.log(dispatchNuevoProducto.payload.success);
 
-    if (dispatchNuevoProducto.payload.success) {
-      toast.error(` Se creo el producto correctamente `, {
-        position: "bottom-left",
-        autoClose: false,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } else {
-      dispatchNuevoProducto.payload.response.map((x) =>
+
+    if (!dispatchNuevoProducto.payload.success) {
+      dispatchNuevoProducto.payload.error.map((x) =>
         toast.error(` ${x} `, {
           position: "bottom-left",
           autoClose: false,
@@ -98,6 +74,17 @@ const TablaAdministrador = () => {
           theme: "light",
         })
       );
+    } else {
+      toast.success(` Se creo el producto correctamente `, {
+        position: "bottom-left",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
     setTableData([...tableData]);

@@ -55,16 +55,21 @@ const nuevoProducto = createAsyncThunk(
   "nuevoProducto",
   async ({ token, producto }) => {
     let headers = { headers: { Authorization: `Bearer ${token}` } };
-    console.log(producto);
+
     try {
-      let res = await axios.post(`${API}product`, producto, headers);
+      let res = await axios.post(`${API}product/`, producto, headers);
 
-
-
-      return {
-        success: true,
-        response: res.data.response,
-      };
+      if (res.data.success) {
+        return {
+          success: true,
+          response: res.data.response,
+        };
+      } else {
+        return {
+          success: false,
+          error: res.data.message,
+        };
+      }
     } catch (error) {
       return {
         success: false,
