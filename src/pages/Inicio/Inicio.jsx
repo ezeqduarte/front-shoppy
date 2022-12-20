@@ -9,6 +9,8 @@ import productsActions from "../../redux/actions/productsActions";
 import { NavLink } from "react-router-dom";
 
 export default function Inicio() {
+  let { rol, nombre, carrito, favoritos, apellido, logged, token } =
+    useSelector((store) => store.userReducer);
   const { amd, adata, rogstrix, tForce, zotac } = imagenes;
   const [activeNuevos, setActiveNuevos] = useState(false);
   const [activeUltimosStocks, setUltimosStocks] = useState(false);
@@ -84,18 +86,20 @@ export default function Inicio() {
           <Carrousel array={array2}></Carrousel>
         </div>
         <ItemsShoppy />
-        <div className="Registrate">
-          <h3>Registrate y obtené beneficios</h3>
-          <p>
-            Registrate para recibir todas nuestras noticias sobre productos
-            nuevos, cupones de compra y demas novedades. Ademas como estamos en
-            mes mundialista, por registrarte en nuestra pagina estaras
-            participando de un sorteo por una camiseta de la seleccion.
-          </p>
-          <NavLink to={"/registro"}>
-            <a className="buttonInicioRegistrate">REGISTRATE</a>
-          </NavLink>
-        </div>
+        {!logged ? (
+          <div className="Registrate">
+            <h3>Registrate y obtené beneficios</h3>
+            <p>
+              Registrate para recibir todas nuestras noticias sobre productos
+              nuevos, cupones de compra y demas novedades. Ademas como estamos
+              en mes mundialista, por registrarte en nuestra pagina estaras
+              participando de un sorteo por una camiseta de la seleccion.
+            </p>
+            <NavLink to={"/registro"}>
+              <a className="buttonInicioRegistrate">REGISTRATE</a>
+            </NavLink>
+          </div>
+        ) : null}
         <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
           <div className="slide-track">
             <div className="slide">

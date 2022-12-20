@@ -6,6 +6,7 @@ const {
   nuevoProducto,
   editarProducto,
   eliminarProducto,
+  fotoCargada
 } = productsActions;
 
 const initialState = {
@@ -113,6 +114,8 @@ const productsReducer = createReducer(initialState, (builder) => {
       return newState;
     }
   });
+
+  
 });
 
 export default productsReducer;

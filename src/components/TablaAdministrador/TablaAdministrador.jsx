@@ -20,6 +20,14 @@ import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import productsActions from "../../redux/actions/productsActions";
 import "./tablaadministrador.css";
+import FileUpload from "../FileUpload/FileUpload";
+
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 const TablaAdministrador = () => {
   let { TodosLosproductos, refresh } = useSelector(
@@ -36,6 +44,30 @@ const TablaAdministrador = () => {
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
 
+  const [value, setValue] = useState(0); //para definir el % de carga
+  const [picture, setPicture] = useState(null); //para definir la URL de la imagen
+  const { fotoCargada } = productsActions;
+  const handleUpload = (event) => {
+    //función manejadora de la carga
+    const file = event.target.files[0]; //el elemento cero o el/los que sean
+    const storageRef = ref(getStorage(), "events/" + file.name); //para indicar la carpeta raiz
+    const task = uploadBytesResumable(storageRef, file, {
+      contentType: "image/png",
+    });
+    task.on(
+      "state_changed", //para configurar la carga
+      (snapshot) =>
+        setValue(100 * (snapshot.bytesTransferred / snapshot.totalBytes)),
+      (error) => console.log(error.message),
+      async () => setPicture(await getDownloadURL(task.snapshot.ref))
+    );
+  };
+
+  useEffect(() => {
+    console.log(picture);
+    console.log(value);
+  }, [picture]);
+
   const [tableData, setTableData] = useState(() => TodosLosproductos);
   const [validationErrors, setValidationErrors] = useState({});
 
@@ -45,21 +77,19 @@ const TablaAdministrador = () => {
     const nuevoProductoBody = {
       name: values.name,
       category: values.category,
-      photo: values.photo,
+      photo: picture,
       brand: values.brand,
       price: Number(values.price),
       stock: Number(values.stock),
       dateCreated: fechaActual,
-      specifications: { color: "negro" },
+      specifications: {},
     };
 
-
+    console.log(nuevoProductoBody);
 
     const dispatchNuevoProducto = await dispatch(
       nuevoProducto({ token, producto: nuevoProductoBody })
     );
-
-
 
     if (!dispatchNuevoProducto.payload.success) {
       dispatchNuevoProducto.payload.error.map((x) =>
@@ -77,7 +107,7 @@ const TablaAdministrador = () => {
     } else {
       toast.success(` Se creo el producto correctamente `, {
         position: "bottom-left",
-        autoClose: false,
+        autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -233,6 +263,12 @@ const TablaAdministrador = () => {
     [getCommonEditTextFieldProps]
   );
 
+  const setearStates = () => {
+    setCreateModalOpen(false);
+    setValue(value===0);
+    setPicture(picture===null);
+  };
+
   return (
     <>
       <ToastContainer />
@@ -283,13 +319,24 @@ const TablaAdministrador = () => {
         columns={columns}
         open={createModalOpen}
         onSubmit={handleCreateNewRow}
-        onClose={() => setCreateModalOpen(false)}
+        onClose={setearStates}
+        picture={picture}
+        value={value}
+        handleUpload={handleUpload}
       />
     </>
   );
 };
 
-export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
+export const CreateNewAccountModal = ({
+  open,
+  columns,
+  onClose,
+  onSubmit,
+  picture,
+  value,
+  handleUpload,
+}) => {
   const [values, setValues] = useState(() =>
     columns.reduce((acc, column) => {
       acc[column.accessorKey ?? ""] = "";
@@ -297,26 +344,8 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
     }, {})
   );
 
-  const [prueba, setPrueba] = useState("Ingrese una foto por favor");
-
-  const nuevaFoto = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-    setPrueba(e.target.value);
-    toast.success(` La foto se agregó exitosamente `, {
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-  };
-
   const handleSubmit = () => {
     onSubmit(values);
-    setPrueba("");
     onClose();
   };
 
@@ -390,14 +419,15 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
                 setValues({ ...values, [e.target.name]: e.target.value })
               }
             />
-            <div style={{ display: "flex" }}>
-              <TextField
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              <p style={{ width: "100%" }}>Foto</p>
+              {/*  <TextField
                 className="ingresarFotoTexto"
                 disabled
                 label={prueba}
                 size="small"
-              />
-              <IconButton
+              /> */}
+              {/*  <IconButton
                 color="primary"
                 aria-label="upload picture"
                 component="label"
@@ -411,7 +441,17 @@ export const CreateNewAccountModal = ({ open, columns, onClose, onSubmit }) => {
                   onChange={nuevaFoto}
                 />
                 <PhotoCamera />
-              </IconButton>
+              </IconButton> */}
+              <>
+                <input type="file" onChange={handleUpload} />{" "}
+                {/*/input de carga de archivo/*/}
+                <input type="hidden" name="file" id={picture} />{" "}
+                {/*/input cuyo id será la
+      url del archivo/*/}
+                <progress value={value} max="100" name="file" />{" "}
+                {/*/barra porcentual de
+      carga/*/}
+              </>
             </div>
           </Stack>
         </form>
