@@ -191,6 +191,7 @@ const userReducer = createReducer(initialState, (builder) => {
       return newState;
     }
   });
+  
 });
 
 export default userReducer;

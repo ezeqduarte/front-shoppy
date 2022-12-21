@@ -20,7 +20,7 @@ export default function CardCarrito({ producto }) {
 
   let carritoMod = carrito;
 
-  console.log(producto);
+ /*  console.log(producto); */
 
   let [cantidad, setCantidad] = useState(producto.quantity);
   let [precioTotal, setPrecioTotal] = useState(
