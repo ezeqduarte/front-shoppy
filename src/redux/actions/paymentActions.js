@@ -5,10 +5,14 @@ import API from "../../config/api";
 const mercadoPago = createAsyncThunk("mercadoPago", async (preference) => {
     
     const url=`${API}payment`
-    console.log(preference)
+    
   try {
-    const res = await axios.get(url,preference);
-    console.log(res,'aqui')
+    const res = await axios.post(url,preference);
+    console.log(res)
+    return{
+        response: res.data,
+        success: true
+    } 
   } catch (error) {
     console.log(error.response.data);
   }
