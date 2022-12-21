@@ -180,7 +180,7 @@
     }
   }
 
-  @media screen and (max-width: 440px) {
+  @media screen and (max-width: 890px) {
 
     .mc-containerPerfil{
         padding: 15px;
@@ -213,3 +213,4 @@
         width: 100%;
     }
   }
+  

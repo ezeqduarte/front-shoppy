@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import userActions from "../../redux/actions/userActions";
+import paymentActions from "../../redux/actions/paymentActions";
 import { NavLink } from "react-router-dom";
 import {
   Accordion,
@@ -23,19 +24,22 @@ import {
   Typography,
 } from "@mui/material";
 import funciones from "../../config/funciones";
+import { async } from "q";
+import axios from "axios";
 
 export default function Carrito() {
-  let { carrito, token, logged } = useSelector((store) => store.userReducer);
+  let { carrito, token } = useSelector((store) => store.userReducer);
+  
   const { getDatos } = userActions;
+  const {mercadoPago}=paymentActions;
+
   const dispatch = useDispatch();
   const { separator } = funciones;
 
   let [total, setTotal] = useState();
 
   useEffect(() => {
-    if (logged) {
-      dispatch(getDatos({ token: token }));
-    }
+    dispatch(getDatos({ token: token }));
   }, []);
 
   const [inputCode, setInputCode] = useState("");
@@ -51,6 +55,42 @@ export default function Carrito() {
       setTotal(separator(precioTotalCompra));
     }
   }, [carrito]);
+  /* let data = JSON.stringify({
+    username: this.state.username,
+    password: password
+  }); */
+  
+  let preference={
+     
+    items: [
+      {
+        title: "Dummy Title",
+        description: "Dummy description",
+        picture_url: "http://www.myapp.com/myimage.jpg",
+        category_id: "category123",
+        quantity: 1,
+        unit_price: 1
+      }
+    ],
+    back_urls: {
+      failure: "/failure",
+      pending: "/pending",
+      success: "/success"
+    }
+  }
+
+  let payment=async()=>{
+     /* let res=await axios.get('http://localhost:8000/api/payment',{preference})
+            .then(res=>console.log(res)) */
+      try {
+        let res= await dispatch(mercadoPago(preference))
+        console.log(res)
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    
+  }
+  
 
   return (
     <>
@@ -74,19 +114,7 @@ export default function Carrito() {
       </h2>
 
       <div className="edContainerCarrito">
-        {!logged ? (
-          <div
-            className="edContainerCardsCarrito"
-            style={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <div className="sinarticulosencarro">
-              <h3>Ingresa para poder ver tu carrito</h3>
-              <NavLink className="botonIrAproductos" to="/ingresar">
-                Ingresar
-              </NavLink>
-            </div>
-          </div>
-        ) : carrito.length === 0 ? (
+        {carrito.length === 0 ? (
           <div
             className="edContainerCardsCarrito"
             style={{ justifyContent: "center", alignItems: "center" }}
@@ -174,7 +202,7 @@ export default function Carrito() {
                   </div>
                 </AccordionDetails>
               </Accordion>
-              <div className="botonFinalizarCompraEd" to="/productos">
+              <div className="botonFinalizarCompraEd" to="/productos" onClick={payment}>
                 Finalizar compra
               </div>
             </div>

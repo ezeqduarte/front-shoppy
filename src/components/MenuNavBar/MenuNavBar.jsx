@@ -27,7 +27,7 @@ import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
 
 export default function TemporaryDrawer() {
-  let { rol, nombre, token, logged } = useSelector(
+  let { rol, nombre, token, logged, nick } = useSelector(
     (store) => store.userReducer
   );
   const [state, setState] = React.useState({
@@ -174,7 +174,7 @@ export default function TemporaryDrawer() {
                 fontSize="large"
               ></AccessibilityNewOutlinedIcon>
             </Button>
-          ) : (
+          ) : nick==='' ?(
             <Button onClick={toggleDrawer(anchor, true)}>
               <Avatar
                 className="mc-iconoAvatarNavbar"
@@ -183,7 +183,14 @@ export default function TemporaryDrawer() {
                 {nombre?.charAt(0)}
               </Avatar>
             </Button>
-          )}
+          ): (<Button onClick={toggleDrawer(anchor, true)}>
+          <Avatar
+            className="mc-iconoAvatarNavbar"
+            sx={{ bgcolor: "#ef837b" }}
+          >
+            {nick?.charAt(0)}
+          </Avatar>
+        </Button>) }
           <Drawer
             anchor={anchor}
             open={state[anchor]}

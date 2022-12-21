@@ -18,6 +18,9 @@ const initialState = {
   date: "",
   token: "",
   id: "",
+  nick:'',
+  cp:'',
+  nombreDni:''
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -43,6 +46,10 @@ const userReducer = createReducer(initialState, (builder) => {
         carrito: user.products,
         favoritos: user.favorites,
         token: token,
+        nick:user.nick,
+        phone:user.phone,
+        nombreDni:user.nameDni,
+        cp:user.cp
       };
       return newState;
     } else {
@@ -77,6 +84,10 @@ const userReducer = createReducer(initialState, (builder) => {
         carrito: user.products,
         favoritos: user.favorites,
         token: token,
+        nick:user.nick,
+        phone:user.phone,
+        nombreDni:user.nameDni,
+        cp:user.cp
       };
       return newState;
     } else {
@@ -180,6 +191,7 @@ const userReducer = createReducer(initialState, (builder) => {
       return newState;
     }
   });
+  
 });
 
 export default userReducer;
