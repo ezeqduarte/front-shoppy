@@ -63,10 +63,7 @@ const TablaAdministrador = () => {
     );
   };
 
-  useEffect(() => {
-    console.log(picture);
-    console.log(value);
-  }, [picture]);
+
 
   const [tableData, setTableData] = useState(() => TodosLosproductos);
   const [validationErrors, setValidationErrors] = useState({});
@@ -85,7 +82,7 @@ const TablaAdministrador = () => {
       specifications: {},
     };
 
-    console.log(nuevoProductoBody);
+
 
     const dispatchNuevoProducto = await dispatch(
       nuevoProducto({ token, producto: nuevoProductoBody })

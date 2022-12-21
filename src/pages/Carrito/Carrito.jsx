@@ -55,6 +55,10 @@ export default function Carrito() {
       setTotal(separator(precioTotalCompra));
     }
   }, [carrito]);
+  /* let data = JSON.stringify({
+    username: this.state.username,
+    password: password
+  }); */
   
   let preference={
      
@@ -74,7 +78,6 @@ export default function Carrito() {
       success: "/success"
     }
   }
-  
 
   let payment=async()=>{
      /* let res=await axios.get('http://localhost:8000/api/payment',{preference})
@@ -83,7 +86,7 @@ export default function Carrito() {
         let res= await dispatch(mercadoPago(preference))
         console.log(res)
       } catch (error) {
-        console.log(error)
+        console.log(error.response.data)
       }
     
   }

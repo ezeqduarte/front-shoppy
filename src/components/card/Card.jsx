@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import funciones from "../../config/funciones";
 import { useDispatch, useSelector } from "react-redux";
 import userActions from "../../redux/actions/userActions";
+import { toast } from "react-toastify";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -22,30 +23,51 @@ export default function Card({ objeto, texto }) {
   if (objeto.stock < 5) {
     cartel = "POCO STOCK";
   }
-  
 
-  useEffect(()=>{
-    console.log(favoritos);
-  }, [favoritos])
 
 
   const newValue = (e) => {
-    if (e.target.checked) {
+    if (logged) {
+      if (e.target.checked) {
+        let nuevosFavoritos = favoritos.concat(objeto._id);
+        dispatch(
+          agregarAfavoritos({ token: token, favoritos: nuevosFavoritos })
+        );
 
-      let nuevosFavoritos = favoritos.concat(objeto._id);
-      dispatch(agregarAfavoritos({ token: token, favoritos: nuevosFavoritos }));
-      setValue(!value)
+        setValue(!value);
+      } else {
+        let nuevosFavoritos = favoritos.filter((x) => x._id !== objeto._id);
+        dispatch(
+          agregarAfavoritos({ token: token, favoritos: nuevosFavoritos })
+        );
+
+        setValue(!value);
+      }
     } else {
 
-      let nuevosFavoritos = favoritos.filter(x=> x !== objeto._id);
-      dispatch(agregarAfavoritos({ token: token, favoritos: nuevosFavoritos }));
-      setValue(!value)
-    } 
+      toast.error(
+        `Registrate para poder agregar favoritos`,
+        {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }
+      );
 
-    return;
+
+    } 
+    
   };
 
-  const [value, setValue] = useState(favoritos.includes(objeto._id));
+  const [value, setValue] = useState(
+    favoritos.map((x) => x._id).includes(objeto._id) ||
+      favoritos.includes(objeto._id)
+  );
 
   return (
     <div className="card">

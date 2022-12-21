@@ -176,7 +176,7 @@ const userReducer = createReducer(initialState, (builder) => {
 
   builder.addCase(agregarAfavoritos.fulfilled, (state, action) => {
     const { success, response } = action.payload;
-    console.log(response);
+
     if (success) {
       let newState = {
         ...state,

@@ -86,7 +86,7 @@ const editarProducto = createAsyncThunk(
 
     try {
       let res = await axios.put(`${API}product/${id}`, producto, headers);
-      console.log(producto, id);
+
       return {
         success: true,
         response: res.data.response,

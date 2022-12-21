@@ -100,7 +100,7 @@ const productsReducer = createReducer(initialState, (builder) => {
       let newState = state.TodosLosproductos.filter(
         (x) => x._id !== response._id
       );
-      console.log(newState);
+
       return {
         ...state,
         refresh: !state.refresh,
