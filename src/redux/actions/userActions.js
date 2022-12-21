@@ -101,7 +101,7 @@ const getDatos = createAsyncThunk("getDatos", async ({token}) => {
       response: res.data.response,
     };
   } catch (error) {
-    console.log("aca");
+
     return {
       
       success: false,

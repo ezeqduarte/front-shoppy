@@ -20,7 +20,7 @@ export default function CardCarrito({ producto }) {
 
   let carritoMod = carrito;
 
-  console.log(producto);
+
 
   let [cantidad, setCantidad] = useState(producto.quantity);
   let [precioTotal, setPrecioTotal] = useState(
@@ -46,7 +46,7 @@ export default function CardCarrito({ producto }) {
           return x;
         }
       });
-      console.log(carritoMod);
+
       dispatch(agregarAcarro({ token, carrito: carritoMod }));
     }
   };
@@ -65,7 +65,7 @@ export default function CardCarrito({ producto }) {
           return x;
         }
       });
-      console.log(carritoMod);
+
       dispatch(agregarAcarro({ token, carrito: carritoMod }));
     }
   };

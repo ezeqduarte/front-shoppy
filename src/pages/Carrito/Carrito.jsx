@@ -25,7 +25,7 @@ import {
 import funciones from "../../config/funciones";
 
 export default function Carrito() {
-  let { carrito, token } = useSelector((store) => store.userReducer);
+  let { carrito, token, logged } = useSelector((store) => store.userReducer);
   const { getDatos } = userActions;
   const dispatch = useDispatch();
   const { separator } = funciones;
@@ -33,7 +33,9 @@ export default function Carrito() {
   let [total, setTotal] = useState();
 
   useEffect(() => {
-    dispatch(getDatos({ token: token }));
+    if (logged) {
+      dispatch(getDatos({ token: token }));
+    }
   }, []);
 
   const [inputCode, setInputCode] = useState("");
@@ -72,7 +74,19 @@ export default function Carrito() {
       </h2>
 
       <div className="edContainerCarrito">
-        {carrito.length === 0 ? (
+        {!logged ? (
+          <div
+            className="edContainerCardsCarrito"
+            style={{ justifyContent: "center", alignItems: "center" }}
+          >
+            <div className="sinarticulosencarro">
+              <h3>Ingresa para poder ver tu carrito</h3>
+              <NavLink className="botonIrAproductos" to="/ingresar">
+                Ingresar
+              </NavLink>
+            </div>
+          </div>
+        ) : carrito.length === 0 ? (
           <div
             className="edContainerCardsCarrito"
             style={{ justifyContent: "center", alignItems: "center" }}
