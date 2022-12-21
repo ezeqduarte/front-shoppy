@@ -8,7 +8,7 @@ import BackToTopButton from "../components/BackToTopButton/BackToTopButton";
 export default function Main(props) {
   const href = useHref();
 
-  return href === "/" || href === "/ingresar" || href === "/registro" ? null : (
+  return href === "/" || href === "/ingresar" || href === "/registro"  || href === "/success"  || href === "/fail" ? null : (
     <>
       <AutoToTop />
       <NavBar />

@@ -59,17 +59,14 @@ export default function Carrito() {
     username: this.state.username,
     password: password
   }); */
-  let items=[];
-  items=carrito.map(item=>(
-   
-            { 
-                title: item.productId.name,
-                quantity: item.quantity,
-                unit_price: item.productId.price
-              }
-  ))
+  let items = [];
+  items = carrito.map((item) => ({
+    title: item.productId.name,
+    quantity: item.quantity,
+    unit_price: item.productId.price,
+  }));
 
-  console.log(items)
+  console.log(items);
   let preference = {
     /* items: [
       {
@@ -79,12 +76,11 @@ export default function Carrito() {
       },
     ], */
     back_urls: {
-      failure: "http://localhost:3000/inicio",
-      success: "http://localhost:3000/inicio",
+      failure: "http://localhost:3000/fail",
+      success: "http://localhost:3000/success",
     },
   };
-   preference.items=items
-
+  preference.items = items;
 
   let payment = async () => {
     /* let res=await axios.get('http://localhost:8000/api/payment',{preference})
@@ -93,8 +89,8 @@ export default function Carrito() {
       let res = await dispatch(mercadoPago(preference));
       console.log(res);
       console.log(res.payload.response.init_point);
-      if(res.payload.success){
-         window.location.assign(res.payload.response.init_point)
+      if (res.payload.success) {
+        window.location.assign(res.payload.response.init_point);
       }
     } catch (error) {
       console.log(error.response.data);
@@ -191,21 +187,15 @@ export default function Carrito() {
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="mc-containerDatosPersonales">
+                    <p>Tienes 55000 shoppy coins</p>
                     <div className="ed-InputCodigoPromocional">
-                      <TextField
-                        id="nombre"
-                        label="Inserte codigo promocional"
-                        variant="outlined"
-                        className="mc-inputsPerfilAcordion"
-                        onChange={(text) => setInputCode(text.target.value)}
-                      />
+                    <p>Tienes 55000 shoppy coins</p>
                       <Button
                         variant="contained"
                         size="small"
                         className="mc-buttonAcordion"
-                        /* onClick={editMail} */
                       >
-                        {<DoneOutlined className="mc-iconButtonPerfil" />}
+                        {<DoneOutlined size="small" className="mc-iconButtonPerfil" />}
                       </Button>
                     </div>
                   </div>
