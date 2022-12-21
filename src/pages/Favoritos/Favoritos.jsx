@@ -8,10 +8,7 @@ import CardCarrito from "../../components/CardCarrito/CardCarrito";
 import CardFavoritos from "../../components/CardFavoritos/CardFavoritos";
 
 export default function Favoritos() {
-
-  let { favoritos, token } = useSelector((store) => store.userReducer);
-
-  console.log(favoritos);
+  let { favoritos, token, logged } = useSelector((store) => store.userReducer);
 
   return (
     <>
@@ -34,7 +31,19 @@ export default function Favoritos() {
         TUS PRODUCTOS FAVORITOS <span className="blanco">.</span>
       </h2>
 
-      {favoritos.length === 0 ? (
+      {!logged ? (
+        <div
+          className="containerCardsFavoritos"
+          style={{ justifyContent: "center", alignItems: "center" }}
+        >
+          <div className="sinarticulosencarro">
+            <h3>Ingresá para ver tus favoritos</h3>
+            <NavLink className="botonIrAproductos" to="/ingresar">
+              Ingresar
+            </NavLink>
+          </div>
+        </div>
+      ) : favoritos.length === 0 ? (
         <div
           className="containerCardsFavoritos"
           style={{ justifyContent: "center", alignItems: "center" }}
@@ -53,6 +62,8 @@ export default function Favoritos() {
           ))}
         </div>
       )}
+
+      
     </>
   );
 }

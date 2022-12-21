@@ -18,7 +18,7 @@ import {
   SettingsOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import userActions from "../../redux/actions/userActions";
 import { toast, ToastContainer } from "react-toastify";
@@ -33,7 +33,11 @@ export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     right: false,
   });
-
+  const location = useLocation();
+  const [url, setUrl] = React.useState(null);
+  React.useEffect(() => {
+    setUrl(location.pathname);
+  }, [location]);
   const { logout } = userActions;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +46,7 @@ export default function TemporaryDrawer() {
     dispatch(logout(token));
     toast.success(`Cerraste tu sesion exitosamente, vuelva pronto!`, {
       position: "bottom-right",
-      autoClose: 3000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -51,7 +55,10 @@ export default function TemporaryDrawer() {
       theme: "light",
     });
 
-    navigate("/inicio");
+    setTimeout(function () {
+      navigate("/");
+      url.reload();
+    }, 2000);
   };
 
   const toggleDrawer = (anchor, open) => (event) => {

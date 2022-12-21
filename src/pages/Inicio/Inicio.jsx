@@ -46,7 +46,7 @@ export default function Inicio() {
 
   useEffect(() => {
     productosTotales();
-  }, []);
+  }, [logged]);
 
   return (
     <>
@@ -100,8 +100,18 @@ export default function Inicio() {
               <a className="buttonInicioRegistrate">REGISTRATE</a>
             </NavLink>
           </div>
-        ) : null}
-        <ToastContainer/>
+        ) : (
+          <div className="festejaLasFiestas">
+            <h3>Festeja las fiestas con Shoppy</h3>
+            <p>
+              Tenemos todo para que puedas regalarle lo mejor a tu gente querida, monitores, auriculares, teclados y muchas cosas mas. Ingresa a nuestra seccion de productos y analiza las mejores opciones para ti.
+            </p>
+            <NavLink to={"/productos"}>
+              <a className="buttonInicioRegistrate">VER MAS</a>
+            </NavLink>
+          </div>
+        )}
+        <ToastContainer />
         <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
           <div className="slide-track">
             <div className="slide">

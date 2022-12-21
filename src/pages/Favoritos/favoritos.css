@@ -24,10 +24,12 @@
 
 .cardFavoritos {
   background-color: rgb(239, 239, 239);
+  border-radius: 5px;
   width: 400px;
   display: flex;
   flex-direction: column;
   padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   cursor: pointer;
 }
 
@@ -42,41 +44,41 @@
   justify-content: center;
   padding: 25px 0px;
   align-items: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
 }
 
-.botonIrAdetallesFavoritos{
-    background-color: #ef837b;
-    color: #f3f3f3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    width: 48%;
-    padding: 15px;
+.botonIrAdetallesFavoritos {
+  background-color: #ef837b;
+  color: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 48%;
+  padding: 15px;
 }
 
-.botonIrAdetallesFavoritos:hover{
-    background-color: #da766f;
-    color: #f3f3f3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    width: 48%;
-    padding: 15px;
+.botonIrAdetallesFavoritos:hover {
+  background-color: #da766f;
+  color: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  width: 48%;
+  padding: 15px;
 }
 
-.preciosFavoritos{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-   
+.preciosFavoritos {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
-.nombreEnFavorito{
-
-    text-transform: uppercase;
-    font-size: 1.3rem;
-    font-weight: bold;
-
+.nombreEnFavorito {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
