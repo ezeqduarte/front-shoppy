@@ -130,7 +130,25 @@
   letter-spacing: 2px;
   font-size: 20px;
 }
-
+.mc-containerProductGeneral{
+  display: flex;
+  flex-direction: column;
+}
+.mc-containerCardsProducts{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 25px;
+  padding: 20px;
+}
+.mc-containerPaginacion{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+.mc-fontsizePagination{
+  font-size: 25px!important;
+}
 @media screen and (max-width: 1005px) {
   .mc-containerProductos {
     flex-direction: column;
@@ -151,6 +169,9 @@
   }
   .titulos-inputPrecio {
     text-align: center;
+  }
+  .mc-containerPublicidades{
+    display: none;
   }
 }
 

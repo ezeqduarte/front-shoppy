@@ -31,11 +31,12 @@ import { useSelector } from "react-redux";
 
 export default function Consultas() {
   const [option, setOption] = React.useState("");
+  let [inputConsultas,setInputConsultas]=React.useState('')
 
   const handleChange = (event) => {
     setOption(event.target.value);
   };
-
+  
   const { logged } = useSelector((state) => state.userReducer);
 
   return (
@@ -289,13 +290,18 @@ export default function Consultas() {
                       label="Escriba su Pregunta"
                       multiline
                       rows={4}
-                      /* defaultValue="Default Value" */
+                      onKeyUp={x=>setInputConsultas(x.target.value)}
                       className="mc-inputPregunta"
                     />
                     <div className="mc-containerButton">
-                      <Button variant="contained" size="medium" className="mc-buttonSubmit">
-                        Enviar
-                      </Button>
+                      {inputConsultas!=='' && option!==''
+                          ?   <Button variant="contained" size="medium" className="mc-buttonSubmit">
+                                  Enviar
+                              </Button>
+                          :   <Button variant="contained" size="medium" className="mc-buttonSubmit" disabled>
+                                  Enviar
+                              </Button>
+                      }
                     </div>
               </div>
             

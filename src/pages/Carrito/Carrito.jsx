@@ -55,14 +55,11 @@ export default function Carrito() {
       setTotal(separator(precioTotalCompra));
     }
   }, [carrito]);
-  /* let data = JSON.stringify({
-    username: this.state.username,
-    password: password
-  }); */
+ 
   let items=[];
   items=carrito.map(item=>(
    
-            { 
+              { 
                 title: item.productId.name,
                 quantity: item.quantity,
                 unit_price: item.productId.price
@@ -71,13 +68,6 @@ export default function Carrito() {
 
   console.log(items)
   let preference = {
-    /* items: [
-      {
-        title: "",   
-        quantity: 0,
-        unit_price: 0,
-      },
-    ], */
     back_urls: {
       failure: "http://localhost:3000/inicio",
       success: "http://localhost:3000/inicio",
@@ -87,14 +77,11 @@ export default function Carrito() {
 
 
   let payment = async () => {
-    /* let res=await axios.get('http://localhost:8000/api/payment',{preference})
-            .then(res=>console.log(res)) */
+    
     try {
       let res = await dispatch(mercadoPago(preference));
-      console.log(res);
-      console.log(res.payload.response.init_point);
       if(res.payload.success){
-         window.location.assign(res.payload.response.init_point)
+        window.location.assign(res.payload.response.init_point)
       }
     } catch (error) {
       console.log(error.response.data);
