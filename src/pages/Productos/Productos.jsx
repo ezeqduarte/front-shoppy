@@ -4,20 +4,16 @@ import Card from "../../components/card/Card";
 import GoTo from "../../components/GoTo/GoTo";
 import adata from "../../imagenes/adata.png";
 import amd from "../../imagenes/amd.png";
-import asrock from "../../imagenes/asrock.png";
 import rogstrix from "../../imagenes/rogstrix.png";
 import tForce from "../../imagenes/t-force.png";
-import western from "../../imagenes/western-digital.png";
 import zotac from "../../imagenes/zotacGaming.png";
-import Box from "@mui/material/Box";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Slider from "@mui/material/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import productsActions from "../../redux/actions/productsActions";
+
+import { Paginator } from 'primereact/paginator';
+
 const { productos, productosFiltrados } = productsActions;
 
 export default function Productos() {
@@ -94,7 +90,7 @@ export default function Productos() {
     peticionProductosFiltrados();
   }, [peticion]);
 
-  function Paginator(items, page, per_page) {
+ /*  function PaginatorF(items, page, per_page) {
 
     var page = page || 1,
     per_page = per_page || 10,
@@ -113,10 +109,9 @@ export default function Productos() {
     offset:offset
     };
   }
-  let array1=Paginator(productosFiltradosArray)
-  console.log(array1)
+  let array1=PaginatorF(productosFiltradosArray)
+  console.log(array1) */
 
-  
 
   return (
     <>
@@ -221,16 +216,18 @@ export default function Productos() {
           <div className="mc-containerProductGeneral">
             <div className="mc-containerCardsProducts">
               {productosFiltradosArray.length > 0 ? (
-                array1.data.map((x) => (
+                productosFiltradosArray.map((x) => (
                   <Card objeto={x} texto="COMPRAR" key={x._id}></Card>
                 ))
               ) : (
                 <h4>No se encontraron productos con su busqueda</h4>
               )}
             </div>
-            <div className="mc-containerPaginacion">
-            
-            </div>
+            {/* <div className="paginator-demo">
+              
+                <Paginator first={basicFirst} rows={basicRows} totalRecords={120} onPageChange={onBasicPageChange}></Paginator>
+              
+            </div> */}
           </div>
         </div>
       </div>

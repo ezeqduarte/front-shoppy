@@ -137,7 +137,8 @@
 .mc-containerCardsProducts{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
+  justify-content: space-between;
   gap: 25px;
   padding: 20px;
 }
@@ -146,8 +147,9 @@
   justify-content: center;
   margin-top: 40px;
 }
-.mc-fontsizePagination{
-  font-size: 25px!important;
+.paginator-demo .image-gallery {
+  text-align: center;
+  padding: 1rem;
 }
 @media screen and (max-width: 1005px) {
   .mc-containerProductos {

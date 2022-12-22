@@ -27,6 +27,8 @@ import tForce from "../../imagenes/t-force.png";
 import western from "../../imagenes/western-digital.png";
 import zotac from "../../imagenes/zotacGaming.png";
 
+import { toast } from "react-toastify";
+
 import { useSelector } from "react-redux";
 
 export default function Consultas() {
@@ -38,6 +40,21 @@ export default function Consultas() {
   };
   
   const { logged } = useSelector((state) => state.userReducer);
+
+  const clickSubmit = () => {
+    if (!logged) {
+      toast.error(`Tienes que estar logeado para realizar una consulta`, {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      }
+    }
 
   return (
     <>
@@ -231,8 +248,7 @@ export default function Consultas() {
           </AccordionDetails>
         </Accordion>
       </div>
-      {logged 
-            ? <div className="mc-containerPregunta">
+      <div className="mc-containerPregunta">
                     <Card>
                       <CardContent>
                         <Typography
@@ -295,7 +311,7 @@ export default function Consultas() {
                     />
                     <div className="mc-containerButton">
                       {inputConsultas!=='' && option!==''
-                          ?   <Button variant="contained" size="medium" className="mc-buttonSubmit">
+                          ?   <Button variant="contained" size="medium" className="mc-buttonSubmit" onClick={clickSubmit}>
                                   Enviar
                               </Button>
                           :   <Button variant="contained" size="medium" className="mc-buttonSubmit" disabled>
@@ -304,10 +320,7 @@ export default function Consultas() {
                       }
                     </div>
               </div>
-            
-            : <></>
-              
-              }
+           
       
       <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>
         <div className="slide-track">
