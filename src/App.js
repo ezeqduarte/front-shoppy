@@ -17,6 +17,8 @@ import userActions from "./redux/actions/userActions";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import Favoritos from "./pages/Favoritos/Favoritos";
+import Success from "./pages/Success/Success";
+import Fail from "./pages/Fail/Fail";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC0spyE307eCf3EkhC3tFe39RYoEm1eRTY",
@@ -37,6 +39,7 @@ function App() {
   const { reIngress, getDatos } = userActions;
   const dispatch = useDispatch();
 
+  console.log(token);
 
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));
@@ -58,6 +61,8 @@ function App() {
         <Route path="" element={<Bienvenida />} />
         <Route path="/ingresar" element={<Ingresar />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/fail" element={<Fail />} />
       </Routes>
       <Main>
         <Routes>
