@@ -12,6 +12,9 @@ import zotac from "../../imagenes/zotacGaming.png";
 import Box from "@mui/material/Box";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Slider from "@mui/material/Slider";
 import { useDispatch, useSelector } from "react-redux";
 import productsActions from "../../redux/actions/productsActions";
@@ -39,6 +42,8 @@ export default function Productos() {
 
   const tipos = [...new Set(TodosLosproductos.map((x) => x.category))];
   const marcas = [...new Set(TodosLosproductos.map((x) => x.brand))];
+  
+  
 
   const productosTotales = async () => {
     dispatch(productos());
@@ -88,6 +93,30 @@ export default function Productos() {
   useEffect(() => {
     peticionProductosFiltrados();
   }, [peticion]);
+
+  function Paginator(items, page, per_page) {
+
+    var page = page || 1,
+    per_page = per_page || 10,
+    offset = (page - 1) * per_page,
+  
+    paginatedItems = items.slice(offset).slice(0, per_page),
+    total_pages = Math.ceil(items.length / per_page);
+    return {
+    page: page,
+    per_page: per_page,
+    pre_page: page - 1 ? page - 1 : null,
+    next_page: (total_pages > page) ? page + 1 : null,
+    total: items.length,
+    total_pages: total_pages,
+    data: paginatedItems,
+    offset:offset
+    };
+  }
+  let array1=Paginator(productosFiltradosArray)
+  console.log(array1)
+
+  
 
   return (
     <>
@@ -157,46 +186,7 @@ export default function Productos() {
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Marca" />}
           />
-          {/* <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
-              <div>{`inputValue: '${inputValue}'`}</div> */}
-          {/*  <br />
-          <Autocomplete
-            value={value3}
-            style={{ width: "100%" }}
-            onChange={(event, newValue) => {
-              setValue3(newValue);
-            }}
-            inputValue={inputValue3}
-            onInputChange={(event, newInputValue) => {
-              setInputValue3(newInputValue);
-            }}
-            id="controllable-states-demo"
-            options={options}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Color" />}
-          />
-           <div>{`value: ${value !== null ? `'${value}'` : 'null'}`}</div>
-              <div>{`inputValue: '${inputValue}'`}</div> 
           <br />
-          <Autocomplete
-            value={value4}
-            style={{ width: "100%" }}
-            onChange={(event, newValue) => {
-              setValue4(newValue);
-            }}
-            inputValue={inputValue4}
-            onInputChange={(event, newInputValue) => {
-              setInputValue4(newInputValue);
-            }}
-            id="controllable-states-demo"
-            options={options}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Tipos" />}
-          /> */}
-          <br />
-          
-          {/* <input type="range" className='input-filterRange'/>
-            <input type="range" className='input-filterRange' /> */}
           <h3 className="titulos-inputPrecio">Precio</h3>
           <div className="mc-containerPrecios">
             <TextField
@@ -217,8 +207,10 @@ export default function Productos() {
               variant="outlined"
             />
           </div>
-          <aside className="mc-containerPublicidad"></aside>
-          <aside className="mc-containerPublicidad2"></aside>
+          <div className="mc-containerPublicidades">
+              <aside className="mc-containerPublicidad"></aside>
+              <aside className="mc-containerPublicidad2"></aside>
+          </div>
         </div>
         <div className="mc-containerCardsProductos">
           <div className="mc-containerTitulosProductos">
@@ -226,13 +218,20 @@ export default function Productos() {
               Nuestra Tienda<span className="blanco">.</span>
             </h2>
           </div>
-          {productosFiltradosArray.length > 0
-            ? productosFiltradosArray.map((x) => (
-                <Card objeto={x} texto="COMPRAR" key={x._id}></Card>
-              ))
-
-              
-            : <h4>No se encontraron productos con su busqueda</h4> }
+          <div className="mc-containerProductGeneral">
+            <div className="mc-containerCardsProducts">
+              {productosFiltradosArray.length > 0 ? (
+                array1.data.map((x) => (
+                  <Card objeto={x} texto="COMPRAR" key={x._id}></Card>
+                ))
+              ) : (
+                <h4>No se encontraron productos con su busqueda</h4>
+              )}
+            </div>
+            <div className="mc-containerPaginacion">
+            
+            </div>
+          </div>
         </div>
       </div>
       <div className="slider" style={{ marginTop: 50, marginBottom: 50 }}>

@@ -170,7 +170,31 @@
   margin: 0px 15px;
   flex-direction: column;
 }
-
+.mc-containerPreguntaDetalles{
+  padding: 35px 90px;
+}
+.mc-tituloConsultasCartelDetalles{
+  font-weight: 600!important;
+  font-size: 25px!important;
+  display: flex;
+  margin-left: 10px
+}
+.mc-inputPreguntaDetallesProducto{
+  width: 100% !important;
+  margin-top: 30px!important;
+}
+.mc-containerCardDetallesProduct{
+  padding: 16px!important;
+}
+.mc-containerButtonDetalles{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.mc-buttonSubmitDetalles{
+  width: 6%;
+  background-color:  #ef837b !important;
+}
 @media (max-width: 992px) {
   .cardDetalleDeProductoEd {
     flex-direction: column;
@@ -188,5 +212,8 @@
 
   .InfoDetalleDeProductoEd {
     width: 95%;
+  }
+  .mc-containerPreguntaDetalles{
+    padding:35px
   }
 }

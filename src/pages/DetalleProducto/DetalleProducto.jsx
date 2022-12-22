@@ -5,6 +5,8 @@ import {
   ShoppingCart,
 } from "@mui/icons-material";
 
+import {MenuItem,Button,Card,CardContent,Typography,FormControl,InputLabel,TextField,Select} from "@mui/material";
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -29,6 +31,7 @@ export default function DetalleProducto() {
   producto = producto[0];
 
   let [cantidad, setCantidad] = useState(1);
+  let [inputConsultas,setInputConsultas]=useState('')
 
   useEffect(() => {
     dispatch(productos());
@@ -102,6 +105,19 @@ export default function DetalleProducto() {
       str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       return str.join(".");
     }
+  }
+
+  let clickSubmit=()=>{
+    toast.success('🦄 Wow so easy!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
   }
 
   return (
@@ -205,6 +221,32 @@ export default function DetalleProducto() {
             </div>
           </div>
         </div>
+        {logged 
+            ? <div className="mc-containerPreguntaDetalles">
+                    <h2 className="mc-tituloConsultasCartelDetalles">¿Tenes dudas sobre el Producto?</h2>
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Escriba su Pregunta"
+                      multiline
+                      rows={4}
+                      onKeyUp={x=>setInputConsultas(x.target.value)} 
+                      className="mc-inputPreguntaDetallesProducto"
+                    />
+                    <div className="mc-containerButtonDetalles">
+                      {inputConsultas.length!==0
+                            ?   <Button variant="contained" size="medium" className="mc-buttonSubmitDetalles" onClick={clickSubmit}>
+                                  Enviar
+                                </Button>
+                            :   <Button variant="contained" size="medium" className="mc-buttonSubmitDetalles" disabled>
+                                    Enviar
+                                </Button>
+                      }
+                    </div>
+              </div>
+            
+            : <></>
+              
+              }
       </div>
     </>
   );
