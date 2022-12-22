@@ -72,13 +72,6 @@ export default function Carrito() {
   }));
 
   let preference = {
-    /* items: [
-      {
-        title: "",   
-        quantity: 0,
-        unit_price: 0,
-      },
-    ], */
     back_urls: {
       failure: "http://localhost:3000/fail",
       success: "http://localhost:3000/success",
@@ -87,8 +80,6 @@ export default function Carrito() {
   preference.items = items;
 
   let payment = async () => {
-    /* let res=await axios.get('http://localhost:8000/api/payment',{preference})
-            .then(res=>console.log(res)) */
     try {
       let res = await dispatch(mercadoPago(preference));
       console.log(res);
