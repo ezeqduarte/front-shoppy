@@ -26,11 +26,14 @@ import {
 import funciones from "../../config/funciones";
 import { async } from "q";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Carrito() {
-  let { carrito, token } = useSelector((store) => store.userReducer);
+  let { carrito, token, monedas, logged } = useSelector(
+    (store) => store.userReducer
+  );
 
-  const { getDatos } = userActions;
+  const { getDatos, editUser } = userActions;
   const { mercadoPago } = paymentActions;
 
   const dispatch = useDispatch();
@@ -41,6 +44,8 @@ export default function Carrito() {
   useEffect(() => {
     dispatch(getDatos({ token: token }));
   }, []);
+
+  console.log(monedas);
 
   const [inputCode, setInputCode] = useState("");
 
@@ -66,7 +71,6 @@ export default function Carrito() {
     unit_price: item.productId.price,
   }));
 
-  console.log(items);
   let preference = {
     /* items: [
       {
@@ -97,6 +101,38 @@ export default function Carrito() {
     }
   };
 
+  let [monedasDisponibles, setMonedas] = useState(monedas);
+
+  useEffect(() => {
+    setMonedas(monedas);
+  }, [monedas]);
+
+  const aplicarMonedas = async () => {
+    Swal.fire({
+      title: `Quieres utilizar tus ${monedasDisponibles} shoppy coins?`,
+      text: `Se te descontará directamente del precio total`,
+      imageUrl: "https://img.icons8.com/color/80/null/average-2.png",
+      showCancelButton: true,
+      margin: "0",
+      cancelButtonColor: "#c3c3c3",
+      confirmButtonColor: "#c3c3c3",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Descuento aplicado",
+          `Utilizaste ${monedasDisponibles} para la  compra`,
+          "success"
+        );
+
+        let data = { coins: 0 };
+        const res = await dispatch(editUser({ token, data }));
+        setMonedas(res.payload.response.coins);
+      }
+    });
+  };
+
   return (
     <>
       <div className="mainCarrito">
@@ -119,7 +155,19 @@ export default function Carrito() {
       </h2>
 
       <div className="edContainerCarrito">
-        {carrito.length === 0 ? (
+        {!logged ? (
+          <div
+            className="containerCardsFavoritos"
+            style={{ justifyContent: "center", alignItems: "center" }}
+          >
+            <div className="sinarticulosencarro">
+              <h3>Ingresá para ver tu carrito</h3>
+              <NavLink className="botonIrAproductos" to="/ingresar">
+                Ingresar
+              </NavLink>
+            </div>
+          </div>
+        ) : carrito.length === 0 ? (
           <div
             className="edContainerCardsCarrito"
             style={{ justifyContent: "center", alignItems: "center" }}
@@ -187,15 +235,26 @@ export default function Carrito() {
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="mc-containerDatosPersonales">
-                    <p>Tienes 55000 shoppy coins</p>
+                    <div className="divMonedasCarrito">
+                      <p className="monedasEdCarrito">
+                        Tienes {monedasDisponibles} shoppy coins
+                      </p>
+                      <img src="https://img.icons8.com/color/30/null/average-2.png" />
+                    </div>
                     <div className="ed-InputCodigoPromocional">
-                    <p>Tienes 55000 shoppy coins</p>
+                      <p>Quieres agregarlas a tu compra?</p>
                       <Button
                         variant="contained"
                         size="small"
                         className="mc-buttonAcordion"
                       >
-                        {<DoneOutlined size="small" className="mc-iconButtonPerfil" />}
+                        {
+                          <DoneOutlined
+                            size="small"
+                            onClick={aplicarMonedas}
+                            className="mc-iconButtonPerfil"
+                          />
+                        }
                       </Button>
                     </div>
                   </div>

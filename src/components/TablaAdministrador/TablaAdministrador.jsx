@@ -152,11 +152,12 @@ const TablaAdministrador = () => {
     (row, token) => {
       Swal.fire({
         title: `Quieres eliminar ${row.original.brand} ${row.original.name}? `,
-        imageUrl: "https://img.icons8.com/ios-glyphs/60/ef837b/break.png",
+        imageUrl: "https://img.icons8.com/ios-glyphs/80/ef837b/break.png",
         showCancelButton: true,
         cancelButtonColor: "#c3c3c3",
         confirmButtonColor: "#c3c3c3",
         confirmButtonText: "Eliminarlo",
+        cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(eliminarProducto({ token: token, id: row.original._id }));

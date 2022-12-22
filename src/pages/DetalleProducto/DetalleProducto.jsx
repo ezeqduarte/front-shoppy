@@ -59,7 +59,7 @@ export default function DetalleProducto() {
       dispatch(agregarAcarro({ token: token, carrito: nuevoCarrito }));
 
       toast.success(`Tienes ${cantidad} ${producto.name} en el carrito`, {
-        position: "bottom-right",
+        position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -70,7 +70,7 @@ export default function DetalleProducto() {
       });
     } else {
       toast.error(`Tienes que estar logeado para acceder al carrito`, {
-        position: "bottom-right",
+        position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,

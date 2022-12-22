@@ -14,12 +14,29 @@
 
 .edContainerCarrito {
   padding: 15px;
-  min-height: 50vh;
+  min-height: 65vh;
   gap: 30px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
+}
+
+.monedasEdCarrito{
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.divMonedasCarrito{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.divMonedasCarrito p {
+  margin: 0;
 }
 
 .edContainerCarrito hr {
@@ -52,6 +69,10 @@
 .sinarticulosencarro {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 .accordionCarrito {
@@ -66,15 +87,20 @@
 
 .ed-InputCodigoPromocional {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 10px;
 }
 
+.ed-InputCodigoPromocional p {
+  margin: 0;
+}
+
 .botonIrAproductos {
-  width: 100%;
   text-align: center;
   font-size: 1rem;
   background-color: #ef837b;
-  padding: 10px 0px;
+  padding: 10px 55px;
   color: #f3f3f3;
   text-transform: uppercase;
   font-weight: 700;
@@ -99,11 +125,6 @@
 }
 
 .edContainerCardsCarrito {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
   width: 980px;
-  gap: 5px;
   padding: 25px 0px;
 }

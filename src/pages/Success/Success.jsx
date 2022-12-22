@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import GoTo from "../../components/GoTo/GoTo";
-import "./success.css"
+import productsActions from "../../redux/actions/productsActions";
+import "./success.css";
 
 export default function Success() {
+  let { rol, nombre, carrito, favoritos, apellido, logged, token } =
+    useSelector((store) => store.userReducer);
+  let { TodosLosproductos } = useSelector((store) => store.productsReducer);
+  const { productos } = productsActions;
+  const dispatch = useDispatch();
+  const productosTotales = async () => {
+    dispatch(productos());
+  };
+
+  useEffect(() => {
+    productosTotales();
+  }, []);
+
+  console.log(carrito);
+  console.log(token);
+  console.log(TodosLosproductos);
+
   return (
     <div className="Ingreso">
       <img
@@ -17,9 +36,7 @@ export default function Success() {
         <h2>
           PAGO REALIZADO CON ÉXITO<span className="blanco">.</span>
         </h2>
-        <h4 >
-          Muchas gracias por confiar en nosotros
-        </h4>
+        <h4>Muchas gracias por confiar en nosotros</h4>
         {/* <p className="botonAceptarVolver">
 
             VOLVER
