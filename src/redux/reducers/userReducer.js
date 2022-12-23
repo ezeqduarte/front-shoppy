@@ -21,7 +21,8 @@ const initialState = {
   nick:'',
   cp:'',
   monedas: "",
-  nombreDni:''
+  nombreDni:'',
+  aprove:false
 };
 
 const userReducer = createReducer(initialState, (builder) => {
@@ -51,7 +52,8 @@ const userReducer = createReducer(initialState, (builder) => {
         monedas: user.coins,
         phone:user.phone,
         nombreDni:user.nameDni,
-        cp:user.cp
+        cp:user.cp,
+        aprove: user.aprove
       };
       return newState;
     } else {
@@ -90,7 +92,8 @@ const userReducer = createReducer(initialState, (builder) => {
         nick:user.nick,
         phone:user.phone,
         nombreDni:user.nameDni,
-        cp:user.cp
+        cp:user.cp,
+        aprove: user.aprove
       };
       return newState;
     } else {
@@ -136,9 +139,11 @@ const userReducer = createReducer(initialState, (builder) => {
   });
 
   builder.addCase(editUser.fulfilled, (state, action) => {
+    console.log(action.payload)
     return {
       ...state,
       id: action.payload.id,
+      /* aprove:action.payload.response.aprove */
     };
   });
 
@@ -151,6 +156,7 @@ const userReducer = createReducer(initialState, (builder) => {
         carrito: response.products,
         favoritos: response.favorites,
         monedas: response.coins,
+        aprove: response.aprove
       };
       return newState;
     } else {
