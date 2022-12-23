@@ -127,8 +127,8 @@ export default function Carrito() {
   }, [monedas]);
 
   const aplicarMonedas = async () => {
-    if (aprove) {
-      toast.error(`Ya aplicaste el descuento`, {
+    if (monedas===0) {
+      toast.error(`No tienes mas shoppy coins`, {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,

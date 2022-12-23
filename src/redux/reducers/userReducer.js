@@ -70,7 +70,7 @@ const userReducer = createReducer(initialState, (builder) => {
 
     if (success) {
       let { user, token } = response;
-      console.log(token);
+      
       let newState = {
         ...state,
         nombre: user.name,

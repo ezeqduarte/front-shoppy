@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -18,7 +18,6 @@ export default function Success() {
     favoritos,
     apellido,
     logged,
-    token,
     aprove,
     monedas,
   } = useSelector((store) => store.userReducer);
@@ -30,34 +29,79 @@ export default function Success() {
   const { productos,editarProducto } = productsActions;
   const { editUser } = userActions;
 
+  let [usuarioPiyu,setUsuarioPiyu]=useState()
+  let [usuarioCoin,setUsuarioCoin]=useState()
+
+  let token = JSON.parse(localStorage.getItem("token"));
+  token=token.token.user
+
   const dispatch = useDispatch();
   const productosTotales = async () => {
     dispatch(productos());
   };
 
-  useEffect(() => {
-    productosTotales();
-  }, []);
+  let usuario=async()=>{
+    let headers = { headers: { Authorization: `Bearer ${token}` } };
+    let a= await axios.get(`${API}auth/me`,headers)
+    .then(a=>{
+      setUsuarioCoin(a.data.response.coins)
+      setUsuarioPiyu(a.data.response)
+      console.log(usuarioPiyu)
+    })
+  }
 
-  /* console.log(carrito); */
-
-  useEffect(() => {
+  let precioTotal= () => {
+    let precioCompra2
     if (carrito.length !== 0) {
-      let precioCompra2 = carrito
+        precioCompra2 = carrito
         .map((x) => x.productId.price * x.quantity)
         .reduce(function (valorAnterior, valorActual) {
           return valorAnterior + valorActual;
         });
-      setPrecioCompra(precioCompra2);
-    }
-  }, [carrito]);
+      setPrecioCompra(usuarioPiyu ? precioCompra2-usuarioCoin : precioCompra2);
+    }}
 
-  /* let createBill = async () => {
+  let agregarCoins=async()=>{
+    let data={
+      coins: usuarioPiyu ? 0 : Math.round(precioCompra*0.02)
+    }
+    console.log(data)
+    console.log(usuarioPiyu)
+    console.log(precioCompra)
+
+    let headers = { headers: { Authorization: `Bearer ${token}` } };
+    let a= await axios.patch(`${API}auth/me`,data,headers)
+    console.log(a)
+  }
+  
+
+  let vaciarCarrito=async()=>{
+    let data={
+      products:[]
+    }
+    let headers = { headers: { Authorization: `Bearer ${token}` } };
+    let a= await axios.patch(`${API}auth/me`,data,headers)
+    console.log(a)
+  }
+
+  useEffect(() => {
+    usuario()
+    productosTotales();
+    precioTotal()
+    agregarCoins()
+    vaciarCarrito()
+  }, []);
+
+  /* console.log(carrito); */
+
+  
+
+  let createBill = async () => {
     let headers = { headers: { Authorization: `Bearer ${token}` } };
     let url = `${API}bill`;
     let data = {
       totalPrice: precioCompra,
-      discount: aprove,
+      discount: usuarioPiyu,
     };
     if (token !== "") {
       let res = await axios.post(url, data, headers);
@@ -65,30 +109,19 @@ export default function Success() {
     }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     createBill();
   }, [token]);
-  */
-
-  let eliminarStock=async()=>{
-
-  let data= {
-          products: []
-  }
-    let url = `${API}auth/me`;
-    let headers = { headers: { Authorization: `Bearer ${token}` } }; 
-    let res= await axios.patch(url,data,headers)
-    console.log(token)
-  }
   
+
   
   let precioDescuento=()=>{
-    if(aprove){
+    if(usuarioPiyu){
       precioCompra=precioCompra-monedas
     }
   }
 
-  let stockEdit=()=>{
+  let stockEdit= async()=>{
    
     carrito.map(x=>{
 
@@ -99,24 +132,68 @@ export default function Success() {
           dispatch(editarProducto({token,producto,id:x.productId._id})) 
 
     })
-
-    setTimeout(function () {
-      eliminarStock()
-    }, 2000);
+    
 
   } 
+  let editMonedas=async()=>{
+    
+    let data={}
 
+    if(usuarioPiyu){
+      data= {
+        coins:0
+      }
+      
+      let url = `${API}auth/me`;
+      let headers = { headers: { Authorization: `Bearer ${token}` } }; 
+      let res= await axios.patch(url,data,headers)
+      console.log(data)
+    }
+    if(!usuarioPiyu || monedas===0){
+      if (carrito.length !== 0) {
+        let precioCompra2 = carrito
+          .map((x) => x.productId.price * x.quantity)
+          .reduce(function (valorAnterior, valorActual) {
+            return valorAnterior + valorActual;
+          });
+      
+      data= {
+        coins: monedas+(precioCompra2*0.02)
+      }
+      
+      let url = `${API}auth/me`;
+      let headers = { headers: { Authorization: `Bearer ${token}` } }; 
+      let res= await axios.patch(url,data,headers)
+      console.log(monedas)
+    }
+    }
+  }
+  let eliminarStock=async()=>{
+
+    let data= {
+            products: []
+    }
+      let url = `${API}auth/me`;
+      let headers = { headers: { Authorization: `Bearer ${token}` } }; 
+      let res= await axios.patch(url,data,headers)
+      
+    }
 
   useEffect(()=>{
+    editMonedas();
     stockEdit();
-  },[carrito]) 
+    setTimeout(async function () {
+      await eliminarStock()
+    },2000);
+    console.log(usuarioPiyu);
+  },[usuarioPiyu]) 
 
   precioDescuento()
-  console.log(carrito)
-
+  
+ */
   //crear la bill
   //editar stock de los productos
-  //editar usuario(vaciar carrito,setear aprove)
+  //editar usuario(vaciar carrito,setear usuarioPiyu)
 
   return (
     <div className="Ingreso">
