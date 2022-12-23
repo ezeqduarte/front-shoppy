@@ -30,6 +30,7 @@ import { async } from "q";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import API from "../../config/api";
 
 export default function Carrito() {
   let { carrito, token, monedas, logged } = useSelector(
@@ -63,7 +64,6 @@ export default function Carrito() {
       setTotal(separator(precioTotalCompra));
     }
   }, [carrito]);
-
 
   if (carrito.length === 1) {
     if (!aprove) {
@@ -107,9 +107,9 @@ export default function Carrito() {
       let res = await dispatch(mercadoPago(preference));
       console.log(res);
       console.log(res.payload.response.init_point);
-      let data={}
-      data.aprove=aprove
-      let edit= dispatch(editUser({token,data}))
+      let data = {};
+      data.aprove = aprove;
+      let edit = dispatch(editUser({ token, data }));
       /* if (res.payload.success) {
         window.location.assign(res.payload.response.init_point);
       }  */
@@ -118,8 +118,6 @@ export default function Carrito() {
     }
   };
 
-  
-
   let [monedasDisponibles, setMonedas] = useState(monedas);
 
   useEffect(() => {
@@ -127,7 +125,7 @@ export default function Carrito() {
   }, [monedas]);
 
   const aplicarMonedas = async () => {
-    if (monedas===0) {
+    if (monedas === 0) {
       toast.error(`No tienes mas shoppy coins`, {
         position: "bottom-left",
         autoClose: 3000,
@@ -158,10 +156,13 @@ export default function Carrito() {
           );
 
           setTotal(separator(total * 1000 - monedas));
-          setAprove(!aprove);
-          let data={}
-          data.aprove=aprove
-          dispatch(editUser({token,data}))
+          setAprove(true);
+          let data = { aprove: true };
+          let token = JSON.parse(localStorage.getItem("token"));
+          token = token.token.user;
+          dispatch(editUser({ token, data }));
+          let headers = { headers: { Authorization: `Bearer ${token}` } };
+          axios.patch(`${API}auth/me`, data, headers);
           /* let data = { coins: 0 };
           const res = await dispatch(editUser({ token, data }));
           setMonedas(res.payload.response.coins); */
@@ -170,10 +171,15 @@ export default function Carrito() {
     }
   };
 
-  let sacarMonedas=()=>{
-    setAprove(false)
+  let sacarMonedas = () => {
+    setAprove(false);
     setTotal(separator(total * 1000 + monedas));
-  }
+    let data = { aprove: false };
+    let token = JSON.parse(localStorage.getItem("token"));
+    token = token.token.user;
+    let headers = { headers: { Authorization: `Bearer ${token}` } };
+    axios.patch(`${API}auth/me`, data, headers);
+  };
 
   return (
     <>
