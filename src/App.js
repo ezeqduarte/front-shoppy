@@ -39,7 +39,6 @@ function App() {
   const { reIngress, getDatos } = userActions;
   const dispatch = useDispatch();
 
-  console.log(token);
 
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));

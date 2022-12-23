@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk,createAction} from "@reduxjs/toolkit";
 import axios from "axios";
 import API from "../../config/api";
 
@@ -17,9 +17,16 @@ const mercadoPago = createAsyncThunk("mercadoPago", async (preference) => {
     console.log(error.response.data);
   }
 });
+const actualizarPrecio = createAction("actualizarPrecio", (aprove) => {
+    
+  return{
+      payload:aprove
+  }
+  
+});
 
 
 
-const paymentActions = { mercadoPago};
+const paymentActions = { mercadoPago,actualizarPrecio};
 
 export default paymentActions;

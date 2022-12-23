@@ -3,9 +3,11 @@ import "./carrito.css";
 import GoTo from "../../components/GoTo/GoTo";
 import CardCarrito from "../../components/CardCarrito/CardCarrito";
 import {
+  CloseOutlined,
   Done,
   DoneAllOutlined,
   DoneOutlined,
+  ErrorOutline,
   ExpandMore,
   LocalShippingOutlined,
   PaymentOutlined,
@@ -27,6 +29,7 @@ import funciones from "../../config/funciones";
 import { async } from "q";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 export default function Carrito() {
   let { carrito, token, monedas, logged } = useSelector(
@@ -36,6 +39,8 @@ export default function Carrito() {
   const { getDatos, editUser } = userActions;
   const { mercadoPago } = paymentActions;
 
+  let [aprove, setAprove] = React.useState(false);
+
   const dispatch = useDispatch();
   const { separator } = funciones;
 
@@ -44,8 +49,6 @@ export default function Carrito() {
   useEffect(() => {
     dispatch(getDatos({ token: token }));
   }, []);
-
-  console.log(monedas);
 
   const [inputCode, setInputCode] = useState("");
 
@@ -60,17 +63,37 @@ export default function Carrito() {
       setTotal(separator(precioTotalCompra));
     }
   }, [carrito]);
-  /* let data = JSON.stringify({
-    username: this.state.username,
-    password: password
-  }); */
-  let items = [];
-  items = carrito.map((item) => ({
-    title: item.productId.name,
-    quantity: item.quantity,
-    unit_price: item.productId.price,
-  }));
 
+
+  if (carrito.length === 1) {
+    if (!aprove) {
+      var items = [
+        {
+          title: carrito[0].productId.name,
+          quantity: carrito[0].quantity,
+          unit_price: carrito[0].productId.price,
+        },
+      ];
+    } else {
+      var items = [
+        {
+          title: carrito[0].productId.name,
+          quantity: carrito[0].quantity,
+          unit_price: carrito[0].productId.price - monedas,
+        },
+      ];
+    }
+  } else {
+    var items = [
+      {
+        title: "Productos",
+        quantity: 1,
+        unit_price: Number(total * 1000),
+      },
+    ];
+  }
+
+  console.log(items);
   let preference = {
     back_urls: {
       failure: "http://localhost:3000/fail",
@@ -84,13 +107,18 @@ export default function Carrito() {
       let res = await dispatch(mercadoPago(preference));
       console.log(res);
       console.log(res.payload.response.init_point);
-      if (res.payload.success) {
+      let data={}
+      data.aprove=aprove
+      let edit= dispatch(editUser({token,data}))
+      /* if (res.payload.success) {
         window.location.assign(res.payload.response.init_point);
-      }
+      }  */
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response);
     }
   };
+
+  
 
   let [monedasDisponibles, setMonedas] = useState(monedas);
 
@@ -99,30 +127,53 @@ export default function Carrito() {
   }, [monedas]);
 
   const aplicarMonedas = async () => {
-    Swal.fire({
-      title: `Quieres utilizar tus ${monedasDisponibles} shoppy coins?`,
-      text: `Se te descontará directamente del precio total`,
-      imageUrl: "https://img.icons8.com/color/80/null/average-2.png",
-      showCancelButton: true,
-      margin: "0",
-      cancelButtonColor: "#c3c3c3",
-      confirmButtonColor: "#c3c3c3",
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          "Descuento aplicado",
-          `Utilizaste ${monedasDisponibles} para la  compra`,
-          "success"
-        );
+    if (aprove) {
+      toast.error(`Ya aplicaste el descuento`, {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      Swal.fire({
+        title: `Quieres utilizar tus ${monedasDisponibles} shoppy coins?`,
+        text: `Se te descontará directamente del precio total`,
+        imageUrl: "https://img.icons8.com/color/80/null/average-2.png",
+        showCancelButton: true,
+        margin: "0",
+        cancelButtonColor: "#c3c3c3",
+        confirmButtonColor: "#c3c3c3",
+        confirmButtonText: "Aceptar",
+        cancelButtonText: "Cancelar",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            "Descuento aplicado",
+            `Utilizaste ${monedasDisponibles} para la  compra`,
+            "success"
+          );
 
-        let data = { coins: 0 };
-        const res = await dispatch(editUser({ token, data }));
-        setMonedas(res.payload.response.coins);
-      }
-    });
+          setTotal(separator(total * 1000 - monedas));
+          setAprove(!aprove);
+          let data={}
+          data.aprove=aprove
+          dispatch(editUser({token,data}))
+          /* let data = { coins: 0 };
+          const res = await dispatch(editUser({ token, data }));
+          setMonedas(res.payload.response.coins); */
+        }
+      });
+    }
   };
+
+  let sacarMonedas=()=>{
+    setAprove(false)
+    setTotal(separator(total * 1000 + monedas));
+  }
 
   return (
     <>
@@ -226,28 +277,57 @@ export default function Carrito() {
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="mc-containerDatosPersonales">
-                    <div className="divMonedasCarrito">
-                      <p className="monedasEdCarrito">
-                        Tienes {monedasDisponibles} shoppy coins
-                      </p>
-                      <img src="https://img.icons8.com/color/30/null/average-2.png" />
-                    </div>
-                    <div className="ed-InputCodigoPromocional">
-                      <p>Quieres agregarlas a tu compra?</p>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        className="mc-buttonAcordion"
-                      >
-                        {
-                          <DoneOutlined
+                    {!aprove ? (
+                      <>
+                        <div className="divMonedasCarrito">
+                          <p className="monedasEdCarrito">
+                            Tienes {monedasDisponibles} shoppy coins
+                          </p>
+                          <img src="https://img.icons8.com/color/30/null/average-2.png" />
+                        </div>
+                        <div className="ed-InputCodigoPromocional">
+                          <p>Quieres agregarlas a tu compra?</p>
+                          <Button
+                            variant="contained"
                             size="small"
-                            onClick={aplicarMonedas}
-                            className="mc-iconButtonPerfil"
-                          />
-                        }
-                      </Button>
-                    </div>
+                            className="mc-buttonAcordion"
+                          >
+                            {
+                              <DoneOutlined
+                                size="small"
+                                onClick={aplicarMonedas}
+                                className="mc-iconButtonPerfil"
+                              />
+                            }
+                          </Button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="divMonedasCarrito">
+                          <p className="monedasEdCarrito">
+                            Usaste {monedasDisponibles} shoppy coins
+                          </p>
+                          <img src="https://img.icons8.com/color/30/null/average-2.png" />
+                        </div>
+                        <div className="ed-InputCodigoPromocional">
+                          <p>Se te aplico el descuento al precio total</p>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            className="mc-buttonAcordion"
+                          >
+                            {
+                              <CloseOutlined
+                                size="small"
+                                onClick={sacarMonedas}
+                                className="mc-iconButtonPerfil"
+                              />
+                            }
+                          </Button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </AccordionDetails>
               </Accordion>

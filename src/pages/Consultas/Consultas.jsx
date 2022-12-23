@@ -41,7 +41,7 @@ export default function Consultas() {
   
   const { logged } = useSelector((state) => state.userReducer);
 
-  const clickSubmit = () => {
+  const clickSubmit = (e) => {
     if (!logged) {
       toast.error(`Tienes que estar logeado para realizar una consulta`, {
         position: "bottom-left",
@@ -54,7 +54,20 @@ export default function Consultas() {
         theme: "light",
       });
       }
+      else{
+        toast.success(`Su consulta fue enviada`, {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     }
+  
 
   return (
     <>
